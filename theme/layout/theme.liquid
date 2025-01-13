@@ -5,6 +5,12 @@
   </head>
 
   <body>
-    {{ content_for_layout }}
+    {% sections 'header-group' %}
+
+    <main>
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
   </body>
 </html>
