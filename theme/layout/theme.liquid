@@ -1,6 +1,34 @@
 <!doctype html>
-<html>
+<html class="js" lang="{{ request.locale.iso_code }}">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    
+    {%- comment -%}SVG favicon for modern browsers{%- endcomment -%}
+    {%- if settings.favicon != blank -%}
+      {%- assign favicon_url = settings.favicon | file_url -%}
+      {%- assign file_extension = favicon_url | split: '.' | last | downcase -%}
+      
+      {%- if file_extension == 'svg' -%}
+        <link rel="icon" type="image/svg+xml" href="{{ settings.favicon | file_url }}">
+      {%- else -%}
+        <link rel="icon" href="{{ settings.favicon | image_url: width: 32, height: 32 }}" sizes="32x32">
+        <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
+      {%- endif -%}
+    {%- else -%}
+      <link rel="icon" type="image/svg+xml" href="{{ 'icon.svg' | asset_url }}">
+      <link rel="icon" href="{{ 'favicon.ico' | asset_url }}" sizes="32x32">
+      <link rel="apple-touch-icon" href="{{ 'apple-touch-icon.png' | asset_url }}">
+    {%- endif -%}
+
+    <title>{{ page_title }}</title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
     {{ content_for_header }}
   </head>
 

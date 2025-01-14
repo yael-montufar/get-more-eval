@@ -7,6 +7,8 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
-  "current": {}
+{
+  "current": {
+    "content_for_index": []
+  }
 }
