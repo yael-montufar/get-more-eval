@@ -1,0 +1,211 @@
+/* Custom Group Layout
+============================================================================= */
+.custom-group {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1001; /* Above header-group */
+  background: rgba(var(--color-background), 0.98);
+}
+
+/* Header Group Layout
+============================================================================= */
+.header-group {
+  position: fixed;
+  top: var(--custom-group-height, 0);
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--custom-group-height, 0));
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Elements that need interaction must override pointer-events */
+.header-group button,
+.header-group a,
+.header-group__sidebar,
+.header-group__nav-space {
+  pointer-events: auto;
+}
+
+/* Left Sidebar
+============================================================================= */
+.header-group__sidebar {
+  position: fixed;
+  top: var(--custom-group-height, 0);
+  left: 0;
+  width: var(--sidebar-width, 80px);
+  height: calc(100vh - var(--custom-group-height, 0));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0;
+  border: 2px solid blue;
+  background: rgba(var(--color-background), 0.98);
+}
+
+.header-group__sidebar-icon {
+  display: none; /* Hidden on desktop */
+  border: 1px dashed purple;
+  padding: 4px;
+}
+
+.header-group__logo {
+  margin: 1rem 0;
+  text-decoration: none;
+  border: 1px dashed purple;
+  padding: 4px;
+}
+
+.header-group__sidebar-lang {
+  display: none; /* Hidden on desktop */
+  border: 1px dashed purple;
+  padding: 4px;
+}
+
+/* Top Navigation Space
+============================================================================= */
+.header-group__content {
+  position: fixed;
+  top: var(--custom-group-height, 0);
+  left: var(--sidebar-width, 80px);
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid red;
+}
+
+.header-group__announcement {
+  width: 100%;
+  padding: 0.5rem;
+  text-align: center;
+  background: var(--color-accent);
+  color: var(--color-accent-text);
+  border: 2px solid green;
+}
+
+.header-group__nav-space {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(var(--color-background), 0.98);
+  border: 2px solid orange;
+}
+
+.header-group__nav {
+  display: flex;
+  gap: 2rem;
+  border: 1px dashed brown;
+  padding: 4px;
+}
+
+.header-group__nav a {
+  text-decoration: none;
+  color: rgba(var(--color-text));
+  border: 1px dotted #666;
+  padding: 2px 4px;
+}
+
+.header-group__lang {
+  display: flex;
+  gap: 0.5rem;
+  border: 1px dashed brown;
+  padding: 4px;
+}
+
+.header-group__lang button {
+  padding: 0.5rem;
+  background: none;
+  border: 1px dotted #666;
+  cursor: pointer;
+}
+
+/* Utility Classes
+============================================================================= */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Main Content Adjustment
+============================================================================= */
+#MainContent {
+  padding-top: var(--custom-group-height, 0); /* Desktop: only account for custom group */
+}
+
+/* Mobile Layout
+============================================================================= */
+@media screen and (max-width: 768px) {
+  /* Custom group remains fixed */
+  .custom-group {
+    position: fixed;
+    width: 100%;
+  }
+
+  /* Header group remains fixed but below custom group */
+  .header-group {
+    position: fixed;
+    top: var(--custom-group-height, 0);
+    height: auto;
+  }
+
+  .header-group__sidebar {
+    position: fixed;
+    top: var(--custom-group-height, 0);
+    left: 0;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+    border: 2px solid blue;
+    background: rgba(var(--color-background), 0.98);
+  }
+
+  .header-group__sidebar-icon {
+    display: block;
+  }
+
+  .header-group__sidebar-lang {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .header-group__content {
+    display: none;
+  }
+
+  .header-group__nav-space {
+    display: none;
+  }
+
+  /* Mobile: account for both custom group and mobile header */
+  #MainContent {
+    padding-top: calc(var(--custom-group-height, 0) + var(--header-mobile-height, 60px));
+  }
+}
+
+/* Test Section
+============================================================================= */
+.test-section {
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgba(255, 192, 203, 0.2);
+  border: 4px solid pink;
+}
+
+.test-section__content {
+  max-width: none;
+  margin: 0;
+  padding: 2rem;
+  border: 2px dashed pink;
+} 
