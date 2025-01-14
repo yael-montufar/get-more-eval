@@ -25,6 +25,8 @@
 
     <title>{{ page_title }}</title>
 
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}

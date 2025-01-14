@@ -1,0 +1,71 @@
+:root {
+  --sickly-yellow: #cbe346;
+  --white-two: #d8d8d8;
+  --dark-two: #2b3049;
+  --dark: #1e2335;
+  --pale-grey: #f3f4f8;
+  --warm-grey: #787878;
+  --white: #fff;
+  --dark-three: #282e47;
+
+  --spacing-xxs: 4px;
+}
+
+/* Font Definitions */
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: local('HelveticaNeueRoman'),
+       url('{{ "HelveticaNeueRoman.woff2" | asset_url }}') format('woff2'),
+       url('{{ "HelveticaNeueRoman.woff" | asset_url }}') format('woff'),
+       url('{{ "HelveticaNeueRoman.ttf" | asset_url }}') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: local('HelveticaNeueBold'),
+       url('{{ "HelveticaNeueBold.woff2" | asset_url }}') format('woff2'),
+       url('{{ "HelveticaNeueBold.woff" | asset_url }}') format('woff'),
+       url('{{ "HelveticaNeueBold.ttf" | asset_url }}') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  font-display: swap;
+}
+
+/* Typography Classes */
+.Heading-3XL {
+  font-family: 'HelveticaNeue', sans-serif;
+  font-size: 53px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.28;
+  letter-spacing: -0.05px;
+  color: var(--dark);
+}
+
+.Text-LG-Normal {
+  font-family: 'HelveticaNeue', sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.78;
+  letter-spacing: 0.51px;
+  color: var(--dark);
+}
+
+.Text-SM-Bold {
+  font-family: 'HelveticaNeue', sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.15;
+  letter-spacing: 1.01px;
+  color: var(--dark);
+}
