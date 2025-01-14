@@ -10,6 +10,18 @@
 {
   "type": "header",
   "name": "Header",
-  "sections": {},
-  "order": []
+  "sections": {
+    "sidebar": {
+      "type": "sidebar",
+      "settings": {}
+    },
+    "navigation": {
+      "type": "navigation",
+      "settings": {}
+    }
+  },
+  "order": [
+    "sidebar",
+    "navigation"
+  ]
 }

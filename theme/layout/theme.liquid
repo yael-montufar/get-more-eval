@@ -27,6 +27,7 @@
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'header-group.css' | asset_url | stylesheet_tag }}
+    {{ 'hero.css' | asset_url | stylesheet_tag }}
 
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
@@ -37,59 +38,14 @@
 
   <body>
     <div class="custom-group">
-      <!-- Announcement Bar -->
-      <div class="header-group__announcement">
-        Sample announcement text
-      </div>
+      {% sections 'custom-header-group' %}
     </div>
-    <div class="header-group">
-      <!-- Left Vertical Bar -->
-      <header class="header-group__sidebar">
-        <svg class="header-group__sidebar-icon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
-          <rect width="24" height="2" fill="currentColor"/>
-          <rect y="11" width="24" height="2" fill="currentColor"/>
-          <rect y="22" width="24" height="2" fill="currentColor"/>
-        </svg>
-        
-        <a href="/" class="header-group__logo">
-          <span class="visually-hidden">Home</span>
-          LOGO
-        </a>
-        
-        <div class="header-group__sidebar-lang">
-          <button type="button" lang="en">EN</button>
-          <button type="button" lang="es">ES</button>
-        </div>
-      </header>
 
-      <!-- Top Navigation Space -->
-      <div class="header-group__content">
-        <!-- Navigation Bar -->
-        <section class="header-group__nav-space">
-          <nav class="header-group__nav">
-            <a href="/collections">Shop</a>
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-            <a href="/blog">Blog</a>
-          </nav>
-          
-          <div class="header-group__lang">
-            <button type="button" lang="en">EN</button>
-            <button type="button" lang="es">ES</button>
-          </div>
-        </section>
-      </div>
+    <div class="header-group">
+      {% sections 'header-group' %}
     </div>
 
     <main role="main" id="MainContent">
-      <!-- Test Section -->
-      <div class="test-section">
-        <div class="test-section__content">
-          <h1>Test Section</h1>
-          <p>This section should span the full width of the screen naturally, regardless of the header layout.</p>
-        </div>
-      </div>
-
       {{ content_for_layout }}
     </main>
 

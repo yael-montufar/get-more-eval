@@ -1,0 +1,45 @@
+{% if section.settings.show_announcement %}
+  <div class="header-group__announcement">
+    {% if section.settings.announcement_link != blank %}
+      <a href="{{ section.settings.announcement_link }}">
+        {{ section.settings.announcement_text | escape }}
+      </a>
+    {% else %}
+      <p>{{ section.settings.announcement_text | escape }}</p>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "enabled_on": {
+    "groups": ["custom.header"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement text",
+      "default": "Welcome to our store"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement link",
+      "info": "Optional"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar"
+    }
+  ]
+}
+{% endschema %} 

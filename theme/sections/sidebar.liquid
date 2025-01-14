@@ -1,0 +1,50 @@
+<header class="header-group__sidebar">
+  <svg class="header-group__sidebar-icon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+    <rect width="24" height="2" fill="currentColor"/>
+    <rect y="11" width="24" height="2" fill="currentColor"/>
+    <rect y="22" width="24" height="2" fill="currentColor"/>
+  </svg>
+  
+  <a href="/" class="header-group__logo">
+    <span class="visually-hidden">{{ section.settings.logo_text | escape }}</span>
+    {% if section.settings.logo != blank %}
+      {{ section.settings.logo | image_url: width: 80 | image_tag: class: 'header-logo', loading: 'eager' }}
+    {% else %}
+      {{ section.settings.logo_text | escape }}
+    {% endif %}
+  </a>
+  
+  <div class="header-group__sidebar-lang">
+    <button type="button" lang="en">EN</button>
+    <button type="button" lang="es">ES</button>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Sidebar",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "limit": 1,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "Store name",
+      "info": "Displayed when logo image is not set"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sidebar"
+    }
+  ]
+}
+{% endschema %} 
