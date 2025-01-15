@@ -21,5 +21,37 @@
         "info": "Upload a square image. SVG is best for modern browsers. PNG is best for broader browser compatibility and iOS home screen (min 180x180px)"
       }
     ]
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Logo settings"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image",
+        "info": "Recommended size: 80x80px"
+      },
+      {
+        "type": "text",
+        "id": "logo_text",
+        "label": "Logo text",
+        "default": "Store name",
+        "info": "Displayed when logo image is not set"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 50,
+        "max": 150,
+        "step": 5,
+        "unit": "px",
+        "label": "Logo width",
+        "default": 80
+      }
+    ]
   }
 ]

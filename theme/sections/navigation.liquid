@@ -1,21 +1,8 @@
-<div class="header-group__content">
-  <section class="header-group__nav-space">
-    <nav class="header-group__nav">
-      {%- for link in section.settings.menu.links -%}
-        <a href="{{ link.url }}">{{ link.title }}</a>
-      {%- endfor -%}
-    </nav>
-    
-    <div class="header-group__lang">
-      <button type="button" lang="en">EN</button>
-      <button type="button" lang="es">ES</button>
-    </div>
-  </section>
-</div>
-
 {% schema %}
 {
   "name": "Navigation",
+  "tag": "div",
+  "class": "header-group__content",
   "enabled_on": {
     "groups": ["header"]
   },
@@ -34,4 +21,17 @@
     }
   ]
 }
-{% endschema %} 
+{% endschema %}
+
+<section class="header-group__nav-space">
+  <nav class="header-group__nav">
+    {%- for link in section.settings.menu.links -%}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {%- endfor -%}
+  </nav>
+  
+  <div class="header-group__lang">
+    <button type="button" lang="en">EN</button>
+    <button type="button" lang="es">ES</button>
+  </div>
+</section> 

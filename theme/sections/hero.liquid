@@ -1,26 +1,10 @@
 {% assign position_class = section.settings.content_position | prepend: 'hero__content--' %}
 
-<div class="hero" {% if section.settings.background_image != blank %}style="background-image: url({{ section.settings.background_image | image_url: width: 2000 }});"{% endif %}>
-  <div class="hero__content {{ position_class }}">
-    {% if section.settings.heading != blank %}
-      <h1>{{ section.settings.heading | escape }}</h1>
-    {% endif %}
-    
-    {% if section.settings.text != blank %}
-      <p>{{ section.settings.text | escape }}</p>
-    {% endif %}
-
-    {% if section.settings.button_label != blank and section.settings.button_link != blank %}
-      <a href="{{ section.settings.button_link }}" class="button">
-        {{ section.settings.button_label | escape }}
-      </a>
-    {% endif %}
-  </div>
-</div>
-
 {% schema %}
 {
   "name": "Hero",
+  "tag": "div",
+  "class": "hero",
   "settings": [
     {
       "type": "image_picker",
@@ -105,4 +89,20 @@
     }
   ]
 }
-{% endschema %} 
+{% endschema %}
+
+<div class="hero__content {{ position_class }}" {% if section.settings.background_image != blank %}style="background-image: url({{ section.settings.background_image | image_url: width: 2000 }});"{% endif %}>
+  {% if section.settings.heading != blank %}
+    <h1>{{ section.settings.heading | escape }}</h1>
+  {% endif %}
+  
+  {% if section.settings.text != blank %}
+    <p>{{ section.settings.text | escape }}</p>
+  {% endif %}
+
+  {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+    <a href="{{ section.settings.button_link }}" class="button">
+      {{ section.settings.button_label | escape }}
+    </a>
+  {% endif %}
+</div> 

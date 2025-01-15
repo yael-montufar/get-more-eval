@@ -1,18 +1,8 @@
-{% if section.settings.show_announcement %}
-  <div class="header-group__announcement">
-    {% if section.settings.announcement_link != blank %}
-      <a href="{{ section.settings.announcement_link }}">
-        {{ section.settings.announcement_text | escape }}
-      </a>
-    {% else %}
-      <p>{{ section.settings.announcement_text | escape }}</p>
-    {% endif %}
-  </div>
-{% endif %}
-
 {% schema %}
 {
   "name": "Announcement Bar",
+  "tag": "div",
+  "class": "header-group__announcement",
   "enabled_on": {
     "groups": ["custom.header"]
   },
@@ -42,4 +32,14 @@
     }
   ]
 }
-{% endschema %} 
+{% endschema %}
+
+{% if section.settings.show_announcement %}
+  {% if section.settings.announcement_link != blank %}
+    <a href="{{ section.settings.announcement_link }}">
+      {{ section.settings.announcement_text | escape }}
+    </a>
+  {% else %}
+    <p>{{ section.settings.announcement_text | escape }}</p>
+  {% endif %}
+{% endif %} 

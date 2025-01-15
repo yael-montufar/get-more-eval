@@ -12,6 +12,18 @@
     "hero_3zd3fx": {
       "type": "hero",
       "settings": {
+        "background_image": "shopify://shop_images/group_2x_b7ddc941-4d45-4752-8ba9-07f78e005b6c.jpg",
+        "heading": "Welcome to our store",
+        "text": "Add your store details here",
+        "button_label": "",
+        "button_link": "",
+        "content_position": "middle-center"
+      }
+    },
+    "hero_xtJ7hJ": {
+      "type": "hero",
+      "custom_css": [],
+      "settings": {
         "heading": "Welcome to our store",
         "text": "Add your store details here",
         "button_label": "",
@@ -21,6 +33,7 @@
     }
   },
   "order": [
-    "hero_3zd3fx"
+    "hero_3zd3fx",
+    "hero_xtJ7hJ"
   ]
 }

@@ -37,6 +37,34 @@
   </head>
 
   <body>
+    <div class="header-group__sidebar">
+      <svg class="header-group__sidebar-icon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+        <rect width="24" height="2" fill="currentColor"/>
+        <rect y="11" width="24" height="2" fill="currentColor"/>
+        <rect y="22" width="24" height="2" fill="currentColor"/>
+      </svg>
+      
+      <a href="/" class="header-group__logo">
+        <span class="visually-hidden">{{ settings.logo_text | escape }}</span>
+        {% if settings.logo != blank %}
+          {{ settings.logo | image_url: width: settings.logo_width | image_tag: 
+            class: 'header-logo',
+            widths: '50, 100, 150',
+            width: settings.logo_width,
+            height: settings.logo_width,
+            loading: 'eager'
+          }}
+        {% else %}
+          {{ settings.logo_text | escape }}
+        {% endif %}
+      </a>
+      
+      <div class="header-group__sidebar-lang">
+        <button type="button" lang="en">EN</button>
+        <button type="button" lang="es">ES</button>
+      </div>
+    </div>
+
     <div class="custom-group">
       {% sections 'custom-header-group' %}
     </div>

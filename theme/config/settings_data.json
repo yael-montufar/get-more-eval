@@ -9,6 +9,10 @@
  */
 {
   "current": {
+    "logo": "shopify://shop_images/tienda-tennis.svg",
     "content_for_index": []
+  },
+  "platform_customizations": {
+    "custom_css": []
   }
 }

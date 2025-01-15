@@ -35,33 +35,56 @@
   position: fixed;
   top: var(--custom-group-height, 0);
   left: 0;
-  width: var(--sidebar-width, 80px);
+  z-index: 100;
+  width: 80px;
   height: calc(100vh - var(--custom-group-height, 0));
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 1rem 0;
-  border: 2px solid blue;
-  background: rgba(var(--color-background), 0.98);
+  justify-content: space-between;
+  mix-blend-mode: difference;
+  color: white;
+  isolation: isolate;
+  will-change: color;
+  border-right: 1px solid white;
+}
+
+.header-group__sidebar > * {
+  will-change: color;
 }
 
 .header-group__sidebar-icon {
-  display: none; /* Hidden on desktop */
-  border: 1px dashed purple;
-  padding: 4px;
+  cursor: pointer;
+}
+
+.header-group__sidebar-icon rect {
+  fill: currentColor;
 }
 
 .header-group__logo {
-  margin: 1rem 0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
   text-decoration: none;
-  border: 1px dashed purple;
-  padding: 4px;
+  color: inherit;
+}
+
+.header-group__logo img {
+  transform: rotate(180deg);
 }
 
 .header-group__sidebar-lang {
-  display: none; /* Hidden on desktop */
-  border: 1px dashed purple;
-  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.header-group__sidebar-lang button {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
 }
 
 /* Top Navigation Space
@@ -139,7 +162,11 @@
 /* Main Content Adjustment
 ============================================================================= */
 #MainContent {
-  padding-top: var(--custom-group-height, 0); /* Desktop: only account for custom group */
+  position: relative;
+  z-index: 1;
+  padding-top: var(--custom-group-height, 0);
+  isolation: isolate;
+  background: white; /* Default background */
 }
 
 /* Mobile Layout
@@ -190,7 +217,7 @@
 
   /* Mobile: account for both custom group and mobile header */
   #MainContent {
-    padding-top: calc(var(--custom-group-height, 0) + var(--header-mobile-height, 60px));
+    padding-top: calc(var(--custom-group-height, 0) + var(--header-mobile-height, 0px));
   }
 }
 
