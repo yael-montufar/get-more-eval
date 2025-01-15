@@ -1,0 +1,71 @@
+{% liquid
+  # Initialize default title
+  assign title = ''
+
+  # Check for custom title override first
+  if block.settings.custom_title != blank
+    assign title = block.settings.custom_title
+
+  # If no custom title, get dynamic title based on template
+  else
+    case template
+      when 'product'
+        assign title = product.title
+      when 'collection'
+        assign title = collection.title
+      when 'page'
+        assign title = page.title
+      when 'blog'
+        assign title = blog.title
+      when 'article'
+        assign title = article.title
+      else
+        assign title = 'Welcome'
+    endcase
+  endif
+%}
+
+{% style %}
+  .hero-title {
+    margin: 0;
+    font-size: {{ block.settings.text_size }}px;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+{% endstyle %}
+
+{{ title }}
+
+{% schema %}
+{
+  "name": "Title for Hero",
+  "tag": "h1",
+  "class": "hero-title",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_title",
+      "label": "Custom Title",
+      "info": "Leave blank to use dynamic title based on current page"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 16,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Text Size",
+      "default": 72
+    }
+  ],
+  "presets": [
+    {
+      "name": "Title for Hero",
+      "settings": {
+        "text_size": 72
+      }
+    }
+  ]
+}
+{% endschema %} 

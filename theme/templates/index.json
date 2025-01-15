@@ -7,33 +7,45 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
+ {
   "sections": {
-    "hero_3zd3fx": {
-      "type": "hero",
-      "settings": {
-        "background_image": "shopify://shop_images/group_2x_b7ddc941-4d45-4752-8ba9-07f78e005b6c.jpg",
-        "heading": "Welcome to our store",
-        "text": "Add your store details here",
-        "button_label": "",
-        "button_link": "",
-        "content_position": "middle-center"
-      }
-    },
     "hero_xtJ7hJ": {
       "type": "hero",
+      "blocks": {
+        "image_for_hero_DerUkn": {
+          "type": "_image-for-hero",
+          "settings": {
+            "small_image": "shopify://shop_images/group_2x_b7ddc941-4d45-4752-8ba9-07f78e005b6c.jpg",
+            "small_aspect_ratio": "9/16",
+            "medium_aspect_ratio": "4/3",
+            "large_aspect_ratio": "16/9",
+            "content_position": "middle-center",
+            "text_alignment": "center",
+            "show_backdrop": true,
+            "backdrop_intensity": 50
+          }
+        },
+        "header-for-hero": {
+          "type": "_header-for-hero",
+          "static": true,
+          "settings": {
+            "content_padding": 32,
+            "content_margin": 16,
+            "content_gap": 24
+          }
+        }
+      },
+      "block_order": [
+        "image_for_hero_DerUkn"
+      ],
       "custom_css": [],
       "settings": {
-        "heading": "Welcome to our store",
-        "text": "Add your store details here",
-        "button_label": "",
-        "button_link": "",
-        "content_position": "middle-center"
+        "color_scheme": "dark",
+        "vertical_margin": 0
       }
     }
   },
   "order": [
-    "hero_3zd3fx",
     "hero_xtJ7hJ"
   ]
 }

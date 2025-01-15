@@ -1,0 +1,331 @@
+{% comment %}
+  Breakpoints for different screen sizes (in pixels)
+{% endcomment %}
+{% assign medium_breakpoint = 490 %}
+{% assign large_breakpoint = 990 %}
+
+{% comment %}
+  Content container spacing and settings
+{% endcomment %}
+{% assign content_padding = block.settings.content_padding | default: 32 %}
+{% assign content_margin = block.settings.content_margin | default: 16 %}
+{% assign content_gap = block.settings.content_gap | default: 24 %}
+{% assign show_backdrop = block.settings.show_backdrop %}
+{% assign backdrop_intensity = block.settings.backdrop_intensity | default: 50 | divided_by: 100.0 %}
+{% assign blur_amount = backdrop_intensity | times: 12 | round %}
+{% assign opacity_light = backdrop_intensity | times: 0.95 %}
+{% assign opacity_dark = backdrop_intensity | times: 0.75 %}
+
+{% style %}
+:root {
+  --hero-content-padding: {{ content_padding }}px;
+  --hero-content-margin: {{ content_margin }}px;
+  --hero-content-gap: {{ content_gap }}px;
+  --hero-backdrop-blur: {{ blur_amount }}px;
+  
+  {% if section.settings.color_scheme == 'light' %}
+    {% if show_backdrop %}
+      --hero-backdrop-color: rgba(255, 255, 255, {{ opacity_light }});
+      --hero-text-color: rgba(0, 0, 0, 0.9);
+    {% else %}
+      --hero-backdrop-color: transparent;
+      --hero-text-color: rgba(255, 255, 255, 0.9);
+    {% endif %}
+  {% else %}
+    {% if show_backdrop %}
+      --hero-backdrop-color: rgba(0, 0, 0, {{ opacity_dark }});
+      --hero-text-color: rgba(255, 255, 255, 0.9);
+    {% else %}
+      --hero-backdrop-color: transparent;
+      --hero-text-color: rgba(0, 0, 0, 0.9);
+    {% endif %}
+  {% endif %}
+}
+
+.banner-stack {
+  display: grid;
+  grid-template-areas: "stack";
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  position: relative;
+}
+
+/* Make all children span the same grid area */
+.banner-stack > * {
+  grid-area: stack;
+}
+
+/* Image wrapper with padding trick for aspect ratio */
+.banner-image-wrapper {
+  grid-area: stack;
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  {% assign ratio = block.settings.small_aspect_ratio | split: '/' %}
+  {% if ratio.size == 2 %}
+    padding-bottom: calc({{ ratio[1] | times: 100.0 | divided_by: ratio[0] }}%);
+  {% endif %}
+}
+
+@media screen and (min-width: {{ medium_breakpoint }}px) {
+  .banner-image-wrapper {
+    {% assign ratio = block.settings.medium_aspect_ratio | split: '/' %}
+    {% if ratio.size == 2 %}
+      padding-bottom: calc({{ ratio[1] | times: 100.0 | divided_by: ratio[0] }}%);
+    {% endif %}
+  }
+}
+
+@media screen and (min-width: {{ large_breakpoint }}px) {
+  .banner-image-wrapper {
+    {% assign ratio = block.settings.large_aspect_ratio | split: '/' %}
+    {% if ratio.size == 2 %}
+      padding-bottom: calc({{ ratio[1] | times: 100.0 | divided_by: ratio[0] }}%);
+    {% endif %}
+  }
+}
+
+/* Image styles */
+.banner-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Content container with optional glass morphism effect */
+.hero-content-container {
+  grid-area: stack;
+  z-index: 1;
+  color: var(--hero-text-color);
+  padding: var(--hero-content-padding);
+  margin: var(--hero-content-margin);
+  {% if show_backdrop %}
+    background: var(--hero-backdrop-color);
+    backdrop-filter: blur(var(--hero-backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--hero-backdrop-blur));
+    border-radius: 16px;
+  {% endif %}
+  max-width: 800px;
+  text-align: {{ block.settings.text_alignment }};
+  display: flex;
+  flex-direction: column;
+  gap: var(--hero-content-gap);
+}
+
+.hero-content-container:empty {
+  display: none;
+}
+
+/* Content positioning classes */
+.position-top-left { align-self: start; justify-self: start; }
+.position-top-center { align-self: start; justify-self: center; }
+.position-top-right { align-self: start; justify-self: end; }
+.position-middle-left { align-self: center; justify-self: start; }
+.position-middle-center { align-self: center; justify-self: center; }
+.position-middle-right { align-self: center; justify-self: end; }
+.position-bottom-left { align-self: end; justify-self: start; }
+.position-bottom-center { align-self: end; justify-self: center; }
+.position-bottom-right { align-self: end; justify-self: end; }
+{% endstyle %}
+
+<div class="banner-stack">
+  <div class="banner-image-wrapper">
+    <picture>
+      {% if block.settings.large_image %}
+        <source
+          media="(min-width: {{ large_breakpoint }}px)"
+          srcset="{{ block.settings.large_image | image_url }}">
+      {% endif %}
+      
+      {% if block.settings.medium_image %}
+        <source
+          media="(min-width: {{ medium_breakpoint }}px)"
+          srcset="{{ block.settings.medium_image | image_url }}">
+      {% endif %}
+      
+      {% if block.settings.small_image %}
+        <source
+          srcset="{{ block.settings.small_image | image_url }}">
+      {% endif %}
+      
+      <img
+        class="banner-image"
+        {% if collection.image %}
+          src="{{ collection.image | image_url }}"
+          alt="{{ collection.title | default: 'Collection image' }}"
+        {% else %}
+          {{ 'collection-1' | placeholder_svg_tag: 'banner-image' }}
+        {% endif %}
+        width="auto"
+        height="auto"
+        loading="lazy"
+      >
+    </picture>
+  </div>
+  
+  <div class="hero-content-container {% if block.settings.content_position %}position-{{ block.settings.content_position }}{% else %}position-middle-center{% endif %}">
+    {%- content_for "blocks" -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image for Hero",
+  "blocks": [
+    { "type": "_title-for-hero" },
+    { "type": "_description-for-hero" }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image Settings"
+    },
+    {
+      "type": "paragraph",
+      "content": "If no images are selected, collection image will be used. If no collection image exists, a placeholder will be shown."
+    },
+    {
+      "type": "header",
+      "content": "Small Screen Image (0-489px)"
+    },
+    {
+      "type": "image_picker",
+      "id": "small_image",
+      "label": "Small Screen Image"
+    },
+    {
+      "type": "select",
+      "id": "small_aspect_ratio",
+      "label": "Small Screen Aspect Ratio",
+      "options": [
+        { "value": "auto", "label": "Auto (Original)" },
+        { "value": "1/1", "label": "1:1 (Square)" },
+        { "value": "3/4", "label": "3:4 (Portrait)" },
+        { "value": "9/16", "label": "9:16 (Portrait)" },
+        { "value": "4/3", "label": "4:3 (Landscape)" },
+        { "value": "16/9", "label": "16:9 (Landscape)" },
+        { "value": "32/9", "label": "32:9 (Wide)" },
+        { "value": "64/9", "label": "64:9 (Ultra-wide)" }
+      ],
+      "default": "64/9"
+    },
+    {
+      "type": "header",
+      "content": "Medium Screen Image (490-989px)"
+    },
+    {
+      "type": "image_picker",
+      "id": "medium_image",
+      "label": "Medium Screen Image"
+    },
+    {
+      "type": "select",
+      "id": "medium_aspect_ratio",
+      "label": "Medium Screen Aspect Ratio",
+      "options": [
+        { "value": "auto", "label": "Auto (Original)" },
+        { "value": "1/1", "label": "1:1 (Square)" },
+        { "value": "3/4", "label": "3:4 (Portrait)" },
+        { "value": "9/16", "label": "9:16 (Portrait)" },
+        { "value": "4/3", "label": "4:3 (Landscape)" },
+        { "value": "16/9", "label": "16:9 (Landscape)" },
+        { "value": "32/9", "label": "32:9 (Wide)" },
+        { "value": "64/9", "label": "64:9 (Ultra-wide)" }
+      ],
+      "default": "64/9"
+    },
+    {
+      "type": "header",
+      "content": "Large Screen Image (990px+)"
+    },
+    {
+      "type": "image_picker",
+      "id": "large_image",
+      "label": "Large Screen Image"
+    },
+    {
+      "type": "select",
+      "id": "large_aspect_ratio",
+      "label": "Large Screen Aspect Ratio",
+      "options": [
+        { "value": "auto", "label": "Auto (Original)" },
+        { "value": "1/1", "label": "1:1 (Square)" },
+        { "value": "3/4", "label": "3:4 (Portrait)" },
+        { "value": "9/16", "label": "9:16 (Portrait)" },
+        { "value": "4/3", "label": "4:3 (Landscape)" },
+        { "value": "16/9", "label": "16:9 (Landscape)" },
+        { "value": "32/9", "label": "32:9 (Wide)" },
+        { "value": "64/9", "label": "64:9 (Ultra-wide)" }
+      ],
+      "default": "64/9"
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position",
+      "options": [
+        { "value": "top-left", "label": "Top Left" },
+        { "value": "top-center", "label": "Top Center" },
+        { "value": "top-right", "label": "Top Right" },
+        { "value": "middle-left", "label": "Middle Left" },
+        { "value": "middle-center", "label": "Middle Center" },
+        { "value": "middle-right", "label": "Middle Right" },
+        { "value": "bottom-left", "label": "Bottom Left" },
+        { "value": "bottom-center", "label": "Bottom Center" },
+        { "value": "bottom-right", "label": "Bottom Right" }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Backdrop Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_backdrop",
+      "label": "Show Backdrop",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "backdrop_intensity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Backdrop Intensity",
+      "default": 50
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image for Hero",
+      "settings": {
+        "content_position": "middle-center",
+        "text_alignment": "center",
+        "show_backdrop": true,
+        "backdrop_intensity": 50
+      }
+    }
+  ]
+}
+{% endschema %} 

@@ -1,0 +1,70 @@
+{% liquid
+  # Initialize default description
+  assign description = ''
+
+  # Check for custom description override first
+  if block.settings.custom_description != blank
+    assign description = block.settings.custom_description
+
+  # If no custom description, get dynamic description based on template
+  else
+    case template
+      when 'product'
+        assign description = product.description
+      when 'collection'
+        assign description = collection.description
+      when 'page'
+        assign description = page.content
+      when 'blog'
+        assign description = blog.description
+      when 'article'
+        assign description = article.excerpt
+      else
+        assign description = 'Welcome to our store'
+    endcase
+  endif
+%}
+
+{% style %}
+  .hero-description {
+    margin: 0;
+    font-size: {{ block.settings.text_size }}px;
+    line-height: 1.4;
+    font-weight: 300;
+  }
+{% endstyle %}
+
+{{ description }}
+
+{% schema %}
+{
+  "name": "Hero Description",
+  "class": "hero-description",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "custom_description",
+      "label": "Custom Description",
+      "info": "Leave blank to use dynamic description based on current page"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Text Size",
+      "default": 18
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Description",
+      "settings": {
+        "text_size": 18
+      }
+    }
+  ]
+}
+{% endschema %} 

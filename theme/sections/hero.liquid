@@ -1,108 +1,91 @@
-{% assign position_class = section.settings.content_position | prepend: 'hero__content--' %}
+{% assign vertical_margin = section.settings.vertical_margin | default: 0 %}
+{% assign color_scheme = section.settings.color_scheme | default: 'dark' %}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ vertical_margin }}px;
+    margin-bottom: {{ vertical_margin }}px;
+    isolation: isolate;
+  }
+
+  .hero-media {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: grid;
+    grid-template-areas: "stack";
+  }
+
+  .hero-media > * {
+    grid-area: stack;
+  }
+{% endstyle %}
+
+<div class="hero-media" data-color-scheme="{{ color_scheme }}">
+  {% if section.blocks.size < 1 %}
+    <div class="hero-media__default">
+      {% content_for "block", type: "_header-for-hero", id: "header-for-hero" %}
+    </div>
+  {% endif %}
+  {% content_for "blocks" %}
+</div>
 
 {% schema %}
 {
-  "name": "Hero",
-  "tag": "div",
-  "class": "hero",
+  "name": "Hero Media",
+  "tag": "section",
+  "blocks": [
+    { "type": "_header-for-hero" },
+    { "type": "_image-for-hero" },
+    { "type": "_video-for-hero" },
+    { "type": "_title-for-hero" },
+    { "type": "_description-for-hero" }
+  ],
   "settings": [
     {
-      "type": "image_picker",
-      "id": "background_image",
-      "label": "Background image"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Welcome to our store"
-    },
-    {
-      "type": "text",
-      "id": "text",
-      "label": "Text",
-      "default": "Add your store details here"
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": "Button label"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button link"
+      "type": "header",
+      "content": "Color Scheme"
     },
     {
       "type": "select",
-      "id": "content_position",
-      "label": "Content position",
+      "id": "color_scheme",
+      "label": "Color Scheme",
       "options": [
-        {
-          "value": "top-left",
-          "label": "Top left"
-        },
-        {
-          "value": "top-center",
-          "label": "Top center"
-        },
-        {
-          "value": "top-right",
-          "label": "Top right"
-        },
-        {
-          "value": "middle-left",
-          "label": "Middle left"
-        },
-        {
-          "value": "middle-center",
-          "label": "Middle center"
-        },
-        {
-          "value": "middle-right",
-          "label": "Middle right"
-        },
-        {
-          "value": "bottom-left",
-          "label": "Bottom left"
-        },
-        {
-          "value": "bottom-center",
-          "label": "Bottom center"
-        },
-        {
-          "value": "bottom-right",
-          "label": "Bottom right"
-        }
+        { "value": "light", "label": "Light" },
+        { "value": "dark", "label": "Dark" }
       ],
-      "default": "middle-center"
+      "default": "dark",
+      "info": "Affects text and background colors throughout the section"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "vertical_margin",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "unit": "px",
+      "label": "Vertical Margin",
+      "info": "Space above and below this section",
+      "default": 0
     }
   ],
   "presets": [
     {
-      "name": "Hero",
+      "name": "Hero Media",
+      "blocks": [
+        {
+          "type": "_header-for-hero"
+        }
+      ],
       "settings": {
-        "heading": "Welcome to our store",
-        "text": "Add your store details here",
-        "content_position": "middle-center"
+        "vertical_margin": 0,
+        "color_scheme": "dark"
       }
     }
   ]
 }
-{% endschema %}
-
-<div class="hero__content {{ position_class }}" {% if section.settings.background_image != blank %}style="background-image: url({{ section.settings.background_image | image_url: width: 2000 }});"{% endif %}>
-  {% if section.settings.heading != blank %}
-    <h1>{{ section.settings.heading | escape }}</h1>
-  {% endif %}
-  
-  {% if section.settings.text != blank %}
-    <p>{{ section.settings.text | escape }}</p>
-  {% endif %}
-
-  {% if section.settings.button_label != blank and section.settings.button_link != blank %}
-    <a href="{{ section.settings.button_link }}" class="button">
-      {{ section.settings.button_label | escape }}
-    </a>
-  {% endif %}
-</div> 
+{% endschema %} 
