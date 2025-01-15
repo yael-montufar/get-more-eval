@@ -1,6 +1,8 @@
 /* Reset */
 *, *::before, *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* Prevent iOS text size adjust after orientation change */
@@ -8,19 +10,20 @@ html {
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
-}
-
-/* Remove default margin */
-* {
+  height: 100%;
   margin: 0;
+  padding: 0;
 }
 
 /* Base body defaults */
 body {
-  min-height: 100vh;
+  min-height: 100%;
+  height: 100%;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
 }
 
 /* Improve media defaults */
