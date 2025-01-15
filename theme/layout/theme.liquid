@@ -111,8 +111,22 @@
         </nav>
         
         <div class="topbar__lang">
-          <button type="button" lang="en">EN</button>
-          <button type="button" lang="es">ES</button>
+          {%- form 'localization', id: 'topbar-language-form', class: 'localization-form' -%}
+            <input type="hidden" name="language_code" value="{{ request.locale.iso_code }}">
+            <div class="button-group">
+              {%- assign sorted_languages = localization.available_languages | sort: 'iso_code' | reverse -%}
+              {%- for language in sorted_languages -%}
+                <button 
+                  type="button" 
+                  class="button{% if language.iso_code == request.locale.iso_code %} is-active{% endif %}" 
+                  lang="{{ language.iso_code }}"
+                  data-value="{{ language.iso_code }}"
+                >
+                  {{ language.iso_code | upcase }}
+                </button>
+              {%- endfor -%}
+            </div>
+          {%- endform -%}
         </div>
       </section>
     </div>

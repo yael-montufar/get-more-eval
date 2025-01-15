@@ -189,19 +189,36 @@
 }
 
 .topbar__lang {
-  display: flex;
-  gap: 0.5rem;
-  border: 1px dashed brown;
-  padding: 4px;
-  margin-right: 104px;
+  margin-right: 96px;
 }
 
-.topbar__lang button {
-  padding: 0.5rem;
-  background: none;
-  border: 1px dotted #666;
+.topbar__lang .button-group {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.topbar__lang .button {
+  all: unset;
   cursor: pointer;
   color: white;
+  /* Text-SM-Bold styles */
+  font-family: 'HelveticaNeue', sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 1.01px;
+  /* Center text content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  line-height: 1;
+}
+
+.topbar__lang .button.is-active {
+  font-weight: bold;
 }
 
 /* Utility Classes

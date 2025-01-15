@@ -38,21 +38,37 @@ if (mobileSidebar) observer.observe(mobileSidebar);
 
 class LanguageSelector {
   constructor() {
-    this.form = document.getElementById('sidebar-language-form');
-    this.buttons = this.form.querySelectorAll('button[data-value]');
-    this.input = this.form.querySelector('input[name="language_code"]');
+    // Initialize both forms
+    this.forms = {
+      sidebar: document.getElementById('sidebar-language-form'),
+      topbar: document.getElementById('topbar-language-form')
+    };
     
-    this.buttons.forEach(button => {
-      button.addEventListener('click', this.handleLanguageSelection.bind(this));
+    // Set up event listeners for both forms
+    Object.values(this.forms).forEach(form => {
+      if (!form) return;
+      
+      const buttons = form.querySelectorAll('button[data-value]');
+      const input = form.querySelector('input[name="language_code"]');
+      
+      buttons.forEach(button => {
+        button.addEventListener('click', (event) => this.handleLanguageSelection(event, form, input));
+      });
     });
   }
 
-  handleLanguageSelection(event) {
+  handleLanguageSelection(event, form, input) {
     const selectedLanguage = event.currentTarget.getAttribute('data-value');
-    if (selectedLanguage === this.input.value) return; // Don't submit if same language
+    if (selectedLanguage === input.value) return; // Don't submit if same language
     
-    this.input.value = selectedLanguage;
-    this.form.submit();
+    // Update both forms' inputs
+    Object.values(this.forms).forEach(f => {
+      const formInput = f.querySelector('input[name="language_code"]');
+      formInput.value = selectedLanguage;
+    });
+    
+    // Submit the form that was clicked
+    form.submit();
   }
 }
 
