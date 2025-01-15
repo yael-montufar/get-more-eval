@@ -34,4 +34,29 @@ const mobileSidebar = document.querySelector('.header-group__sidebar');
 
 if (customGroup) observer.observe(customGroup);
 if (headerNav) observer.observe(headerNav);
-if (mobileSidebar) observer.observe(mobileSidebar); 
+if (mobileSidebar) observer.observe(mobileSidebar);
+
+class LanguageSelector {
+  constructor() {
+    this.form = document.getElementById('sidebar-language-form');
+    this.buttons = this.form.querySelectorAll('button[data-value]');
+    this.input = this.form.querySelector('input[name="language_code"]');
+    
+    this.buttons.forEach(button => {
+      button.addEventListener('click', this.handleLanguageSelection.bind(this));
+    });
+  }
+
+  handleLanguageSelection(event) {
+    const selectedLanguage = event.currentTarget.getAttribute('data-value');
+    if (selectedLanguage === this.input.value) return; // Don't submit if same language
+    
+    this.input.value = selectedLanguage;
+    this.form.submit();
+  }
+}
+
+// Initialize language selector when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  new LanguageSelector();
+}); 

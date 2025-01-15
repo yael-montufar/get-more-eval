@@ -102,6 +102,11 @@
   display: none; /* Hide on desktop */
 }
 
+.header-group__sidebar-lang .button-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .header-group__sidebar-lang .button {
   all: unset;
   cursor: pointer;
