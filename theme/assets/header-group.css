@@ -59,9 +59,9 @@
 }
 
 .header-group__sidebar-icon {
+  display: none; /* Hide on desktop */
   width: 38px;
   height: 38px;
-  display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -97,10 +97,7 @@
 }
 
 .header-group__sidebar-lang {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  justify-content: center;
+  display: none; /* Hide on desktop */
 }
 
 .header-group__sidebar-lang .button {
@@ -232,19 +229,26 @@
     width: 100%;
     height: auto;
     flex-direction: row;
-    justify-content: space-between;
     padding: 1rem;
     border: 2px solid blue;
     background: rgba(var(--color-background), 0.98);
   }
 
+  .header-group__sidebar > * {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
   .header-group__sidebar-icon {
-    display: block;
+    display: flex; /* Show on mobile */
   }
 
   .header-group__sidebar-lang {
-    display: flex;
+    display: flex; /* Show on mobile */
+    flex-direction: row;
     gap: 0.5rem;
+    justify-content: center;
   }
 
   .header-group__content {
