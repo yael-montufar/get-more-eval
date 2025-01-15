@@ -45,6 +45,10 @@
   <body>
     {%- assign bg_alpha = settings.sidebar_background | color_extract: 'alpha' -%}
     {%- assign fg_alpha = settings.sidebar_foreground | color_extract: 'alpha' -%}
+
+    <div class="custom-group">
+      {% sections 'custom-header-group' %}
+    </div>
     
     <div class="sidebar"
       {% if bg_alpha != 0 and fg_alpha != 0 %}
@@ -63,7 +67,7 @@
         </svg>
       </button>
       
-      <a href="/" class="header-group__logo">
+      <a href="/" class="sidebar__logo">
         <span class="visually-hidden">{{ settings.logo_text | escape }}</span>
         {% if settings.logo != blank %}
           {{ settings.logo | image_url: width: settings.logo_size | image_tag: 
@@ -74,7 +78,7 @@
             loading: 'eager'
           }}
         {% else %}
-          <span class="header-group__logo-text">{{ settings.logo_text | escape }}</span>
+          <span class="sidebar__logo-text">{{ settings.logo_text | escape }}</span>
         {% endif %}
       </a>
       
@@ -98,20 +102,16 @@
       </div>
     </div>
 
-    <div class="custom-group">
-      {% sections 'custom-header-group' %}
-    </div>
-
-    <div class="header-group">
-      <div class="header-group__content">
-        <section class="header-group__nav-space">
-          <nav class="header-group__nav">
+    <div class="topbar">
+      <div class="topbar__content">
+        <section class="topbar__nav-space">
+          <nav class="topbar__nav">
             {%- for link in linklists['main-menu'].links -%}
               <a href="{{ link.url }}">{{ link.title }}</a>
             {%- endfor -%}
           </nav>
           
-          <div class="header-group__lang">
+          <div class="topbar__lang">
             <button type="button" lang="en">EN</button>
             <button type="button" lang="es">ES</button>
           </div>

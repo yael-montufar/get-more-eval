@@ -9,13 +9,13 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1001; /* Above header-group */
+  z-index: 1001; /* Above topbar */
   background: rgba(var(--color-background), 0.98);
 }
 
-/* Header Group Layout
+/* Topbar Layout
 ============================================================================= */
-.header-group {
+.topbar {
   position: fixed;
   top: var(--custom-group-height, 0);
   left: 0;
@@ -26,10 +26,10 @@
 }
 
 /* Elements that need interaction must override pointer-events */
-.header-group button,
-.header-group a,
+.topbar button,
+.topbar a,
 .sidebar,
-.header-group__nav-space {
+.topbar__nav-space {
   pointer-events: auto;
 }
 
@@ -78,7 +78,7 @@
   height: 100%;
 }
 
-.header-group__logo {
+.sidebar__logo {
   text-decoration: none;
   color: inherit;
   display: flex;
@@ -88,11 +88,11 @@
   height: var(--logo-size, 36px);
 }
 
-.header-group__logo-text {
+.sidebar__logo-text {
   font-size: 16px;
 }
 
-.header-group__logo img {
+.sidebar__logo img {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -133,7 +133,7 @@
 
 /* Top Navigation Space
 ============================================================================= */
-.header-group__content {
+.topbar__content {
   position: fixed;
   top: var(--custom-group-height, 0);
   left: var(--sidebar-width);
@@ -143,7 +143,7 @@
   border: 2px solid red;
 }
 
-.header-group__announcement {
+.topbar__announcement {
   width: 100%;
   padding: 0.5rem;
   text-align: center;
@@ -152,7 +152,7 @@
   border: 2px solid green;
 }
 
-.header-group__nav-space {
+.topbar__nav-space {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -161,28 +161,28 @@
   border: 2px solid orange;
 }
 
-.header-group__nav {
+.topbar__nav {
   display: flex;
   gap: 2rem;
   border: 1px dashed brown;
   padding: 4px;
 }
 
-.header-group__nav a {
+.topbar__nav a {
   text-decoration: none;
   color: rgba(var(--color-text));
   border: 1px dotted #666;
   padding: 2px 4px;
 }
 
-.header-group__lang {
+.topbar__lang {
   display: flex;
   gap: 0.5rem;
   border: 1px dashed brown;
   padding: 4px;
 }
 
-.header-group__lang button {
+.topbar__lang button {
   padding: 0.5rem;
   background: none;
   border: 1px dotted #666;
@@ -222,8 +222,8 @@
     width: 100%;
   }
 
-  /* Header group remains fixed but below custom group */
-  .header-group {
+  /* Topbar remains fixed but below custom group */
+  .topbar {
     position: fixed;
     top: var(--custom-group-height, 0);
     height: auto;
@@ -255,11 +255,11 @@
     display: block;
   }
 
-  .header-group__content {
+  .topbar__content {
     display: none;
   }
 
-  .header-group__nav-space {
+  .topbar__nav-space {
     display: none;
   }
 
