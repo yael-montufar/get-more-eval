@@ -217,7 +217,7 @@
 
   /* Mobile: account for both custom group and mobile header */
   #MainContent {
-    padding-top: calc(var(--custom-group-height, 0) + var(--header-mobile-height, 0px));
+    padding-top: calc(var(--custom-group-height, 0) + var(--header-mobile-height, 60px));
   }
 }
 

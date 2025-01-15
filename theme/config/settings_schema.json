@@ -47,7 +47,7 @@
         "id": "logo_width",
         "min": 50,
         "max": 150,
-        "step": 5,
+        "step": 10,
         "unit": "px",
         "label": "Logo width",
         "default": 80
