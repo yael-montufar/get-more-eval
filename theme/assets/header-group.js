@@ -1,10 +1,10 @@
 // Function to update group heights
 function updateGroupHeights() {
-  // Update custom group height
-  const customGroup = document.querySelector('.custom-group');
-  if (customGroup) {
-    const customHeight = customGroup.offsetHeight;
-    document.documentElement.style.setProperty('--custom-group-height', `${customHeight}px`);
+  // Update header group height
+  const headerGroup = document.querySelector('.header-group');
+  if (headerGroup) {
+    const headerHeight = headerGroup.offsetHeight;
+    document.documentElement.style.setProperty('--header-group-height', `${headerHeight}px`);
   }
 
   // Update header height (desktop)
@@ -28,11 +28,11 @@ window.addEventListener('resize', updateGroupHeights);
 
 // Update when content changes (for dynamic content)
 const observer = new ResizeObserver(updateGroupHeights);
-const customGroup = document.querySelector('.custom-group');
+const headerGroup = document.querySelector('.header-group');
 const headerNav = document.querySelector('.topbar__nav-space');
 const mobileSidebar = document.querySelector('.sidebar');
 
-if (customGroup) observer.observe(customGroup);
+if (headerGroup) observer.observe(headerGroup);
 if (headerNav) observer.observe(headerNav);
 if (mobileSidebar) observer.observe(mobileSidebar);
 

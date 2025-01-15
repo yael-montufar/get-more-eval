@@ -46,8 +46,8 @@
     {%- assign bg_alpha = settings.sidebar_background | color_extract: 'alpha' -%}
     {%- assign fg_alpha = settings.sidebar_foreground | color_extract: 'alpha' -%}
 
-    <div class="custom-group">
-      {% sections 'custom-header-group' %}
+    <div class="header-group">
+      {% sections 'header-group' %}
     </div>
     
     <div class="sidebar"

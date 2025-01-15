@@ -1,10 +1,10 @@
-/* Custom Group Layout
+/* Header Group Layout
 ============================================================================= */
 :root {
   --sidebar-width: 104px;
 }
 
-.custom-group {
+.header-group {
   width: 100%;
   position: fixed;
   top: 0;
@@ -17,10 +17,10 @@
 ============================================================================= */
 .topbar {
   position: fixed;
-  top: var(--custom-group-height, 0);
+  top: var(--header-group-height, 0);
   left: 0;
   width: 100%;
-  height: calc(100% - var(--custom-group-height, 0));
+  height: calc(100% - var(--header-group-height, 0));
   pointer-events: none;
   z-index: 1000;
 }
@@ -37,11 +37,11 @@
 ============================================================================= */
 .sidebar {
   position: fixed;
-  top: var(--custom-group-height, 0);
+  top: var(--header-group-height, 0);
   left: 0;
   z-index: 100;
   width: var(--sidebar-width);
-  height: calc(100vh - var(--custom-group-height, 0));
+  height: calc(100vh - var(--header-group-height, 0));
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -135,21 +135,11 @@
 ============================================================================= */
 .topbar__content {
   position: fixed;
-  top: var(--custom-group-height, 0);
+  top: var(--header-group-height, 0);
   left: var(--sidebar-width);
   right: 0;
   display: flex;
   flex-direction: column;
-  border: 2px solid red;
-}
-
-.topbar__announcement {
-  width: 100%;
-  padding: 0.5rem;
-  text-align: center;
-  background: var(--color-accent);
-  color: var(--color-accent-text);
-  border: 2px solid green;
 }
 
 .topbar__nav-space {
@@ -208,7 +198,7 @@
 #MainContent {
   position: relative;
   z-index: 1;
-  padding-top: var(--custom-group-height, 0);
+  padding-top: var(--header-group-height, 0);
   isolation: isolate;
   background: white; /* Default background */
 }
@@ -216,22 +206,22 @@
 /* Mobile Layout
 ============================================================================= */
 @media screen and (max-width: 768px) {
-  /* Custom group remains fixed */
-  .custom-group {
+  /* Header group remains fixed */
+  .header-group {
     position: fixed;
     width: 100%;
   }
 
-  /* Topbar remains fixed but below custom group */
+  /* Topbar remains fixed but below header group */
   .topbar {
     position: fixed;
-    top: var(--custom-group-height, 0);
+    top: var(--header-group-height, 0);
     height: auto;
   }
 
   .sidebar {
     position: fixed;
-    top: var(--custom-group-height, 0);
+    top: var(--header-group-height, 0);
     left: 0;
     width: 100%;
     height: auto;
@@ -263,9 +253,9 @@
     display: none;
   }
 
-  /* Mobile: account for both custom group and mobile header */
+  /* Mobile: account for both header group and mobile header */
   #MainContent {
-    padding-top: calc(var(--custom-group-height, 0) + var(--header-mobile-height, 60px));
+    padding-top: calc(var(--header-group-height, 0) + var(--header-mobile-height, 60px));
   }
 }
 
