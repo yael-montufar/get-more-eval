@@ -227,7 +227,6 @@
     height: auto;
     flex-direction: row;
     padding: 1rem;
-    border: 2px solid blue;
     background: rgba(var(--color-background), 0.98);
   }
 
