@@ -15,7 +15,7 @@ function updateGroupHeights() {
   }
 
   // Update mobile header height
-  const mobileSidebar = document.querySelector('.header-group__sidebar');
+  const mobileSidebar = document.querySelector('.sidebar');
   if (mobileSidebar) {
     const mobileHeight = mobileSidebar.offsetHeight;
     document.documentElement.style.setProperty('--header-mobile-height', `${mobileHeight}px`);
@@ -30,7 +30,7 @@ window.addEventListener('resize', updateGroupHeights);
 const observer = new ResizeObserver(updateGroupHeights);
 const customGroup = document.querySelector('.custom-group');
 const headerNav = document.querySelector('.header-group__nav-space');
-const mobileSidebar = document.querySelector('.header-group__sidebar');
+const mobileSidebar = document.querySelector('.sidebar');
 
 if (customGroup) observer.observe(customGroup);
 if (headerNav) observer.observe(headerNav);

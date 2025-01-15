@@ -28,14 +28,14 @@
 /* Elements that need interaction must override pointer-events */
 .header-group button,
 .header-group a,
-.header-group__sidebar,
+.sidebar,
 .header-group__nav-space {
   pointer-events: auto;
 }
 
 /* Left Sidebar
 ============================================================================= */
-.header-group__sidebar {
+.sidebar {
   position: fixed;
   top: var(--custom-group-height, 0);
   left: 0;
@@ -55,11 +55,11 @@
   border-right: 2px solid currentColor;
 }
 
-.header-group__sidebar > * {
+.sidebar > * {
   will-change: color;
 }
 
-.header-group__sidebar-icon {
+.sidebar-icon {
   display: none; /* Hide on desktop */
   width: 38px;
   height: 38px;
@@ -73,7 +73,7 @@
   color: inherit;
 }
 
-.header-group__sidebar-icon svg {
+.sidebar-icon svg {
   width: 100%;
   height: 100%;
 }
@@ -98,16 +98,16 @@
   object-fit: contain;
 }
 
-.header-group__sidebar-lang {
+.sidebar-lang {
   display: none; /* Hide on desktop */
 }
 
-.header-group__sidebar-lang .button-group {
+.sidebar-lang .button-group {
   display: flex;
   gap: 0.5rem;
 }
 
-.header-group__sidebar-lang .button {
+.sidebar-lang .button {
   all: unset;
   cursor: pointer;
   color: inherit;
@@ -127,7 +127,7 @@
   line-height: 1;
 }
 
-.header-group__sidebar-lang .button.is-active {
+.sidebar-lang .button.is-active {
   font-weight: bold;
 }
 
@@ -229,7 +229,7 @@
     height: auto;
   }
 
-  .header-group__sidebar {
+  .sidebar {
     position: fixed;
     top: var(--custom-group-height, 0);
     left: 0;
@@ -241,21 +241,18 @@
     background: rgba(var(--color-background), 0.98);
   }
 
-  .header-group__sidebar > * {
+  .sidebar > * {
     flex: 1;
     display: flex;
     justify-content: center;
   }
 
-  .header-group__sidebar-icon {
-    display: flex; /* Show on mobile */
+  .sidebar-icon {
+    display: flex;
   }
 
-  .header-group__sidebar-lang {
-    display: flex; /* Show on mobile */
-    flex-direction: row;
-    gap: 0.5rem;
-    justify-content: center;
+  .sidebar-lang {
+    display: block;
   }
 
   .header-group__content {

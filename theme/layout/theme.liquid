@@ -46,7 +46,7 @@
     {%- assign bg_alpha = settings.sidebar_background | color_extract: 'alpha' -%}
     {%- assign fg_alpha = settings.sidebar_foreground | color_extract: 'alpha' -%}
     
-    <div class="header-group__sidebar"
+    <div class="sidebar"
       {% if bg_alpha != 0 and fg_alpha != 0 %}
         style="
           background-color: {{ settings.sidebar_background }};
@@ -55,7 +55,7 @@
         "
       {% endif %}
     >
-      <button type="button" class="header-group__sidebar-icon" aria-label="Menu">
+      <button type="button" class="sidebar-icon" aria-label="Menu">
         <svg aria-hidden="true" width="38" height="38" viewBox="0 0 38 38">
           <rect x="7" y="12" width="24" height="2" fill="currentColor"/>
           <rect x="7" y="18" width="24" height="2" fill="currentColor"/>
@@ -78,7 +78,7 @@
         {% endif %}
       </a>
       
-      <div class="header-group__sidebar-lang">
+      <div class="sidebar-lang">
         {%- form 'localization', id: 'sidebar-language-form', class: 'localization-form' -%}
           <input type="hidden" name="language_code" value="{{ request.locale.iso_code }}">
           <div class="button-group">
@@ -103,7 +103,20 @@
     </div>
 
     <div class="header-group">
-      {% sections 'header-group' %}
+      <div class="header-group__content">
+        <section class="header-group__nav-space">
+          <nav class="header-group__nav">
+            {%- for link in linklists['main-menu'].links -%}
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            {%- endfor -%}
+          </nav>
+          
+          <div class="header-group__lang">
+            <button type="button" lang="en">EN</button>
+            <button type="button" lang="es">ES</button>
+          </div>
+        </section>
+      </div>
     </div>
 
     <main role="main" id="MainContent">
