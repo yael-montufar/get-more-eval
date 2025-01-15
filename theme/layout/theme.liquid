@@ -103,20 +103,18 @@
     </div>
 
     <div class="topbar">
-      <div class="topbar__content">
-        <section class="topbar__nav-space">
-          <nav class="topbar__nav">
-            {%- for link in linklists['main-menu'].links -%}
-              <a href="{{ link.url }}">{{ link.title }}</a>
-            {%- endfor -%}
-          </nav>
-          
-          <div class="topbar__lang">
-            <button type="button" lang="en">EN</button>
-            <button type="button" lang="es">ES</button>
-          </div>
-        </section>
-      </div>
+      <section class="topbar__nav-space">
+        <nav class="topbar__nav">
+          {%- for link in linklists['main-menu'].links -%}
+            <a href="{{ link.url }}" {% if link.active %}class="is-active"{% endif %}>{{ link.title }}</a>
+          {%- endfor -%}
+        </nav>
+        
+        <div class="topbar__lang">
+          <button type="button" lang="en">EN</button>
+          <button type="button" lang="es">ES</button>
+        </div>
+      </section>
     </div>
 
     <main role="main" id="MainContent">

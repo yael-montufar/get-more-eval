@@ -133,36 +133,59 @@
 
 /* Top Navigation Space
 ============================================================================= */
-.topbar__content {
+.topbar {
+  position: fixed;
+  top: var(--header-group-height, 0);
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--header-group-height, 0));
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Elements that need interaction must override pointer-events */
+.topbar button,
+.topbar a,
+.sidebar,
+.topbar__nav-space {
+  pointer-events: auto;
+}
+
+.topbar__nav-space {
   position: fixed;
   top: var(--header-group-height, 0);
   left: var(--sidebar-width);
   right: 0;
   display: flex;
-  flex-direction: column;
-}
-
-.topbar__nav-space {
-  display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 1rem 0;
   background: rgba(var(--color-background), 0.98);
-  border: 2px solid orange;
 }
 
 .topbar__nav {
   display: flex;
-  gap: 2rem;
-  border: 1px dashed brown;
-  padding: 4px;
+  gap: 63px;
+  margin-left: 68px;
 }
 
 .topbar__nav a {
+  font-family: 'HelveticaNeue', sans-serif;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.15;
+  letter-spacing: 1.75px;
+  color: white;
   text-decoration: none;
-  color: rgba(var(--color-text));
-  border: 1px dotted #666;
-  padding: 2px 4px;
+}
+
+.topbar__nav a.is-active {
+  font-weight: bold;
+  text-decoration: underline;
+  text-underline-offset: 16px;
+  text-decoration-thickness: 2px;
 }
 
 .topbar__lang {
@@ -170,6 +193,7 @@
   gap: 0.5rem;
   border: 1px dashed brown;
   padding: 4px;
+  margin-right: 104px;
 }
 
 .topbar__lang button {
@@ -177,6 +201,7 @@
   background: none;
   border: 1px dotted #666;
   cursor: pointer;
+  color: white;
 }
 
 /* Utility Classes

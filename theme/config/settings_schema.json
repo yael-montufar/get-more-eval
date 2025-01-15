@@ -54,6 +54,22 @@
     ]
   },
   {
+    "name": "Header Navigation",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Top bar navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "top_bar_menu",
+        "label": "Menu",
+        "default": "main-menu",
+        "info": "Select the menu to display in the top bar navigation"
+      }
+    ]
+  },
+  {
     "name": "Sidebar",
     "settings": [
       {
