@@ -32,8 +32,7 @@
       {
         "type": "image_picker",
         "id": "logo",
-        "label": "Logo image",
-        "info": "Recommended size: 100x100px"
+        "label": "Logo image"
       },
       {
         "type": "text",
@@ -44,13 +43,13 @@
       },
       {
         "type": "range",
-        "id": "logo_width",
-        "min": 50,
-        "max": 150,
-        "step": 10,
+        "id": "logo_size",
+        "min": 16,
+        "max": 256,
+        "step": 4,
         "unit": "px",
-        "label": "Logo width",
-        "default": 100
+        "label": "Logo size",
+        "default": 36
       }
     ]
   },
@@ -62,16 +61,20 @@
         "content": "Sidebar colors"
       },
       {
+        "type": "paragraph",
+        "content": "By default, the sidebar automatically adapts its colors to ensure visibility against any background. If you prefer specific colors, set both options below."
+      },
+      {
         "type": "color",
         "id": "sidebar_background",
         "label": "Background color",
-        "info": "Leave empty to use mix-blend-mode effect"
+        "info": "Leave empty for automatic color adaptation"
       },
       {
         "type": "color",
         "id": "sidebar_foreground",
         "label": "Text and icon color",
-        "info": "Leave empty to use mix-blend-mode effect"
+        "info": "Leave empty for automatic color adaptation"
       }
     ]
   }
