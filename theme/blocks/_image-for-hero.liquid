@@ -152,18 +152,25 @@
           srcset="{{ block.settings.small_image | image_url }}">
       {% endif %}
       
-      <img
-        class="banner-image"
-        {% if collection.image %}
+      {% if block.settings.small_image or block.settings.medium_image or block.settings.large_image %}
+        <img
+          class="banner-image"
+          src="{{ block.settings.small_image | default: block.settings.medium_image | default: block.settings.large_image | image_url }}"
+          alt="{{ block.settings.image_alt | default: 'Hero image' }}"
+          width="auto"
+          height="auto"
+          loading="lazy">
+      {% elsif collection.image %}
+        <img
+          class="banner-image"
           src="{{ collection.image | image_url }}"
           alt="{{ collection.title | default: 'Collection image' }}"
-        {% else %}
-          {{ 'collection-1' | placeholder_svg_tag: 'banner-image' }}
-        {% endif %}
-        width="auto"
-        height="auto"
-        loading="lazy"
-      >
+          width="auto"
+          height="auto"
+          loading="lazy">
+      {% else %}
+        {{ 'collection-1' | placeholder_svg_tag: 'banner-image' }}
+      {% endif %}
     </picture>
   </div>
   
@@ -196,6 +203,13 @@
       "type": "image_picker",
       "id": "small_image",
       "label": "Small Screen Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image Alt Text",
+      "info": "Descriptive text for accessibility",
+      "default": "Hero image"
     },
     {
       "type": "select",

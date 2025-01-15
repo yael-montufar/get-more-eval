@@ -203,18 +203,17 @@
         </iframe>
       {% endif %}
     {% else %}
-      <img
-        class="banner-video"
-        {% if poster_image != blank %}
+      {% if poster_image != blank %}
+        <img
+          class="banner-video"
           src="{{ poster_image | image_url }}"
           alt="{{ poster_image.alt | default: 'Video cover image' }}"
-        {% else %}
-          {{ 'video' | placeholder_svg_tag: 'banner-video' }}
-        {% endif %}
-        loading="lazy"
-        width="auto"
-        height="auto"
-      >
+          width="auto"
+          height="auto"
+          loading="lazy">
+      {% else %}
+        {{ 'video' | placeholder_svg_tag: 'banner-video' }}
+      {% endif %}
     {% endif %}
   </div>
 

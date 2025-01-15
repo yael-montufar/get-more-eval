@@ -8,7 +8,7 @@
     isolation: isolate;
   }
 
-  .hero-media {
+  .hero {
     position: relative;
     width: 100%;
     min-height: 100vh;
@@ -16,14 +16,14 @@
     grid-template-areas: "stack";
   }
 
-  .hero-media > * {
+  .hero > * {
     grid-area: stack;
   }
 {% endstyle %}
 
-<div class="hero-media" data-color-scheme="{{ color_scheme }}">
+<div class="hero" data-color-scheme="{{ color_scheme }}">
   {% if section.blocks.size < 1 %}
-    <div class="hero-media__default">
+    <div class="hero__default">
       {% content_for "block", type: "_header-for-hero", id: "header-for-hero" %}
     </div>
   {% endif %}
@@ -32,7 +32,7 @@
 
 {% schema %}
 {
-  "name": "Hero Media",
+  "name": "Hero",
   "tag": "section",
   "blocks": [
     { "type": "_header-for-hero" },
@@ -75,7 +75,7 @@
   ],
   "presets": [
     {
-      "name": "Hero Media",
+      "name": "Hero",
       "blocks": [
         {
           "type": "_header-for-hero"
