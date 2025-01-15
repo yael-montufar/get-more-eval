@@ -66,10 +66,18 @@
   transform: rotate(180deg);
   text-decoration: none;
   color: inherit;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-group__logo img {
   transform: rotate(180deg);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .header-group__sidebar-lang {

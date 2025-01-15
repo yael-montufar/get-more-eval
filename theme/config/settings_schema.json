@@ -33,7 +33,7 @@
         "type": "image_picker",
         "id": "logo",
         "label": "Logo image",
-        "info": "Recommended size: 80x80px"
+        "info": "Recommended size: 98x98px"
       },
       {
         "type": "text",
@@ -50,7 +50,7 @@
         "step": 10,
         "unit": "px",
         "label": "Logo width",
-        "default": 80
+        "default": 98
       }
     ]
   }
