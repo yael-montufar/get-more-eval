@@ -37,7 +37,18 @@
   </head>
 
   <body>
-    <div class="header-group__sidebar">
+    {%- assign bg_alpha = settings.sidebar_background | color_extract: 'alpha' -%}
+    {%- assign fg_alpha = settings.sidebar_foreground | color_extract: 'alpha' -%}
+    
+    <div class="header-group__sidebar"
+      {% if bg_alpha != 0 and fg_alpha != 0 %}
+        style="
+          background-color: {{ settings.sidebar_background }};
+          color: {{ settings.sidebar_foreground }};
+          mix-blend-mode: normal;
+        "
+      {% endif %}
+    >
       <button type="button" class="header-group__sidebar-icon" aria-label="Menu">
         <svg aria-hidden="true" width="38" height="38" viewBox="0 0 38 38">
           <rect x="7" y="12" width="24" height="2" fill="currentColor"/>

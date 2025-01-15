@@ -47,11 +47,12 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  /* Default mix-blend-mode styles */
   mix-blend-mode: difference;
   color: white;
   isolation: isolate;
   will-change: color;
-  border-right: 2px solid white;
+  border-right: 2px solid currentColor;
 }
 
 .header-group__sidebar > * {

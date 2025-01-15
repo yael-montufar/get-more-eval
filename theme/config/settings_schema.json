@@ -33,7 +33,7 @@
         "type": "image_picker",
         "id": "logo",
         "label": "Logo image",
-        "info": "Recommended size: 98x98px"
+        "info": "Recommended size: 100x100px"
       },
       {
         "type": "text",
@@ -50,7 +50,28 @@
         "step": 10,
         "unit": "px",
         "label": "Logo width",
-        "default": 98
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Sidebar",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Sidebar colors"
+      },
+      {
+        "type": "color",
+        "id": "sidebar_background",
+        "label": "Background color",
+        "info": "Leave empty to use mix-blend-mode effect"
+      },
+      {
+        "type": "color",
+        "id": "sidebar_foreground",
+        "label": "Text and icon color",
+        "info": "Leave empty to use mix-blend-mode effect"
       }
     ]
   }
