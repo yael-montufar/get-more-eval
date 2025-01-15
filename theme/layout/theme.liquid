@@ -38,11 +38,13 @@
 
   <body>
     <div class="header-group__sidebar">
-      <svg class="header-group__sidebar-icon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
-        <rect width="24" height="2" fill="currentColor"/>
-        <rect y="11" width="24" height="2" fill="currentColor"/>
-        <rect y="22" width="24" height="2" fill="currentColor"/>
-      </svg>
+      <button type="button" class="header-group__sidebar-icon" aria-label="Menu">
+        <svg aria-hidden="true" width="38" height="38" viewBox="0 0 38 38">
+          <rect x="7" y="12" width="24" height="2" fill="currentColor"/>
+          <rect x="7" y="18" width="24" height="2" fill="currentColor"/>
+          <rect x="7" y="24" width="24" height="2" fill="currentColor"/>
+        </svg>
+      </button>
       
       <a href="/" class="header-group__logo">
         <span class="visually-hidden">{{ settings.logo_text | escape }}</span>
@@ -60,8 +62,8 @@
       </a>
       
       <div class="header-group__sidebar-lang">
-        <button type="button" lang="en">EN</button>
-        <button type="button" lang="es">ES</button>
+        <button type="button" class="button{% if request.locale.iso_code == 'en' %} is-active{% endif %}" lang="en">EN</button>
+        <button type="button" class="button{% if request.locale.iso_code == 'es' %} is-active{% endif %}" lang="es">ES</button>
       </div>
     </div>
 

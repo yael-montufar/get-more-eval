@@ -54,11 +54,22 @@
 }
 
 .header-group__sidebar-icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
 }
 
-.header-group__sidebar-icon rect {
-  fill: currentColor;
+.header-group__sidebar-icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 .header-group__logo {
@@ -82,17 +93,33 @@
 
 .header-group__sidebar-lang {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 0.5rem;
+  justify-content: center;
 }
 
-.header-group__sidebar-lang button {
-  appearance: none;
-  background: none;
-  border: none;
-  padding: 0;
-  color: inherit;
+.header-group__sidebar-lang .button {
+  all: unset;
   cursor: pointer;
+  color: inherit;
+  /* Reapply Text-SM-Bold styles after reset */
+  font-family: 'HelveticaNeue', sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 1.01px;
+  /* Center text content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  line-height: 1;
+}
+
+.header-group__sidebar-lang .button.is-active {
+  font-weight: bold;
 }
 
 /* Top Navigation Space
