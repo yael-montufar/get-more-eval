@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "hero_xtJ7hJ": {
       "type": "hero",
@@ -16,31 +16,54 @@
           "type": "_image-for-hero",
           "settings": {
             "small_image": "shopify://shop_images/group_2x_b7ddc941-4d45-4752-8ba9-07f78e005b6c.jpg",
+            "image_alt": "Hero image",
             "small_aspect_ratio": "9/16",
             "medium_aspect_ratio": "4/3",
             "large_aspect_ratio": "16/9",
-            "content_position": "middle-center",
-            "text_alignment": "center",
-            "show_backdrop": true,
+            "content_padding": 0,
+            "content_margin": 0,
+            "content_position_small": "middle-center",
+            "content_position_medium": "middle-center",
+            "content_position_large": "middle-left",
+            "text_alignment_small": "center",
+            "text_alignment_medium": "center",
+            "text_alignment_large": "left",
+            "show_backdrop": false,
             "backdrop_intensity": 50
-          }
-        },
-        "header-for-hero": {
-          "type": "_header-for-hero",
-          "static": true,
-          "settings": {
-            "content_padding": 32,
-            "content_margin": 16,
-            "content_gap": 24
-          }
+          },
+          "blocks": {
+            "title_for_hero_jj7MjA": {
+              "type": "_title-for-hero",
+              "settings": {
+                "custom_title": "<p><a href=\"#_\" title=\"#_\">Las mejores raquetas para</a> <a href=\"#_break\" title=\"#_break\">jugar</a> <a href=\"#_text-style-1\" title=\"#_text-style-1\">Tennis</a></p>",
+                "text_size": 52
+              }
+            },
+            "button_for_hero_hWF6dz": {
+              "type": "_button-for-hero",
+              "settings": {
+                "custom_button_text": "Acerca De Nosotros",
+                "button_text_size": 12,
+                "button_link": "shopify://collections",
+                "button_color": "#ffffff"
+              }
+            }
+          },
+          "block_order": [
+            "title_for_hero_jj7MjA",
+            "button_for_hero_hWF6dz"
+          ]
         }
       },
       "block_order": [
         "image_for_hero_DerUkn"
       ],
-      "custom_css": [],
+      "custom_css": [
+        "@media screen and (min-width: 990px) {.hero-content-container.position-large-middle-left {margin-left: calc(var(--sidebar-width) + 64px + 4px); } /* Make the first part take full width to force next content below */ a[href=\"#_\"]:first-of-type {display: block; } /* Keep \"jugar\" and \"Tennis\" on same line */ a[href=\"#_break\"], a[href=\"#_text-style-1\"] {display: inline-block; }}",
+        " /* Keep yellow color for Tennis */a[href=\"#_text-style-1\"] {color: var(--sickly-yellow); font-weight: bold;}"
+      ],
       "settings": {
-        "color_scheme": "dark",
+        "color_scheme": "light",
         "vertical_margin": 0
       }
     }

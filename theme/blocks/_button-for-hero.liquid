@@ -2,7 +2,7 @@
   /* Base button styles */
   .hero-button {
     margin: 0 0; /* Match the margin from hero.liquid */
-    padding: 17px 39px 17px 30px;
+    padding: 16px 32px 16px 30px;
     line-height: 1.2;
     letter-spacing: 0.15em;
     font-weight: 600;
@@ -24,7 +24,7 @@
     width: 28px;
     height: 16px;
     margin-left: 0px;
-    background-image: url("data:image/svg+xml,%3Csvg width='28' height='16' viewBox='0 0 28 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 8h22M21 5.5l3 2.5-3 2.5' stroke='{{ block.settings.button_color | replace: '#', '%23' | default: "%23ffffff" }}' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='28' height='16' viewBox='0 0 28 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 8h26M24 5.5l3 2.5-3 2.5' stroke='{{ block.settings.button_color | replace: '#', '%23' | default: "%23ffffff" }}' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -32,7 +32,7 @@
   }
 {% endstyle %}
 
-{{ block.settings.custom_button_text }}
+{{- block.settings.custom_button_text -}}
 
 {% schema %}
 {

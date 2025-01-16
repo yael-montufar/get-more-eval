@@ -109,21 +109,39 @@
     -webkit-backdrop-filter: blur(var(--hero-backdrop-blur));
     border-radius: 16px;
   {% endif %}
-  text-align: {{ block.settings.text_alignment_small | default: 'center' }};
   display: flex;
   flex-direction: column;
   gap: var(--hero-content-gap);
+  justify-content: {% if block.settings.text_alignment_small == 'left' %}flex-start{% elsif block.settings.text_alignment_small == 'right' %}flex-end{% else %}center{% endif %};
+}
+.hero-title * {
+  text-align: {{ block.settings.text_alignment_small | default: 'center' }};
+}
+.hero-button {
+  align-self: {% if block.settings.text_alignment_small == 'left' %}flex-start{% elsif block.settings.text_alignment_small == 'right' %}flex-end{% else %}center{% endif %};
 }
 
 @media screen and (min-width: {{ medium_breakpoint }}px) {
   .hero-content-container {
-    text-align: {{ block.settings.text_alignment_medium | default: block.settings.text_alignment_small | default: 'center' }};
+    justify-content: {% if block.settings.text_alignment_medium == 'left' %}flex-start{% elsif block.settings.text_alignment_medium == 'right' %}flex-end{% else %}center{% endif %};
+  }
+  .hero-title * {
+    text-align: {{ block.settings.text_alignment_medium | default: 'center' }};
+  }
+  .hero-button {
+    align-self: {% if block.settings.text_alignment_medium == 'left' %}flex-start{% elsif block.settings.text_alignment_medium == 'right' %}flex-end{% else %}center{% endif %};
   }
 }
 
 @media screen and (min-width: {{ large_breakpoint }}px) {
   .hero-content-container {
-    text-align: {{ block.settings.text_alignment_large | default: block.settings.text_alignment_medium | default: block.settings.text_alignment_small | default: 'center' }};
+    justify-content: {% if block.settings.text_alignment_large == 'left' %}flex-start{% elsif block.settings.text_alignment_large == 'right' %}flex-end{% else %}center{% endif %};
+  }
+  .hero-title * {
+    text-align: {{ block.settings.text_alignment_large | default: 'center' }};
+  }
+  .hero-button {
+    align-self: {% if block.settings.text_alignment_large == 'left' %}flex-start{% elsif block.settings.text_alignment_large == 'right' %}flex-end{% else %}center{% endif %};
   }
 }
 

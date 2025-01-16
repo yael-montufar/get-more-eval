@@ -10,6 +10,8 @@
 {
   "current": {
     "logo": "shopify://shop_images/tienda-tennis.svg",
+    "sidebar_background": "rgba(0,0,0,0)",
+    "sidebar_foreground": "rgba(0,0,0,0)",
     "content_for_index": []
   },
   "platform_customizations": {
