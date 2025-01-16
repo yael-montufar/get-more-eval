@@ -15,6 +15,21 @@ html {
   padding: 0;
 }
 
+/* Style hooks - anchor tags starting with #_ */
+a[href^="#_"] {
+  pointer-events: none; /* Prevent clicking */
+  text-decoration: none; /* Remove underline */
+  /* Remove focus outline */
+  outline: none;
+  /* Prevent default link color */
+  color: inherit;
+}
+
+/* Ensure consistent cursor behavior in hero title */
+.hero-title * {
+  cursor: text;
+}
+
 /* Base body defaults */
 body {
   min-height: 100%;

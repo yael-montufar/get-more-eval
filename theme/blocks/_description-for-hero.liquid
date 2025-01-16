@@ -27,10 +27,18 @@
 
 {% style %}
   .hero-description {
-    margin: 0;
+    margin: 0 0 2rem;
     font-size: {{ block.settings.text_size }}px;
     line-height: 1.4;
     font-weight: 300;
+  }
+
+  /* Style all elements inside description to inherit styles */
+  .hero-description * {
+    font-size: inherit;
+    margin: 0;
+    line-height: inherit;
+    font-weight: inherit;
   }
 {% endstyle %}
 

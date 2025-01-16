@@ -10,40 +10,52 @@
   else
     case template
       when 'product'
-        assign title = product.title
+        assign title = product.title | escape
       when 'collection'
-        assign title = collection.title
+        assign title = collection.title | escape
       when 'page'
-        assign title = page.title
+        assign title = page.title | escape
       when 'blog'
-        assign title = blog.title
+        assign title = blog.title | escape
       when 'article'
-        assign title = article.title
+        assign title = article.title | escape
       else
-        assign title = 'Welcome'
+        assign title = 'Welcome' | escape
     endcase
   endif
 %}
 
 {% style %}
+  /* Base title styles */
   .hero-title {
-    margin: 0;
-    font-size: {{ block.settings.text_size }}px;
+    margin: 0 0 1rem; /* Match the margin from hero.liquid */
     line-height: 1.2;
     font-weight: 600;
+    font-size: {{ block.settings.text_size }}px;
+  }
+
+  /* Style all elements inside hero-title to inherit the font size */
+  .hero-title * {
+    font-size: inherit;
+    margin: 0;
+    line-height: inherit;
+    font-weight: inherit;
   }
 {% endstyle %}
 
-{{ title }}
+{% if block.settings.custom_title != blank %}
+  {{ block.settings.custom_title }}
+{% else %}
+  <span>{{ title }}</span>
+{% endif %}
 
 {% schema %}
 {
   "name": "Title for Hero",
-  "tag": "h1",
   "class": "hero-title",
   "settings": [
     {
-      "type": "text",
+      "type": "richtext",
       "id": "custom_title",
       "label": "Custom Title",
       "info": "Leave blank to use dynamic title based on current page"
