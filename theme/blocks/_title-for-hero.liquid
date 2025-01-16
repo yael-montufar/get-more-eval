@@ -30,8 +30,11 @@
   .hero-title {
     margin: 0 0 1rem; /* Match the margin from hero.liquid */
     line-height: 1.2;
-    font-weight: 600;
+    font-weight: 400;
     font-size: {{ block.settings.text_size }}px;
+
+    font-family: var(--main-font-family), var(--fallback-font-family);
+    color: var(--white);
   }
 
   /* Style all elements inside hero-title to inherit the font size */

@@ -95,6 +95,8 @@ textarea {
   --dark-three: #282e47;
 
   --spacing-xxs: 4px;
+  --main-font-family: 'HelveticaNeue';
+  --fallback-font-family: sans-serif;
 }
 
 /* Font Definitions */
@@ -124,7 +126,7 @@ textarea {
 
 /* Typography Classes */
 .Heading-3XL {
-  font-family: 'HelveticaNeue', sans-serif;
+  font-family: var(--main-font-family), var(--fallback-font-family);
   font-size: 53px;
   font-weight: normal;
   font-stretch: normal;
@@ -135,7 +137,7 @@ textarea {
 }
 
 .Text-LG-Normal {
-  font-family: 'HelveticaNeue', sans-serif;
+  font-family: var(--main-font-family), var(--fallback-font-family);
   font-size: 18px;
   font-weight: normal;
   font-stretch: normal;
@@ -146,7 +148,7 @@ textarea {
 }
 
 .Text-SM-Bold {
-  font-family: 'HelveticaNeue', sans-serif;
+  font-family: var(--main-font-family), var(--fallback-font-family);
   font-size: 13px;
   font-weight: bold;
   font-stretch: normal;

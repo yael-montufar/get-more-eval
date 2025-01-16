@@ -109,10 +109,22 @@
     -webkit-backdrop-filter: blur(var(--hero-backdrop-blur));
     border-radius: 16px;
   {% endif %}
-  text-align: {{ block.settings.text_alignment }};
+  text-align: {{ block.settings.text_alignment_small | default: 'center' }};
   display: flex;
   flex-direction: column;
   gap: var(--hero-content-gap);
+}
+
+@media screen and (min-width: {{ medium_breakpoint }}px) {
+  .hero-content-container {
+    text-align: {{ block.settings.text_alignment_medium | default: block.settings.text_alignment_small | default: 'center' }};
+  }
+}
+
+@media screen and (min-width: {{ large_breakpoint }}px) {
+  .hero-content-container {
+    text-align: {{ block.settings.text_alignment_large | default: block.settings.text_alignment_medium | default: block.settings.text_alignment_small | default: 'center' }};
+  }
 }
 
 .hero-content-container:empty {
@@ -386,8 +398,30 @@
     },
     {
       "type": "select",
-      "id": "text_alignment",
-      "label": "Text Alignment",
+      "id": "text_alignment_small",
+      "label": "Text Alignment Small (0-489px)",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment_medium",
+      "label": "Text Alignment Medium (490-989px)",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment_large",
+      "label": "Text Alignment Large (990px+)",
       "options": [
         { "value": "left", "label": "Left" },
         { "value": "center", "label": "Center" },
@@ -421,7 +455,9 @@
       "name": "Image for Hero",
       "settings": {
         "content_position_small": "middle-center",
-        "text_alignment": "center",
+        "text_alignment_small": "center",
+        "text_alignment_medium": "center",
+        "text_alignment_large": "center",
         "show_backdrop": true,
         "backdrop_intensity": 50
       }
