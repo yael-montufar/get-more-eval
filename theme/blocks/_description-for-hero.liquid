@@ -10,35 +10,40 @@
   else
     case template
       when 'product'
-        assign description = product.description
+        assign description = product.description | escape
       when 'collection'
-        assign description = collection.description
+        assign description = collection.description | escape
       when 'page'
-        assign description = page.content
+        assign description = page.content | escape
       when 'blog'
-        assign description = blog.description
+        assign description = blog.description | escape
       when 'article'
-        assign description = article.excerpt
+        assign description = article.excerpt | escape
       else
-        assign description = 'Welcome to our store'
+        assign description = 'Welcome to our store' | escape
     endcase
   endif
 %}
 
 {% style %}
-  .hero-description {
-    margin: 0 0 2rem;
+  #shopify-block-{{ block.id }}.hero-description {
+    margin: 0 0 1rem; /* Match the margin from hero.liquid */
+    line-height: 1.75;
+    font-weight: 400;
     font-size: {{ block.settings.text_size }}px;
-    line-height: 1.4;
-    font-weight: 300;
+    color: {{ block.settings.description_color | default: 'var(--white)' }};
+    letter-spacing: 0.5px;
+    
+    font-family: var(--main-font-family), var(--fallback-font-family);
   }
 
   /* Style all elements inside description to inherit styles */
-  .hero-description * {
+  #shopify-block-{{ block.id }}.hero-description * {
     font-size: inherit;
     margin: 0;
     line-height: inherit;
     font-weight: inherit;
+    color: inherit;
   }
 {% endstyle %}
 
@@ -50,7 +55,7 @@
   "class": "hero-description",
   "settings": [
     {
-      "type": "textarea",
+      "type": "richtext",
       "id": "custom_description",
       "label": "Custom Description",
       "info": "Leave blank to use dynamic description based on current page"
@@ -64,6 +69,12 @@
       "unit": "px",
       "label": "Text Size",
       "default": 18
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#ffffff"
     }
   ],
   "presets": [

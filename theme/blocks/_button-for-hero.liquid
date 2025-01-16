@@ -1,8 +1,8 @@
 {% style %}
   /* Base button styles */
-  .hero-button {
+  #shopify-block-{{ block.id }}.hero-button {
     margin: 0 0; /* Match the margin from hero.liquid */
-    padding: 16px 32px 16px 30px;
+    padding: 20px 32px 16px 30px;
     line-height: 1.2;
     letter-spacing: 0.15em;
     font-weight: 600;
@@ -18,7 +18,7 @@
     width: fit-content;
   }
 
-  .hero-button::after {
+  #shopify-block-{{ block.id }}.hero-button::after {
     content: '';
     display: inline-block;
     width: 28px;

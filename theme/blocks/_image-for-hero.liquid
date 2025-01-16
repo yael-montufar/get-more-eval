@@ -17,7 +17,7 @@
 {% assign opacity_dark = backdrop_intensity | times: 0.75 %}
 
 {% style %}
-:root {
+#shopify-block-{{ block.id }} {
   --hero-content-padding: {{ content_padding }}px;
   --hero-content-margin: {{ content_margin }}px;
   --hero-content-gap: {{ content_gap }}px;
@@ -42,7 +42,7 @@
   {% endif %}
 }
 
-.banner-stack {
+#shopify-block-{{ block.id }}.banner-stack {
   display: grid;
   grid-template-areas: "stack";
   width: 100%;
@@ -52,16 +52,17 @@
 }
 
 /* Make all children span the same grid area */
-.banner-stack > * {
+#shopify-block-{{ block.id }}.banner-stack > * {
   grid-area: stack;
 }
 
 /* Image wrapper with padding trick for aspect ratio */
-.banner-image-wrapper {
+#shopify-block-{{ block.id }} .banner-image-wrapper {
   grid-area: stack;
   position: relative;
   width: 100%;
   min-height: 100%;
+  background-color: {{ block.settings.background_color | default: 'transparent' }};
   {% assign ratio = block.settings.small_aspect_ratio | split: '/' %}
   {% if ratio.size == 2 %}
     padding-bottom: calc({{ ratio[1] | times: 100.0 | divided_by: ratio[0] }}%);
@@ -69,7 +70,7 @@
 }
 
 @media screen and (min-width: {{ medium_breakpoint }}px) {
-  .banner-image-wrapper {
+  #shopify-block-{{ block.id }} .banner-image-wrapper {
     {% assign ratio = block.settings.medium_aspect_ratio | split: '/' %}
     {% if ratio.size == 2 %}
       padding-bottom: calc({{ ratio[1] | times: 100.0 | divided_by: ratio[0] }}%);
@@ -78,7 +79,7 @@
 }
 
 @media screen and (min-width: {{ large_breakpoint }}px) {
-  .banner-image-wrapper {
+  #shopify-block-{{ block.id }} .banner-image-wrapper {
     {% assign ratio = block.settings.large_aspect_ratio | split: '/' %}
     {% if ratio.size == 2 %}
       padding-bottom: calc({{ ratio[1] | times: 100.0 | divided_by: ratio[0] }}%);
@@ -87,7 +88,7 @@
 }
 
 /* Image styles */
-.banner-image {
+#shopify-block-{{ block.id }} .banner-image {
   position: absolute;
   top: 0;
   left: 0;
@@ -97,12 +98,13 @@
 }
 
 /* Content container with optional glass morphism effect */
-.hero-content-container {
+#shopify-block-{{ block.id }} .hero-content-container {
+  position: relative;
   grid-area: stack;
   z-index: 1;
   color: var(--hero-text-color);
-  padding: {{ block.settings.content_padding | default: 32 }}px;
-  margin: {{ block.settings.content_margin | default: 16 }}px;
+  padding: var(--hero-content-padding);
+  margin: var(--hero-content-margin);
   {% if show_backdrop %}
     background: var(--hero-backdrop-color);
     backdrop-filter: blur(var(--hero-backdrop-blur));
@@ -188,6 +190,8 @@
 }
 {% endstyle %}
 
+{% assign bg_alpha = block.settings.background_color | color_extract: 'alpha' %}
+
 <div class="banner-image-wrapper">
   <picture>
     {% if block.settings.large_image %}
@@ -223,7 +227,7 @@
         width="auto"
         height="auto"
         loading="lazy">
-    {% else %}
+    {% elsif bg_alpha == 0 %}
       {{ 'collection-1' | placeholder_svg_tag: 'banner-image' }}
     {% endif %}
   </picture>
@@ -239,7 +243,7 @@
 {% schema %}
 {
   "name": "Image for Hero",
-  "class": "shopify-block banner-stack",
+  "class": "banner-stack",
   "blocks": [
     { "type": "_title-for-hero" },
     { "type": "_description-for-hero" },
@@ -249,6 +253,12 @@
     {
       "type": "header",
       "content": "Image Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#000000"
     },
     {
       "type": "paragraph",

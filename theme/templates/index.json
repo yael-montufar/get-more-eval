@@ -15,6 +15,7 @@
         "image_for_hero_DerUkn": {
           "type": "_image-for-hero",
           "settings": {
+            "background_color": "#000000",
             "small_image": "shopify://shop_images/group_2x_b7ddc941-4d45-4752-8ba9-07f78e005b6c.jpg",
             "image_alt": "Hero image",
             "small_aspect_ratio": "9/16",
@@ -36,7 +37,8 @@
               "type": "_title-for-hero",
               "settings": {
                 "custom_title": "<p><a href=\"#_\" title=\"#_\">Las mejores raquetas para</a> <a href=\"#_break\" title=\"#_break\">jugar</a> <a href=\"#_text-style-1\" title=\"#_text-style-1\">Tennis</a></p>",
-                "text_size": 52
+                "text_size": 52,
+                "title_color": "#ffffff"
               }
             },
             "button_for_hero_hWF6dz": {
@@ -63,12 +65,83 @@
         " /* Keep yellow color for Tennis */a[href=\"#_text-style-1\"] {color: var(--sickly-yellow); font-weight: bold;}"
       ],
       "settings": {
+        "color_scheme": "dark",
+        "vertical_margin": 0
+      }
+    },
+    "hero_Uz4h7W": {
+      "type": "hero",
+      "blocks": {
+        "image_for_hero_JfEq4h": {
+          "type": "_image-for-hero",
+          "settings": {
+            "background_color": "#f3f4f8",
+            "image_alt": "Hero image",
+            "small_aspect_ratio": "9/16",
+            "medium_aspect_ratio": "4/3",
+            "large_aspect_ratio": "64/9",
+            "content_padding": 0,
+            "content_margin": 0,
+            "content_position_small": "middle-center",
+            "content_position_medium": "middle-center",
+            "content_position_large": "middle-center",
+            "text_alignment_small": "center",
+            "text_alignment_medium": "center",
+            "text_alignment_large": "left",
+            "show_backdrop": false,
+            "backdrop_intensity": 100
+          },
+          "blocks": {
+            "title_for_hero_zf6bU6": {
+              "type": "_title-for-hero",
+              "settings": {
+                "custom_title": "<p><a href=\"#_break\" title=\"#_break\">Raquetas.Accesorios.</a>Pelotas.</p>",
+                "text_size": 50,
+                "title_color": "#273048"
+              }
+            },
+            "description_for_hero_wThXKQ": {
+              "type": "_description-for-hero",
+              "settings": {
+                "custom_description": "<p><a href=\"#_break\" title=\"#_break\">Conoce nuestras raquetas y aprende a jugar</a> Tennis cómo un profesional.</p>",
+                "text_size": 18,
+                "description_color": "#787878"
+              }
+            },
+            "button_for_hero_FiUbXT": {
+              "type": "_button-for-hero",
+              "settings": {
+                "custom_button_text": "Historia",
+                "button_text_size": 12,
+                "button_link": "shopify://collections",
+                "button_color": "#273048"
+              }
+            }
+          },
+          "block_order": [
+            "title_for_hero_zf6bU6",
+            "description_for_hero_wThXKQ",
+            "button_for_hero_FiUbXT"
+          ]
+        }
+      },
+      "block_order": [
+        "image_for_hero_JfEq4h"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 990px) {a[href=\"#_break\"]:first-of-type {display: block; } .hero-content-container {margin-left: 14px; }}",
+        "@media screen and (min-width: 1100px) {button.hero-button {position: absolute; bottom: 0; right: 0; /* transform: translate(calc(100% + 67px), -9px); */ transform: translate( calc(100% + min(67px, max(20px, calc((100vw - 320px) * 0.059)))), -9px ); }}",
+        "button.hero-button {padding-left: 35px; padding-right: 37px; border: 1px solid var(--dark-three);}",
+        ".hero-button::after {margin-left: 54px;}"
+      ],
+      "settings": {
         "color_scheme": "light",
         "vertical_margin": 0
       }
     }
   },
   "order": [
-    "hero_xtJ7hJ"
+    "hero_xtJ7hJ",
+    "hero_Uz4h7W"
   ]
 }
