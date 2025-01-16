@@ -101,15 +101,14 @@
   grid-area: stack;
   z-index: 1;
   color: var(--hero-text-color);
-  padding: var(--hero-content-padding);
-  margin: var(--hero-content-margin);
+  padding: {{ block.settings.content_padding | default: 32 }}px;
+  margin: {{ block.settings.content_margin | default: 16 }}px;
   {% if show_backdrop %}
     background: var(--hero-backdrop-color);
     backdrop-filter: blur(var(--hero-backdrop-blur));
     -webkit-backdrop-filter: blur(var(--hero-backdrop-blur));
     border-radius: 16px;
   {% endif %}
-  max-width: 800px;
   text-align: {{ block.settings.text_alignment }};
   display: flex;
   flex-direction: column;
@@ -121,6 +120,7 @@
 }
 
 /* Content positioning classes */
+/* Small screen positions (default) */
 .position-top-left { align-self: start; justify-self: start; }
 .position-top-center { align-self: start; justify-self: center; }
 .position-top-right { align-self: start; justify-self: end; }
@@ -130,6 +130,32 @@
 .position-bottom-left { align-self: end; justify-self: start; }
 .position-bottom-center { align-self: end; justify-self: center; }
 .position-bottom-right { align-self: end; justify-self: end; }
+
+/* Medium screen positions */
+@media screen and (min-width: {{ medium_breakpoint }}px) {
+  .position-medium-top-left { align-self: start; justify-self: start; }
+  .position-medium-top-center { align-self: start; justify-self: center; }
+  .position-medium-top-right { align-self: start; justify-self: end; }
+  .position-medium-middle-left { align-self: center; justify-self: start; }
+  .position-medium-middle-center { align-self: center; justify-self: center; }
+  .position-medium-middle-right { align-self: center; justify-self: end; }
+  .position-medium-bottom-left { align-self: end; justify-self: start; }
+  .position-medium-bottom-center { align-self: end; justify-self: center; }
+  .position-medium-bottom-right { align-self: end; justify-self: end; }
+}
+
+/* Large screen positions */
+@media screen and (min-width: {{ large_breakpoint }}px) {
+  .position-large-top-left { align-self: start; justify-self: start; }
+  .position-large-top-center { align-self: start; justify-self: center; }
+  .position-large-top-right { align-self: start; justify-self: end; }
+  .position-large-middle-left { align-self: center; justify-self: start; }
+  .position-large-middle-center { align-self: center; justify-self: center; }
+  .position-large-middle-right { align-self: center; justify-self: end; }
+  .position-large-bottom-left { align-self: end; justify-self: start; }
+  .position-large-bottom-center { align-self: end; justify-self: center; }
+  .position-large-bottom-right { align-self: end; justify-self: end; }
+}
 {% endstyle %}
 
 <div class="banner-image-wrapper">
@@ -173,7 +199,10 @@
   </picture>
 </div>
 
-<div class="hero-content-container {% if block.settings.content_position %}position-{{ block.settings.content_position }}{% else %}position-middle-center{% endif %}">
+<div class="hero-content-container 
+  position-{{ block.settings.content_position_small | default: 'middle-center' }}
+  position-medium-{{ block.settings.content_position_medium | default: block.settings.content_position_small | default: 'middle-center' }}
+  position-large-{{ block.settings.content_position_large | default: block.settings.content_position_medium | default: block.settings.content_position_small | default: 'middle-center' }}">
   {%- content_for "blocks" -%}
 </div>
 
@@ -278,12 +307,70 @@
     },
     {
       "type": "header",
+      "content": "Content Container"
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Content Padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "content_margin",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Content Margin",
+      "default": 16
+    },
+    {
+      "type": "header",
       "content": "Content Settings"
     },
     {
       "type": "select",
-      "id": "content_position",
-      "label": "Content Position",
+      "id": "content_position_small",
+      "label": "Content Position Small (0-489px)",
+      "options": [
+        { "value": "top-left", "label": "Top Left" },
+        { "value": "top-center", "label": "Top Center" },
+        { "value": "top-right", "label": "Top Right" },
+        { "value": "middle-left", "label": "Middle Left" },
+        { "value": "middle-center", "label": "Middle Center" },
+        { "value": "middle-right", "label": "Middle Right" },
+        { "value": "bottom-left", "label": "Bottom Left" },
+        { "value": "bottom-center", "label": "Bottom Center" },
+        { "value": "bottom-right", "label": "Bottom Right" }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "select",
+      "id": "content_position_medium",
+      "label": "Content Position Medium (490-989px)",
+      "options": [
+        { "value": "top-left", "label": "Top Left" },
+        { "value": "top-center", "label": "Top Center" },
+        { "value": "top-right", "label": "Top Right" },
+        { "value": "middle-left", "label": "Middle Left" },
+        { "value": "middle-center", "label": "Middle Center" },
+        { "value": "middle-right", "label": "Middle Right" },
+        { "value": "bottom-left", "label": "Bottom Left" },
+        { "value": "bottom-center", "label": "Bottom Center" },
+        { "value": "bottom-right", "label": "Bottom Right" }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "select",
+      "id": "content_position_large",
+      "label": "Content Position Large (990px+)",
       "options": [
         { "value": "top-left", "label": "Top Left" },
         { "value": "top-center", "label": "Top Center" },
@@ -333,7 +420,7 @@
     {
       "name": "Image for Hero",
       "settings": {
-        "content_position": "middle-center",
+        "content_position_small": "middle-center",
         "text_alignment": "center",
         "show_backdrop": true,
         "backdrop_intensity": 50
