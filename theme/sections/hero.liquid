@@ -8,25 +8,108 @@
     isolation: isolate;
   }
 
-  .hero {
+  #shopify-section-{{ section.id }} .hero {
     position: relative;
     width: 100%;
     min-height: 100vh;
     display: grid;
     grid-template-areas: "stack";
+    background: white; /* Default background */
   }
 
-  .hero > * {
+  #shopify-section-{{ section.id }} .hero > * {
     grid-area: stack;
+  }
+
+  #shopify-section-{{ section.id }} .hero__content {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  /* Position variants */
+  #shopify-section-{{ section.id }} .hero__content--top-left {
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .hero__content--top-center {
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  #shopify-section-{{ section.id }} .hero__content--top-right {
+    align-items: flex-end;
+    justify-content: flex-start;
+    text-align: right;
+  }
+
+  #shopify-section-{{ section.id }} .hero__content--middle-left {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .hero__content--middle-center {
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .hero__content--middle-right {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  #shopify-section-{{ section.id }} .hero__content--bottom-left {
+    align-items: flex-start;
+    justify-content: flex-end;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .hero__content--bottom-center {
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  #shopify-section-{{ section.id }} .hero__content--bottom-right {
+    align-items: flex-end;
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  /* Content Styles */
+  #shopify-section-{{ section.id }} .hero h1 {
+    margin: 0 0 1rem;
+    font-size: 3rem;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .hero p {
+    margin: 0 0 2rem;
+    font-size: 1.25rem;
+  }
+
+  #shopify-section-{{ section.id }} .hero .button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--color-button);
+    color: var(--color-button-text);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  #shopify-section-{{ section.id }} .hero .button:hover {
+    background: var(--color-button-hover);
   }
 {% endstyle %}
 
 <div class="hero" data-color-scheme="{{ color_scheme }}">
-  {% if section.blocks.size < 1 %}
-    <div class="hero__default">
-      {% content_for "block", type: "_header-for-hero", id: "header-for-hero" %}
-    </div>
-  {% endif %}
   {% content_for "blocks" %}
 </div>
 

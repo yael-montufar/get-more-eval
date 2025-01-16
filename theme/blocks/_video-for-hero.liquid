@@ -170,61 +170,60 @@
 .position-bottom-right { align-self: end; justify-self: end; }
 {% endstyle %}
 
-<div class="banner-stack">
-  <div class="banner-video-wrapper">
-    {% if block.settings.video != blank %}
-      <video
-        class="banner-video"
-        {% if autoplay %}autoplay{% endif %}
-        {% if loop %}loop{% endif %}
-        {% if muted %}muted{% endif %}
-        {% if playsinline %}playsinline{% endif %}
-        {% if show_controls %}controls{% endif %}
-        {% if poster_image != blank %}
-          poster="{{ poster_image | image_url }}"
-        {% endif %}>
-        <source src="{{ video_source }}" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    {% elsif block.settings.video_url != blank %}
-      {% if block.settings.video_url.type == 'youtube' %}
-        <iframe
-          class="banner-video"
-          src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?playsinline={{ playsinline | default: 1 }}&autoplay={{ autoplay | default: 0 }}&controls={{ show_controls | default: 0 }}&mute={{ muted | default: 1 }}&loop={{ loop | default: 0 }}&playlist={{ block.settings.video_url.id }}&rel=0"
-          allow="autoplay; encrypted-media"
-          allowfullscreen>
-        </iframe>
-      {% elsif block.settings.video_url.type == 'vimeo' %}
-        <iframe
-          class="banner-video"
-          src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?background={{ show_controls | default: 1 }}&autoplay={{ autoplay | default: 0 }}&loop={{ loop | default: 0 }}&byline=0&title=0&muted={{ muted | default: 1 }}"
-          allow="autoplay; encrypted-media"
-          allowfullscreen>
-        </iframe>
-      {% endif %}
-    {% else %}
+<div class="banner-video-wrapper">
+  {% if block.settings.video != blank %}
+    <video
+      class="banner-video"
+      {% if autoplay %}autoplay{% endif %}
+      {% if loop %}loop{% endif %}
+      {% if muted %}muted{% endif %}
+      {% if playsinline %}playsinline{% endif %}
+      {% if show_controls %}controls{% endif %}
       {% if poster_image != blank %}
-        <img
-          class="banner-video"
-          src="{{ poster_image | image_url }}"
-          alt="{{ poster_image.alt | default: 'Video cover image' }}"
-          width="auto"
-          height="auto"
-          loading="lazy">
-      {% else %}
-        {{ 'video' | placeholder_svg_tag: 'banner-video' }}
-      {% endif %}
+        poster="{{ poster_image | image_url }}"
+      {% endif %}>
+      <source src="{{ video_source }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  {% elsif block.settings.video_url != blank %}
+    {% if block.settings.video_url.type == 'youtube' %}
+      <iframe
+        class="banner-video"
+        src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?playsinline={{ playsinline | default: 1 }}&autoplay={{ autoplay | default: 0 }}&controls={{ show_controls | default: 0 }}&mute={{ muted | default: 1 }}&loop={{ loop | default: 0 }}&playlist={{ block.settings.video_url.id }}&rel=0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+      </iframe>
+    {% elsif block.settings.video_url.type == 'vimeo' %}
+      <iframe
+        class="banner-video"
+        src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?background={{ show_controls | default: 1 }}&autoplay={{ autoplay | default: 0 }}&loop={{ loop | default: 0 }}&byline=0&title=0&muted={{ muted | default: 1 }}"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+      </iframe>
     {% endif %}
-  </div>
+  {% else %}
+    {% if poster_image != blank %}
+      <img
+        class="banner-video"
+        src="{{ poster_image | image_url }}"
+        alt="{{ poster_image.alt | default: 'Video cover image' }}"
+        width="auto"
+        height="auto"
+        loading="lazy">
+    {% else %}
+      {{ 'video' | placeholder_svg_tag: 'banner-video' }}
+    {% endif %}
+  {% endif %}
+</div>
 
-  <div class="hero-content-container {% if block.settings.content_position %}position-{{ block.settings.content_position }}{% else %}position-middle-center{% endif %}">
-    {%- content_for "blocks" -%}
-  </div>
+<div class="hero-content-container {% if block.settings.content_position %}position-{{ block.settings.content_position }}{% else %}position-middle-center{% endif %}">
+  {%- content_for "blocks" -%}
 </div>
 
 {% schema %}
 {
   "name": "Video for Hero",
+  "class": "shopify-block banner-stack",
   "blocks": [
     { "type": "_title-for-hero" },
     { "type": "_description-for-hero" }

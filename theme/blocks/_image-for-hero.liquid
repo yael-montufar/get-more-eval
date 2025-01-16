@@ -132,56 +132,55 @@
 .position-bottom-right { align-self: end; justify-self: end; }
 {% endstyle %}
 
-<div class="banner-stack">
-  <div class="banner-image-wrapper">
-    <picture>
-      {% if block.settings.large_image %}
-        <source
-          media="(min-width: {{ large_breakpoint }}px)"
-          srcset="{{ block.settings.large_image | image_url }}">
-      {% endif %}
-      
-      {% if block.settings.medium_image %}
-        <source
-          media="(min-width: {{ medium_breakpoint }}px)"
-          srcset="{{ block.settings.medium_image | image_url }}">
-      {% endif %}
-      
-      {% if block.settings.small_image %}
-        <source
-          srcset="{{ block.settings.small_image | image_url }}">
-      {% endif %}
-      
-      {% if block.settings.small_image or block.settings.medium_image or block.settings.large_image %}
-        <img
-          class="banner-image"
-          src="{{ block.settings.small_image | default: block.settings.medium_image | default: block.settings.large_image | image_url }}"
-          alt="{{ block.settings.image_alt | default: 'Hero image' }}"
-          width="auto"
-          height="auto"
-          loading="lazy">
-      {% elsif collection.image %}
-        <img
-          class="banner-image"
-          src="{{ collection.image | image_url }}"
-          alt="{{ collection.title | default: 'Collection image' }}"
-          width="auto"
-          height="auto"
-          loading="lazy">
-      {% else %}
-        {{ 'collection-1' | placeholder_svg_tag: 'banner-image' }}
-      {% endif %}
-    </picture>
-  </div>
-  
-  <div class="hero-content-container {% if block.settings.content_position %}position-{{ block.settings.content_position }}{% else %}position-middle-center{% endif %}">
-    {%- content_for "blocks" -%}
-  </div>
+<div class="banner-image-wrapper">
+  <picture>
+    {% if block.settings.large_image %}
+      <source
+        media="(min-width: {{ large_breakpoint }}px)"
+        srcset="{{ block.settings.large_image | image_url }}">
+    {% endif %}
+    
+    {% if block.settings.medium_image %}
+      <source
+        media="(min-width: {{ medium_breakpoint }}px)"
+        srcset="{{ block.settings.medium_image | image_url }}">
+    {% endif %}
+    
+    {% if block.settings.small_image %}
+      <source
+        srcset="{{ block.settings.small_image | image_url }}">
+    {% endif %}
+    
+    {% if block.settings.small_image or block.settings.medium_image or block.settings.large_image %}
+      <img
+        class="banner-image"
+        src="{{ block.settings.small_image | default: block.settings.medium_image | default: block.settings.large_image | image_url }}"
+        alt="{{ block.settings.image_alt | default: 'Hero image' }}"
+        width="auto"
+        height="auto"
+        loading="lazy">
+    {% elsif collection.image %}
+      <img
+        class="banner-image"
+        src="{{ collection.image | image_url }}"
+        alt="{{ collection.title | default: 'Collection image' }}"
+        width="auto"
+        height="auto"
+        loading="lazy">
+    {% else %}
+      {{ 'collection-1' | placeholder_svg_tag: 'banner-image' }}
+    {% endif %}
+  </picture>
+</div>
+
+<div class="hero-content-container {% if block.settings.content_position %}position-{{ block.settings.content_position }}{% else %}position-middle-center{% endif %}">
+  {%- content_for "blocks" -%}
 </div>
 
 {% schema %}
 {
   "name": "Image for Hero",
+  "class": "shopify-block banner-stack",
   "blocks": [
     { "type": "_title-for-hero" },
     { "type": "_description-for-hero" }
