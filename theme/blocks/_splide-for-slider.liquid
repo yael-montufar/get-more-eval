@@ -7,7 +7,7 @@
   <div class="splide__track">
     <ul class="splide__list">
       {%- for i in (1..4) -%}
-        <li class="splide__slide">
+        <li class="splide__slide" data-slide-number="{{ forloop.index }}">
           {{ block.settings.image | image_url: width: 2000 | image_tag:
             loading: 'lazy',
             sizes: '100vw'
@@ -16,6 +16,7 @@
       {%- endfor -%}
     </ul>
   </div>
+  <ul class="splide__pagination"></ul>
 </div>
 
 {% schema %}

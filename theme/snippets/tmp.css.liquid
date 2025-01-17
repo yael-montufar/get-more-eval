@@ -1,0 +1,77 @@
+#shopify-section-{{section_id}} {
+  .splide__slide::after {
+    content: attr(data-slide-number);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 39px;
+    height: 39px;
+    background-color: var(--sickly-yellow);
+    margin-top: 11px;
+    margin-left: 17px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--main-font-family), var(--fallback-font-family);
+    color: var(--white);
+  }
+
+  /* Mobile (0-719px) */
+  @media screen and (max-width: 719px) {
+    .splide-slider {
+      padding: 24px 24px;
+    }
+  }
+
+  /* Tablet (720px-989px) */
+  @media screen and (min-width: 720px) and (max-width: 989px) {
+    .splide-slider {
+      padding: 32px 32px;
+    }
+  }
+
+  /* Desktop (990px+) */
+  @media screen and (min-width: 990px) {
+    a[href^="#_break"] {
+      display: block;
+    }
+    a[href^="#_break-2"] {
+      display: block;
+      font-weight: bold;
+    }
+    .slider-content-container.slider-content-container {
+      margin: unset;
+      max-width: 276px !important;
+      margin-right: 50px !important;
+      margin-top: 54px !important;
+    }
+
+    .slider__controls {
+      margin-top: 0.75rem;
+      margin-left: -15px;
+    }
+
+    .splide-slider {
+      --gutter-x: 52px;
+      position: relative;
+      padding-left: var(--gutter-x);
+      padding-right: var(--gutter-x);
+    }
+
+    .splide {
+      margin: 0;
+      width: 100vw;
+      margin-left: var(--gutter-x-n);
+      position: unset;
+      margin-top: 51px;
+      margin-bottom: 73px;
+    }
+  }
+
+  /* Default styles (outside media queries) */
+  .slider-content-container.slider-content-container {
+    margin: 4rem 24px;
+  }
+}

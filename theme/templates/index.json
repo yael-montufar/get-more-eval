@@ -193,14 +193,15 @@
             "image_alt": "Slider image",
             "small_aspect_ratio": "64/9",
             "medium_aspect_ratio": "64/9",
-            "large_aspect_ratio": "1/1",
-            "content_padding": 32,
-            "content_margin": 16,
+            "large_aspect_ratio": "auto",
+            "content_gap": 16,
+            "content_padding": 0,
+            "content_margin": 24,
             "content_position_small": "middle-center",
-            "content_position_medium": "middle-center",
-            "content_position_large": "middle-center",
+            "content_position_medium": "top-right",
+            "content_position_large": "top-right",
             "text_alignment_small": "center",
-            "text_alignment_medium": "center",
+            "text_alignment_medium": "left",
             "text_alignment_large": "left",
             "show_backdrop": false,
             "backdrop_intensity": 50
@@ -210,7 +211,7 @@
               "type": "_title-for-slider",
               "settings": {
                 "custom_title": "<p><a href=\"#_break-1\" title=\"#_break-1\">Nuestras</a> <a href=\"#_break-2\" title=\"#_break-2\">Raquetas</a></p>",
-                "text_size": 72,
+                "text_size": 50,
                 "title_color": "#ffffff"
               }
             },
@@ -221,11 +222,16 @@
                 "text_size": 18,
                 "description_color": "#ffffff"
               }
+            },
+            "controls_for_slider_CkxUbd": {
+              "type": "_controls-for-slider",
+              "settings": {}
             }
           },
           "block_order": [
             "title_for_slider_36DRXe",
-            "description_for_slider_gdicxp"
+            "description_for_slider_gdicxp",
+            "controls_for_slider_CkxUbd"
           ]
         },
         "splide_for_slider_GBTGkJ": {
@@ -243,13 +249,12 @@
         "splide_for_slider_GBTGkJ"
       ],
       "custom_css": [
-        "a[href^=\"#_break\"] {display: block;}",
-        "a[href^=\"#_break-2\"] {display: block; font-weight: bold;}"
+        "@media screen and (min-width: 990px) {a[href^=\"#_break\"] {display: block; } a[href^=\"#_break-2\"] {display: block; font-weight: bold; } .slider-content-container {max-width: 276px; margin-right: 50px; margin-top: 64px; }}"
       ],
       "settings": {
         "color_scheme": "dark",
         "vertical_margin": 0,
-        "custom_liquid_css": ""
+        "custom_liquid_css": "{% render 'tmp.css', section_id: section.id %}"
       }
     }
   },

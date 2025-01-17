@@ -14,21 +14,23 @@
     display: flex;
     flex-direction: column;
     background: white; /* Default background */
-    gap: 1rem;
+    overflow: hidden;
   }
 
   @media screen and (min-width: 990px) {
     #shopify-section-{{ section.id }} .slider {
       flex-direction: row;
       gap: 0;
+      /* height: 468px; */
     }
 
-    #shopify-section-{{ section.id }} .slider > .banner-stack:first-child {
+    #shopify-section-{{ section.id }} .slider > .banner-stack {
       flex: 1;
+      min-width: 530px;
     }
 
-    #shopify-section-{{ section.id }} .slider > .banner-stack:last-child {
-      flex: 2;
+    #shopify-section-{{ section.id }} .slider > .splide-slider {
+      flex: 1;
     }
   }
 

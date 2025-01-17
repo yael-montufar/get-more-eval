@@ -125,7 +125,8 @@
   text-align: {{ block.settings.text_alignment_small | default: 'center' }};
 }
 
-#shopify-block-{{ block.id }} .slider-button {
+#shopify-block-{{ block.id }} .slider-button,
+#shopify-block-{{ block.id }} .slider__controls {
   align-self: {% if block.settings.text_alignment_small == 'left' %}flex-start{% elsif block.settings.text_alignment_small == 'right' %}flex-end{% else %}center{% endif %};
 }
 
@@ -138,7 +139,8 @@
   #shopify-block-{{ block.id }} .slider-description * {
     text-align: {{ block.settings.text_alignment_medium | default: 'center' }};
   }
-  #shopify-block-{{ block.id }} .slider-button {
+  #shopify-block-{{ block.id }} .slider-button,
+  #shopify-block-{{ block.id }} .slider__controls {
     align-self: {% if block.settings.text_alignment_medium == 'left' %}flex-start{% elsif block.settings.text_alignment_medium == 'right' %}flex-end{% else %}center{% endif %};
   }
 }
@@ -152,7 +154,8 @@
   #shopify-block-{{ block.id }} .slider-description * {
     text-align: {{ block.settings.text_alignment_large | default: 'center' }};
   }
-  #shopify-block-{{ block.id }} .slider-button {
+  #shopify-block-{{ block.id }} .slider-button,
+  #shopify-block-{{ block.id }} .slider__controls {
     align-self: {% if block.settings.text_alignment_large == 'left' %}flex-start{% elsif block.settings.text_alignment_large == 'right' %}flex-end{% else %}center{% endif %};
   }
 }
@@ -258,7 +261,8 @@
     { "type": "_title-for-slider" },
     { "type": "_tagline-for-slider" },
     { "type": "_description-for-slider" },
-    { "type": "_button-for-slider" }
+    { "type": "_button-for-slider" },
+    { "type": "_controls-for-slider" }
   ],
   "settings": [
     {
@@ -360,6 +364,17 @@
     {
       "type": "header",
       "content": "Content Container"
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Content Gap",
+      "info": "Space between content elements",
+      "default": 24
     },
     {
       "type": "range",

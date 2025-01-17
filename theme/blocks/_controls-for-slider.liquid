@@ -1,0 +1,114 @@
+{% style %}
+  #shopify-block-{{ block.id }}.slider__controls {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 20px;
+    position: relative;
+    width: fit-content;
+  }
+
+  #shopify-block-{{ block.id }} .splide__arrows {
+    display: flex;
+    gap: 20px;
+
+    margin-top: 16px;
+  }
+
+  #shopify-block-{{ block.id }} .splide__arrow {
+    all: unset;
+    position: relative;
+    width: 54px;
+    height: 54px;
+    display: block;
+    background: var(--sickly-yellow);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  #shopify-block-{{ block.id }} .splide__arrow::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+
+  #shopify-block-{{ block.id }} .splide__arrow--prev::before {
+    border-width: 8px 12px 8px 0;
+    border-color: transparent var(--white) transparent transparent;
+    transform: translate(-60%, -50%) scale(0.7, 0.7);
+  }
+
+  #shopify-block-{{ block.id }} .splide__arrow--next::before {
+    border-width: 8px 0 8px 12px;
+    border-color: transparent transparent transparent var(--white);
+    transform: translate(-40%, -50%) scale(0.7, 0.7);
+  }
+
+  #shopify-block-{{ block.id }} .splide__pagination {
+    all: unset;
+    display: flex;
+    gap: 22px;
+    justify-content: center;
+  }
+
+  #shopify-block-{{ block.id }} .splide__pagination__page {
+    all: unset;
+    display: flex;
+    width: 8px;
+    height: 8px;
+    background: var(--white);
+    border-radius: 50%;
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+  }
+
+  #shopify-block-{{ block.id }} .splide__pagination__page.is-active {
+    opacity: 1;
+    background: var(--sickly-yellow);
+  }
+
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  #shopify-block-{{ block.id }} .splide {
+    all: unset !important;
+  }
+{% endstyle %}
+
+
+<div class="splide__arrows"></div>
+<div class="splide" data-splide-controller>
+  <div class="splide__track visually-hidden">
+    <ul class="splide__list">
+      {%- for i in (1..4) -%}
+        <li class="splide__slide"></li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Controls for Slider",
+  "class": "slider__controls",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Slider Controls"
+    }
+  ]
+}
+{% endschema %} 
