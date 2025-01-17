@@ -228,31 +228,19 @@
             "description_for_slider_gdicxp"
           ]
         },
-        "image_for_slider_iVbrKm": {
-          "type": "_image-for-slider",
+        "splide_for_slider_GBTGkJ": {
+          "type": "_splide-for-slider",
           "settings": {
-            "background_color": "#000000",
-            "small_image": "shopify://shop_images/group_2x_b7ddc941-4d45-4752-8ba9-07f78e005b6c.jpg",
-            "image_alt": "Slider image",
-            "small_aspect_ratio": "64/9",
-            "medium_aspect_ratio": "64/9",
-            "large_aspect_ratio": "64/9",
-            "content_padding": 32,
-            "content_margin": 16,
-            "content_position_small": "middle-center",
-            "content_position_medium": "middle-center",
-            "content_position_large": "middle-center",
-            "text_alignment_small": "center",
-            "text_alignment_medium": "center",
-            "text_alignment_large": "center",
-            "show_backdrop": true,
-            "backdrop_intensity": 50
+            "image": "shopify://shop_images/group-10_3x_340ec9dc-a935-4be3-aa61-e5f93cee4992.jpg",
+            "type": "loop",
+            "autoplay": true,
+            "interval": 5
           }
         }
       },
       "block_order": [
         "image_for_slider_mEdRqT",
-        "image_for_slider_iVbrKm"
+        "splide_for_slider_GBTGkJ"
       ],
       "custom_css": [
         "a[href^=\"#_break\"] {display: block;}",
