@@ -81,6 +81,9 @@
     justify-content: flex-end;
     text-align: right;
   }
+  {% if section.settings.custom_liquid_css != blank %}
+    {{ section.settings.custom_liquid_css }}
+  {% endif %}
 {% endstyle %}
 
 <div class="hero" data-color-scheme="{{ color_scheme }}">
@@ -128,6 +131,11 @@
       "label": "Vertical Margin",
       "info": "Space above and below this section",
       "default": 0
+    },
+    {
+      "type": "liquid",
+      "id": "custom_liquid_css",
+      "label": "Custom Liquid CSS"
     }
   ],
   "presets": [

@@ -66,7 +66,8 @@
       ],
       "settings": {
         "color_scheme": "dark",
-        "vertical_margin": 0
+        "vertical_margin": 0,
+        "custom_liquid_css": ""
       }
     },
     "hero_Uz4h7W": {
@@ -92,10 +93,18 @@
             "backdrop_intensity": 100
           },
           "blocks": {
+            "tagline_for_hero_E7dMTb": {
+              "type": "_tagline-for-hero",
+              "settings": {
+                "custom_tagline": "<p>TENNIS</p>",
+                "text_size": 16,
+                "tagline_color": "#cbe346"
+              }
+            },
             "title_for_hero_zf6bU6": {
               "type": "_title-for-hero",
               "settings": {
-                "custom_title": "<p><a href=\"#_break\" title=\"#_break\">Raquetas.Accesorios.</a>Pelotas.</p>",
+                "custom_title": "<p><a href=\"#_break-1\" title=\"#_break-1\">Raquetas.</a><a href=\"#_break-2\" title=\"#_break-2\">Accesorios.</a><a href=\"#_break-1\" title=\"#_break-3\">Pelotas.</a></p>",
                 "text_size": 50,
                 "title_color": "#273048"
               }
@@ -119,6 +128,7 @@
             }
           },
           "block_order": [
+            "tagline_for_hero_E7dMTb",
             "title_for_hero_zf6bU6",
             "description_for_hero_wThXKQ",
             "button_for_hero_FiUbXT"
@@ -128,15 +138,11 @@
       "block_order": [
         "image_for_hero_JfEq4h"
       ],
-      "custom_css": [
-        "@media screen and (min-width: 990px) {a[href=\"#_break\"]:first-of-type {display: block; } .hero-content-container {margin-left: 14px; }}",
-        "@media screen and (min-width: 1100px) {button.hero-button {position: absolute; bottom: 0; right: 0; /* transform: translate(calc(100% + 67px), -9px); */ transform: translate( calc(100% + min(67px, max(20px, calc((100vw - 320px) * 0.059)))), -9px ); }}",
-        "button.hero-button {padding-left: 35px; padding-right: 37px; border: 1px solid var(--dark-three);}",
-        ".hero-button::after {margin-left: 54px;}"
-      ],
+      "custom_css": [],
       "settings": {
         "color_scheme": "light",
-        "vertical_margin": 0
+        "vertical_margin": 0,
+        "custom_liquid_css": "{% render 'hero-no-image.css', section_id: section.id %}"
       }
     }
   },

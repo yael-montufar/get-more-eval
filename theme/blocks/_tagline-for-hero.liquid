@@ -1,0 +1,94 @@
+{% liquid
+  # Initialize default tagline
+  assign tagline = ''
+
+  # Check for custom tagline override first
+  if block.settings.custom_tagline != blank
+    assign tagline = block.settings.custom_tagline
+
+  # If no custom tagline, get dynamic tagline based on template
+  else
+    case template
+      when 'product'
+        assign tagline = product.title | escape
+      when 'collection'
+        assign tagline = collection.title | escape
+      when 'page'
+        assign tagline = page.title | escape
+      when 'blog'
+        assign tagline = blog.title | escape
+      when 'article'
+        assign tagline = article.title | escape
+      else
+        assign tagline = 'Welcome' | escape
+    endcase
+  endif
+%}
+
+{% style %}
+  /* Base tagline styles */
+  #shopify-block-{{ block.id }}.hero-tagline {
+    margin: 0 0 1rem;
+    line-height: 1.2;
+    font-weight: 400;
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.tagline_color | default: 'var(--white)' }};
+
+    font-family: var(--main-font-family), var(--fallback-font-family);
+  }
+
+  /* Style all elements inside hero-tagline to inherit the font size */
+  #shopify-block-{{ block.id }}.hero-tagline * {
+    font-size: inherit;
+    margin: 0;
+    line-height: inherit;
+    font-weight: inherit;
+    color: inherit;
+  }
+{% endstyle %}
+
+{% if block.settings.custom_tagline != blank %}
+  {{ block.settings.custom_tagline }}
+{% else %}
+  <span>{{ tagline }}</span>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Tagline for Hero",
+  "class": "hero-tagline",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "custom_tagline",
+      "label": "Custom Tagline",
+      "info": "Leave blank to use dynamic tagline based on current page"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 16,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Text Size",
+      "default": 72
+    },
+    {
+      "type": "color",
+      "id": "tagline_color",
+      "label": "Tagline Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tagline for Hero",
+      "settings": {
+        "text_size": 72,
+        "tagline_color": "#ffffff"
+      }
+    }
+  ]
+}
+{% endschema %} 

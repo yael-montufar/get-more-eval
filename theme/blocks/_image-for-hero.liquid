@@ -116,7 +116,7 @@
   gap: var(--hero-content-gap);
   justify-content: {% if block.settings.text_alignment_small == 'left' %}flex-start{% elsif block.settings.text_alignment_small == 'right' %}flex-end{% else %}center{% endif %};
 }
-.hero-title * {
+.hero-title *, .hero-tagline * {
   text-align: {{ block.settings.text_alignment_small | default: 'center' }};
 }
 .hero-button {
@@ -127,7 +127,7 @@
   .hero-content-container {
     justify-content: {% if block.settings.text_alignment_medium == 'left' %}flex-start{% elsif block.settings.text_alignment_medium == 'right' %}flex-end{% else %}center{% endif %};
   }
-  .hero-title * {
+  .hero-title *, .hero-tagline * {
     text-align: {{ block.settings.text_alignment_medium | default: 'center' }};
   }
   .hero-button {
@@ -139,7 +139,7 @@
   .hero-content-container {
     justify-content: {% if block.settings.text_alignment_large == 'left' %}flex-start{% elsif block.settings.text_alignment_large == 'right' %}flex-end{% else %}center{% endif %};
   }
-  .hero-title * {
+  .hero-title *, .hero-tagline * {
     text-align: {{ block.settings.text_alignment_large | default: 'center' }};
   }
   .hero-button {
@@ -246,6 +246,7 @@
   "class": "banner-stack",
   "blocks": [
     { "type": "_title-for-hero" },
+    { "type": "_tagline-for-hero" },
     { "type": "_description-for-hero" },
     { "type": "_button-for-hero" }
   ],
