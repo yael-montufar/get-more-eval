@@ -1,111 +1,122 @@
-document.addEventListener('DOMContentLoaded', function() {
-  // Find all splide elements
-  const splideElements = document.querySelectorAll('.splide:not([data-splide-controller])');
-  
-  // Initialize each splide instance
-  splideElements.forEach(element => {
-    // Get configuration from data attributes
-    const type = element.dataset.splideType || 'loop';
-    const autoplay = element.dataset.splideAutoplay === 'true';
-    const interval = parseInt(element.dataset.splideInterval, 10) || 5000;
-    
-    // Create new Splide instance with configuration
-    const splide = new Splide(element, {
-      type,
-      autoplay,
-      interval,
-      fixedWidth: '288px',
-      arrows: false,
-      pauseOnHover: true,
-      pauseOnFocus: true,
-      rewind: true,
-      speed: 1000,
-      easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-      updateOnMove: true,
-      gap: '36px',
-      perPage: 3,
-      focus: 0,
-      pagination: false,
-      breakpoints: {
-        989: {
-          fixedWidth: false,
-          perPage: 3,
-          gap: '24px'
-        },
-        720: {
-          fixedWidth: false,
-          perPage: 2,
-          gap: '16px'
-        }
-      }
-    });
+function initSplitSlider() {
+    const mainSlider = document.querySelector('.splide-slider .splide');
+    const controlsSlider = document.querySelector('.banner-stack [data-splide-controller]');
 
-    // Function to update slide positions
-    const updateSlidePositions = () => {
-      const slides = splide.Components.Slides.get();
-      const activeIndex = splide.index;
-      
-      slides.forEach((slide) => {
-        const element = slide.slide;
-        // Calculate relative position (-1 = previous, 0 = current, 1 = next, etc)
-        const relativePosition = slide.index - activeIndex;
-        element.dataset.slidePosition = relativePosition;
-      });
-    };
-
-    // Find the controller element
-    const bannerStack = element.closest('.slider').querySelector('.banner-stack');
-    const sliderControls = bannerStack?.querySelector('.slider__controls');
-    
-    if (sliderControls) {
-      const arrowsContainer = sliderControls.querySelector('.splide__arrows');
-      const controllerElement = sliderControls.querySelector('[data-splide-controller]');
-      
-      if (arrowsContainer) {
-        // Create and append arrows
-        const prevButton = document.createElement('button');
-        prevButton.className = 'splide__arrow splide__arrow--prev';
-        prevButton.setAttribute('type', 'button');
-        prevButton.setAttribute('aria-label', 'Previous slide');
-        
-        const nextButton = document.createElement('button');
-        nextButton.className = 'splide__arrow splide__arrow--next';
-        nextButton.setAttribute('type', 'button');
-        nextButton.setAttribute('aria-label', 'Next slide');
-        
-        arrowsContainer.appendChild(prevButton);
-        arrowsContainer.appendChild(nextButton);
-        
-        // Initialize arrows functionality
-        prevButton.addEventListener('click', () => splide.go('<'));
-        nextButton.addEventListener('click', () => splide.go('>'));
-      }
-
-      if (controllerElement) {
-        // Initialize controller
-        const controller = new Splide(controllerElement, {
-          type: 'slide',
-          rewind: true,
-          pagination: true,
-          arrows: false,
-          isNavigation: true,
-          perPage: 1,
-          perMove: 1
+    if (!mainSlider || !controlsSlider) {
+        console.warn('Slider elements not found:', {
+            mainSlider: !!mainSlider,
+            controlsSlider: !!controlsSlider
         });
-
-        // Sync the controller with the main carousel
-        controller.sync(splide);
-        controller.mount();
-      }
+        return;
     }
 
-    // Update positions when mounted
-    splide.on('mounted', updateSlidePositions);
-    
-    // Update positions when slides move
-    splide.on('moved', updateSlidePositions);
+    const mainSplide = new Splide(mainSlider, {
+        type: 'loop',
+        arrows: false,
+        pagination: false,
+        fixedWidth: '288px',
+        perPage: 4,
+        gap: '24px',
+        breakpoints: {
+            990: {
+                perPage: 3,
+                fixedWidth: false,
+                gap: '24px'
+            },
+            720: {
+                perPage: 2,
+                fixedWidth: false,
+                gap: '16px'
+            }
+        }
+    });
 
-    // Mount the main splide instance
-    splide.mount();
-  });
+    const controlsSplide = new Splide(controlsSlider, {
+        type: 'loop',
+        perPage: 4,
+        gap: '24px',
+        pagination: true,
+        arrows: true,
+        isNavigation: true,
+        classes: {
+            arrows: 'splide__arrows your-class-arrows',
+            arrow : 'splide__arrow your-class-arrow',
+            prev  : 'splide__arrow--prev your-class-prev',
+            next  : 'splide__arrow--next your-class-next',
+        }
+    });
+
+    mainSplide.sync(controlsSplide);
+
+    // Custom autoplay implementation
+    let direction = 'next';
+    let autoplayInterval;
+    const INTERVAL = 2500;
+
+    function updateArrowStates() {
+        const prevButton = controlsSlider.querySelector('.splide__arrow--prev');
+        const nextButton = controlsSlider.querySelector('.splide__arrow--next');
+        
+        prevButton.dataset.active = direction === 'prev';
+        nextButton.dataset.active = direction === 'next';
+    }
+
+    function startAutoplay() {
+        stopAutoplay();
+        updateArrowStates();
+        autoplayInterval = setInterval(() => {
+            if (direction === 'next') {
+                controlsSplide.go('>');
+            } else {
+                controlsSplide.go('<');
+            }
+        }, INTERVAL);
+    }
+
+    function stopAutoplay() {
+        if (autoplayInterval) {
+            clearInterval(autoplayInterval);
+            autoplayInterval = null;
+        }
+    }
+
+    // Mount the sliders first
+    mainSplide.mount();
+    controlsSplide.mount();
+
+    // Then setup controls and autoplay
+    const prevButton = controlsSlider.querySelector('.splide__arrow--prev');
+    const nextButton = controlsSlider.querySelector('.splide__arrow--next');
+
+    prevButton.addEventListener('click', () => {
+        direction = 'prev';
+        startAutoplay();
+    });
+
+    nextButton.addEventListener('click', () => {
+        direction = 'next';
+        startAutoplay();
+    });
+
+    // Pause autoplay on hover/focus if needed
+    controlsSlider.addEventListener('mouseenter', stopAutoplay);
+    controlsSlider.addEventListener('mouseleave', startAutoplay);
+    controlsSlider.addEventListener('focusin', stopAutoplay);
+    controlsSlider.addEventListener('focusout', startAutoplay);
+
+    // Start autoplay after everything is set up
+    startAutoplay();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    initSplitSlider();
+});
+
+document.addEventListener('shopify:section:load', (event) => {
+    const section = event.target;
+    const slider = section.querySelector('.splide-slider .splide');
+
+    if (slider) {
+        initSplitSlider();
+    }
 });

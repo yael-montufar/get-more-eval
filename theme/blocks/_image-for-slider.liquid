@@ -127,7 +127,7 @@
 
 #shopify-block-{{ block.id }} .slider-button,
 #shopify-block-{{ block.id }} .slider__controls {
-  align-self: {% if block.settings.text_alignment_small == 'left' %}flex-start{% elsif block.settings.text_alignment_small == 'right' %}flex-end{% else %}center{% endif %};
+  align-self: {% if block.settings.text_alignment_small == 'left' %}flex-start{% elsif block.settings.text_alignment_small == 'right' %}flex-end{% else %}center{% endif %} !important;
 }
 
 @media screen and (min-width: {{ medium_breakpoint }}px) {
@@ -141,13 +141,13 @@
   }
   #shopify-block-{{ block.id }} .slider-button,
   #shopify-block-{{ block.id }} .slider__controls {
-    align-self: {% if block.settings.text_alignment_medium == 'left' %}flex-start{% elsif block.settings.text_alignment_medium == 'right' %}flex-end{% else %}center{% endif %};
+    align-self: {% if block.settings.text_alignment_medium == 'left' %}flex-start{% elsif block.settings.text_alignment_medium == 'right' %}flex-end{% else %}center{% endif %} !important;
   }
 }
 
 @media screen and (min-width: {{ large_breakpoint }}px) {
   #shopify-block-{{ block.id }} .slider-content-container {
-    justify-content: {% if block.settings.text_alignment_large == 'left' %}flex-start{% elsif block.settings.text_alignment_large == 'right' %}flex-end{% else %}center{% endif %};
+    justify-content: {% if block.settings.text_alignment_large == 'left' %}flex-start{% elsif block.settings.text_alignment_large == 'right' %}flex-end{% else %}center{% endif %} !important;
   }
   #shopify-block-{{ block.id }} .slider-title *,
   #shopify-block-{{ block.id }} .slider-tagline *,
@@ -156,7 +156,7 @@
   }
   #shopify-block-{{ block.id }} .slider-button,
   #shopify-block-{{ block.id }} .slider__controls {
-    align-self: {% if block.settings.text_alignment_large == 'left' %}flex-start{% elsif block.settings.text_alignment_large == 'right' %}flex-end{% else %}center{% endif %};
+    align-self: {% if block.settings.text_alignment_large == 'left' %}flex-start{% elsif block.settings.text_alignment_large == 'right' %}flex-end{% else %}center{% endif %} !important;
   }
 }
 

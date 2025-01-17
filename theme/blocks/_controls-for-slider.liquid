@@ -1,28 +1,35 @@
 {% style %}
   #shopify-block-{{ block.id }}.slider__controls {
+    /* all: unset; */
+
     display: flex;
-    flex-direction: column-reverse;
-    gap: 20px;
+
     position: relative;
     width: fit-content;
   }
-
   #shopify-block-{{ block.id }} .splide__arrows {
+    all: unset;
+
+    width: fit-content;
     display: flex;
     gap: 20px;
 
-    margin-top: 16px;
+    margin-top: 36px;
   }
 
   #shopify-block-{{ block.id }} .splide__arrow {
     all: unset;
+
     position: relative;
-    width: 54px;
-    height: 54px;
-    display: block;
-    background: var(--sickly-yellow);
     border-radius: 50%;
     cursor: pointer;
+
+    width: 54px;
+    height: 54px;
+    background: transparent;
+    border: 1px solid var(--white);
+    opacity: 1;
+    transition: background-color 0.3s ease;
   }
 
   #shopify-block-{{ block.id }} .splide__arrow::before {
@@ -47,11 +54,22 @@
     transform: translate(-40%, -50%) scale(0.7, 0.7);
   }
 
+  #shopify-block-{{ block.id }} .splide {
+    all: unset;
+    width: fit-content;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+  }
+
   #shopify-block-{{ block.id }} .splide__pagination {
     all: unset;
+
+    width: fit-content;
     display: flex;
-    gap: 22px;
+    gap: 23px;
     justify-content: center;
+    align-self: center;
   }
 
   #shopify-block-{{ block.id }} .splide__pagination__page {
@@ -81,10 +99,6 @@
     clip: rect(0, 0, 0, 0) !important;
     white-space: nowrap !important;
     border: 0 !important;
-  }
-
-  #shopify-block-{{ block.id }} .splide {
-    all: unset !important;
   }
 {% endstyle %}
 
