@@ -144,10 +144,48 @@
         "vertical_margin": 0,
         "custom_liquid_css": "{% render 'hero-no-image.css', section_id: section.id %}"
       }
+    },
+    "hero_89WTFa": {
+      "type": "hero",
+      "blocks": {
+        "image_for_hero_GPLhJE": {
+          "type": "_image-for-hero",
+          "settings": {
+            "background_color": "#000000",
+            "small_image": "shopify://shop_images/action-athlete-ball-342361_3x_dc764534-997b-49bc-8538-1224f995ce3a.jpg",
+            "image_alt": "Hero image",
+            "small_aspect_ratio": "64/9",
+            "medium_aspect_ratio": "64/9",
+            "large_aspect_ratio": "32/9",
+            "content_padding": 32,
+            "content_margin": 16,
+            "content_position_small": "middle-center",
+            "content_position_medium": "middle-center",
+            "content_position_large": "middle-center",
+            "text_alignment_small": "center",
+            "text_alignment_medium": "center",
+            "text_alignment_large": "center",
+            "show_backdrop": true,
+            "backdrop_intensity": 50
+          }
+        }
+      },
+      "block_order": [
+        "image_for_hero_GPLhJE"
+      ],
+      "custom_css": [
+        ".banner-image-wrapper {padding-bottom: 41% !important;}"
+      ],
+      "settings": {
+        "color_scheme": "dark",
+        "vertical_margin": 0,
+        "custom_liquid_css": ""
+      }
     }
   },
   "order": [
     "hero_xtJ7hJ",
-    "hero_Uz4h7W"
+    "hero_Uz4h7W",
+    "hero_89WTFa"
   ]
 }
