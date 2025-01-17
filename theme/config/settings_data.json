@@ -1,0 +1,23 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "logo": "shopify://shop_images/tienda-tennis.svg",
+    "sidebar_background": "rgba(0,0,0,0)",
+    "sidebar_foreground": "rgba(0,0,0,0)",
+    "content_for_index": []
+  },
+  "platform_customizations": {
+    "custom_css": [
+      "button.hero-button {padding-left: 35px; padding-right: 37px; border: 1px solid var(--dark-three);}",
+      ".hero-button::after {margin-left: 54px;}"
+    ]
+  }
+}

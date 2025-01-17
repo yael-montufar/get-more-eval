@@ -1,0 +1,10 @@
+{
+  "general": {
+    "navigation": {
+      "home": "Home",
+      "about": "About Us",
+      "our_story": "Our Story",
+      "contact": "Contact"
+    }
+  }
+} 

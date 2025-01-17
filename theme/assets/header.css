@@ -1,0 +1,333 @@
+/* Header Group Layout
+============================================================================= */
+:root {
+  --sidebar-width: 104px;
+}
+
+.header-group {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1001; /* Above topbar */
+  background: rgba(var(--color-background), 0.98);
+}
+
+/* Topbar Layout
+============================================================================= */
+.topbar {
+  position: fixed;
+  top: var(--header-group-height, 0);
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--header-group-height, 0));
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Elements that need interaction must override pointer-events */
+.topbar button,
+.topbar a,
+.sidebar,
+.topbar__nav-space {
+  pointer-events: auto;
+}
+
+/* Left Sidebar
+============================================================================= */
+.sidebar {
+  position: fixed;
+  top: var(--header-group-height, 0);
+  left: 0;
+  z-index: 100;
+  width: var(--sidebar-width);
+  height: calc(100vh - var(--header-group-height, 0));
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* Default mix-blend-mode styles */
+  mix-blend-mode: difference;
+  color: white;
+  isolation: isolate;
+  will-change: color;
+  border-right: 2px solid currentColor;
+}
+
+.sidebar > * {
+  will-change: color;
+}
+
+.sidebar-icon {
+  display: none; /* Hide on desktop */
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
+.sidebar-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar__logo {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--logo-size, 36px);
+  height: var(--logo-size, 36px);
+}
+
+.sidebar__logo-text {
+  font-size: 16px;
+}
+
+.sidebar__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sidebar-lang {
+  display: none; /* Hide on desktop */
+}
+
+.sidebar-lang .button-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.sidebar-lang .button {
+  all: unset;
+  cursor: pointer;
+  color: inherit;
+  /* Reapply Text-SM-Bold styles after reset */
+  font-family: 'HelveticaNeue', sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 1.01px;
+  /* Center text content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  line-height: 1;
+}
+
+.sidebar-lang .button.is-active {
+  font-weight: bold;
+}
+
+/* Top Navigation Space
+============================================================================= */
+.topbar {
+  position: fixed;
+  top: var(--header-group-height, 0);
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--header-group-height, 0));
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Elements that need interaction must override pointer-events */
+.topbar button,
+.topbar a,
+.sidebar,
+.topbar__nav-space {
+  pointer-events: auto;
+}
+
+.topbar__nav-space {
+  position: fixed;
+  top: var(--header-group-height, 0);
+  left: var(--sidebar-width);
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  margin-top: 2rem;
+  background: rgba(var(--color-background), 0.98);
+}
+
+.topbar__nav {
+  display: flex;
+  gap: 63px;
+  margin-left: 68px;
+}
+
+.topbar__nav a {
+  font-family: 'HelveticaNeue', sans-serif;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.15;
+  letter-spacing: 1.75px;
+  color: white;
+  text-decoration: none;
+}
+
+.topbar__nav a.is-active {
+  font-weight: bold;
+  text-decoration: underline;
+  text-underline-offset: 16px;
+  text-decoration-thickness: 2px;
+}
+
+.topbar__lang {
+  margin-right: 96px;
+}
+
+.topbar__lang .button-group {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.topbar__lang .button {
+  all: unset;
+  cursor: pointer;
+  color: white;
+  /* Text-SM-Bold styles */
+  font-family: 'HelveticaNeue', sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 1.01px;
+  /* Center text content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  line-height: 1;
+}
+
+.topbar__lang .button.is-active {
+  font-weight: bold;
+}
+
+/* Utility Classes
+============================================================================= */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Main Content Adjustment
+============================================================================= */
+#MainContent {
+  position: relative;
+  z-index: 1;
+  padding-top: var(--header-group-height, 0);
+  isolation: isolate;
+  background: white; /* Default background */
+}
+
+/* Mobile Layout
+============================================================================= */
+@media screen and (max-width: 991px) {
+  /* Header group remains fixed */
+  .header-group {
+    position: fixed;
+    width: 100%;
+  }
+
+  /* Topbar remains fixed but below header group */
+  .topbar {
+    position: fixed;
+    top: var(--header-group-height, 0);
+    height: auto;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: var(--header-group-height, 0);
+    left: 0;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    padding: 1rem;
+    background: rgba(var(--color-background), 0.98);
+  }
+
+  .sidebar > * {
+    flex: 1;
+    display: flex;
+  }
+
+  .sidebar > :first-child {
+    justify-content: flex-start;
+  }
+
+  .sidebar > :last-child {
+    justify-content: flex-end;
+  }
+
+  .sidebar-icon {
+    display: flex;
+  }
+
+  .sidebar-lang {
+    display: block;
+  }
+
+  .topbar__content {
+    display: none;
+  }
+
+  .topbar__nav-space {
+    display: none;
+  }
+
+  /* Mobile: account for both header group and mobile header */
+  #MainContent {
+    padding-top: calc(var(--header-group-height, 0) + var(--header-mobile-height, 60px));
+  }
+
+  .sidebar-icon svg {
+    width: fit-content;
+  }
+
+  .sidebar-lang .button-group {
+    justify-content: flex-end;
+  }
+}
+
+/* Test Section
+============================================================================= */
+.test-section {
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgba(255, 192, 203, 0.2);
+  border: 4px solid pink;
+}
+
+.test-section__content {
+  max-width: none;
+  margin: 0;
+  padding: 2rem;
+  border: 2px dashed pink;
+} 

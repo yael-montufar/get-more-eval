@@ -1,0 +1,505 @@
+{% comment %}
+  Breakpoints for different screen sizes (in pixels)
+{% endcomment %}
+{% assign medium_breakpoint = 490 %}
+{% assign large_breakpoint = 990 %}
+
+{% comment %}
+  Content container spacing and settings
+{% endcomment %}
+{% assign content_padding = block.settings.content_padding | default: 32 %}
+{% assign content_margin = block.settings.content_margin | default: 16 %}
+{% assign content_gap = block.settings.content_gap | default: 24 %}
+{% assign show_backdrop = block.settings.show_backdrop %}
+{% assign backdrop_intensity = block.settings.backdrop_intensity | default: 50 | divided_by: 100.0 %}
+{% assign blur_amount = backdrop_intensity | times: 12 | round %}
+{% assign opacity_light = backdrop_intensity | times: 0.95 %}
+{% assign opacity_dark = backdrop_intensity | times: 0.75 %}
+
+{% style %}
+#shopify-block-{{ block.id }} {
+  --hero-content-padding: {{ content_padding }}px;
+  --hero-content-margin: {{ content_margin }}px;
+  --hero-content-gap: {{ content_gap }}px;
+  --hero-backdrop-blur: {{ blur_amount }}px;
+  
+  {% if section.settings.color_scheme == 'light' %}
+    {% if show_backdrop %}
+      --hero-backdrop-color: rgba(255, 255, 255, {{ opacity_light }});
+      --hero-text-color: rgba(0, 0, 0, 0.9);
+    {% else %}
+      --hero-backdrop-color: transparent;
+      --hero-text-color: rgba(255, 255, 255, 0.9);
+    {% endif %}
+  {% else %}
+    {% if show_backdrop %}
+      --hero-backdrop-color: rgba(0, 0, 0, {{ opacity_dark }});
+      --hero-text-color: rgba(255, 255, 255, 0.9);
+    {% else %}
+      --hero-backdrop-color: transparent;
+      --hero-text-color: rgba(0, 0, 0, 0.9);
+    {% endif %}
+  {% endif %}
+}
+
+#shopify-block-{{ block.id }}.banner-stack {
+  display: grid;
+  grid-template-areas: "stack";
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  position: relative;
+  min-height: 0;
+}
+
+/* Make all children span the same grid area */
+#shopify-block-{{ block.id }}.banner-stack > * {
+  grid-area: stack;
+}
+
+/* Image wrapper with padding trick for aspect ratio */
+#shopify-block-{{ block.id }} .banner-image-wrapper {
+  grid-area: stack;
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  background-color: {{ block.settings.background_color | default: 'transparent' }};
+  {% assign ratio = block.settings.small_aspect_ratio | split: '/' %}
+  {% if ratio.size == 2 %}
+    padding-bottom: calc({{ ratio[1] | times: 100.0 | divided_by: ratio[0] }}%);
+  {% endif %}
+}
+
+@media screen and (min-width: {{ medium_breakpoint }}px) {
+  #shopify-block-{{ block.id }} .banner-image-wrapper {
+    {% assign ratio = block.settings.medium_aspect_ratio | split: '/' %}
+    {% if ratio.size == 2 %}
+      padding-bottom: calc({{ ratio[1] | times: 100.0 | divided_by: ratio[0] }}%);
+    {% endif %}
+  }
+}
+
+@media screen and (min-width: {{ large_breakpoint }}px) {
+  #shopify-block-{{ block.id }} .banner-image-wrapper {
+    {% assign ratio = block.settings.large_aspect_ratio | split: '/' %}
+    {% if ratio.size == 2 %}
+      padding-bottom: calc({{ ratio[1] | times: 100.0 | divided_by: ratio[0] }}%);
+    {% endif %}
+  }
+}
+
+/* Image styles */
+#shopify-block-{{ block.id }} .banner-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Content container with optional glass morphism effect */
+#shopify-block-{{ block.id }} .hero-content-container {
+  position: relative;
+  grid-area: stack;
+  z-index: 1;
+  color: var(--hero-text-color);
+  padding: var(--hero-content-padding);
+  margin: var(--hero-content-margin);
+  {% if show_backdrop %}
+    background: var(--hero-backdrop-color);
+    backdrop-filter: blur(var(--hero-backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--hero-backdrop-blur));
+    border-radius: 16px;
+  {% endif %}
+  display: flex;
+  flex-direction: column;
+  gap: var(--hero-content-gap);
+  justify-content: {% if block.settings.text_alignment_small == 'left' %}flex-start{% elsif block.settings.text_alignment_small == 'right' %}flex-end{% else %}center{% endif %};
+}
+#shopify-block-{{ block.id }} .hero-title *,
+#shopify-block-{{ block.id }} .hero-tagline *,
+#shopify-block-{{ block.id }} .hero-description * {
+  text-align: {{ block.settings.text_alignment_small | default: 'center' }};
+}
+#shopify-block-{{ block.id }} .hero-button {
+  align-self: {% if block.settings.text_alignment_small == 'left' %}flex-start{% elsif block.settings.text_alignment_small == 'right' %}flex-end{% else %}center{% endif %};
+}
+
+@media screen and (min-width: {{ medium_breakpoint }}px) {
+  #shopify-block-{{ block.id }} .hero-content-container {
+    justify-content: {% if block.settings.text_alignment_medium == 'left' %}flex-start{% elsif block.settings.text_alignment_medium == 'right' %}flex-end{% else %}center{% endif %};
+  }
+  #shopify-block-{{ block.id }} .hero-title *,
+  #shopify-block-{{ block.id }} .hero-tagline *,
+  #shopify-block-{{ block.id }} .hero-description * {
+    text-align: {{ block.settings.text_alignment_medium | default: 'center' }};
+  }
+  #shopify-block-{{ block.id }} .hero-button {
+    align-self: {% if block.settings.text_alignment_medium == 'left' %}flex-start{% elsif block.settings.text_alignment_medium == 'right' %}flex-end{% else %}center{% endif %};
+  }
+}
+
+@media screen and (min-width: {{ large_breakpoint }}px) {
+  #shopify-block-{{ block.id }} .hero-content-container {
+    justify-content: {% if block.settings.text_alignment_large == 'left' %}flex-start{% elsif block.settings.text_alignment_large == 'right' %}flex-end{% else %}center{% endif %};
+  }
+  #shopify-block-{{ block.id }} .hero-title *,
+  #shopify-block-{{ block.id }} .hero-tagline *,
+  #shopify-block-{{ block.id }} .hero-description * {
+    text-align: {{ block.settings.text_alignment_large | default: 'center' }};
+  }
+  #shopify-block-{{ block.id }} .hero-button {
+    align-self: {% if block.settings.text_alignment_large == 'left' %}flex-start{% elsif block.settings.text_alignment_large == 'right' %}flex-end{% else %}center{% endif %};
+  }
+}
+
+#shopify-block-{{ block.id }} .hero-content-container:empty {
+  display: none;
+}
+
+/* Content positioning classes */
+/* Small screen positions (default) */
+#shopify-block-{{ block.id }} .position-top-left { align-self: start; justify-self: start; }
+#shopify-block-{{ block.id }} .position-top-center { align-self: start; justify-self: center; }
+#shopify-block-{{ block.id }} .position-top-right { align-self: start; justify-self: end; }
+#shopify-block-{{ block.id }} .position-middle-left { align-self: center; justify-self: start; }
+#shopify-block-{{ block.id }} .position-middle-center { align-self: center; justify-self: center; }
+#shopify-block-{{ block.id }} .position-middle-right { align-self: center; justify-self: end; }
+#shopify-block-{{ block.id }} .position-bottom-left { align-self: end; justify-self: start; }
+#shopify-block-{{ block.id }} .position-bottom-center { align-self: end; justify-self: center; }
+#shopify-block-{{ block.id }} .position-bottom-right { align-self: end; justify-self: end; }
+
+/* Medium screen positions */
+@media screen and (min-width: {{ medium_breakpoint }}px) {
+  #shopify-block-{{ block.id }} .position-medium-top-left { align-self: start; justify-self: start; }
+  #shopify-block-{{ block.id }} .position-medium-top-center { align-self: start; justify-self: center; }
+  #shopify-block-{{ block.id }} .position-medium-top-right { align-self: start; justify-self: end; }
+  #shopify-block-{{ block.id }} .position-medium-middle-left { align-self: center; justify-self: start; }
+  #shopify-block-{{ block.id }} .position-medium-middle-center { align-self: center; justify-self: center; }
+  #shopify-block-{{ block.id }} .position-medium-middle-right { align-self: center; justify-self: end; }
+  #shopify-block-{{ block.id }} .position-medium-bottom-left { align-self: end; justify-self: start; }
+  #shopify-block-{{ block.id }} .position-medium-bottom-center { align-self: end; justify-self: center; }
+  #shopify-block-{{ block.id }} .position-medium-bottom-right { align-self: end; justify-self: end; }
+}
+
+/* Large screen positions */
+@media screen and (min-width: {{ large_breakpoint }}px) {
+  #shopify-block-{{ block.id }} .position-large-top-left { align-self: start; justify-self: start; }
+  #shopify-block-{{ block.id }} .position-large-top-center { align-self: start; justify-self: center; }
+  #shopify-block-{{ block.id }} .position-large-top-right { align-self: start; justify-self: end; }
+  #shopify-block-{{ block.id }} .position-large-middle-left { align-self: center; justify-self: start; }
+  #shopify-block-{{ block.id }} .position-large-middle-center { align-self: center; justify-self: center; }
+  #shopify-block-{{ block.id }} .position-large-middle-right { align-self: center; justify-self: end; }
+  #shopify-block-{{ block.id }} .position-large-bottom-left { align-self: end; justify-self: start; }
+  #shopify-block-{{ block.id }} .position-large-bottom-center { align-self: end; justify-self: center; }
+  #shopify-block-{{ block.id }} .position-large-bottom-right { align-self: end; justify-self: end; }
+}
+{% endstyle %}
+
+{% assign bg_alpha = block.settings.background_color | color_extract: 'alpha' %}
+
+<div class="banner-image-wrapper">
+  <picture>
+    {% if block.settings.large_image %}
+      <source
+        media="(min-width: {{ large_breakpoint }}px)"
+        srcset="{{ block.settings.large_image | image_url }}">
+    {% endif %}
+    
+    {% if block.settings.medium_image %}
+      <source
+        media="(min-width: {{ medium_breakpoint }}px)"
+        srcset="{{ block.settings.medium_image | image_url }}">
+    {% endif %}
+    
+    {% if block.settings.small_image %}
+      <source
+        srcset="{{ block.settings.small_image | image_url }}">
+    {% endif %}
+    
+    {% if block.settings.small_image or block.settings.medium_image or block.settings.large_image %}
+      <img
+        class="banner-image"
+        src="{{ block.settings.small_image | default: block.settings.medium_image | default: block.settings.large_image | image_url }}"
+        alt="{{ block.settings.image_alt | default: 'Hero image' }}"
+        width="auto"
+        height="auto"
+        loading="lazy">
+    {% elsif collection.image %}
+      <img
+        class="banner-image"
+        src="{{ collection.image | image_url }}"
+        alt="{{ collection.title | default: 'Collection image' }}"
+        width="auto"
+        height="auto"
+        loading="lazy">
+    {% elsif bg_alpha == 0 %}
+      {{ 'collection-1' | placeholder_svg_tag: 'banner-image' }}
+    {% endif %}
+  </picture>
+</div>
+
+<div class="hero-content-container 
+  position-{{ block.settings.content_position_small | default: 'middle-center' }}
+  position-medium-{{ block.settings.content_position_medium | default: block.settings.content_position_small | default: 'middle-center' }}
+  position-large-{{ block.settings.content_position_large | default: block.settings.content_position_medium | default: block.settings.content_position_small | default: 'middle-center' }}">
+  {%- content_for "blocks" -%}
+</div>
+
+{% schema %}
+{
+  "name": "Image for Hero",
+  "class": "banner-stack",
+  "blocks": [
+    { "type": "_title-for-hero" },
+    { "type": "_tagline-for-hero" },
+    { "type": "_description-for-hero" },
+    { "type": "_button-for-hero" }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "paragraph",
+      "content": "If no images are selected, collection image will be used. If no collection image exists, a placeholder will be shown."
+    },
+    {
+      "type": "header",
+      "content": "Small Screen Image (0-489px)"
+    },
+    {
+      "type": "image_picker",
+      "id": "small_image",
+      "label": "Small Screen Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image Alt Text",
+      "info": "Descriptive text for accessibility",
+      "default": "Hero image"
+    },
+    {
+      "type": "select",
+      "id": "small_aspect_ratio",
+      "label": "Small Screen Aspect Ratio",
+      "options": [
+        { "value": "auto", "label": "Auto (Original)" },
+        { "value": "1/1", "label": "1:1 (Square)" },
+        { "value": "3/4", "label": "3:4 (Portrait)" },
+        { "value": "9/16", "label": "9:16 (Portrait)" },
+        { "value": "4/3", "label": "4:3 (Landscape)" },
+        { "value": "16/9", "label": "16:9 (Landscape)" },
+        { "value": "32/9", "label": "32:9 (Wide)" },
+        { "value": "64/9", "label": "64:9 (Ultra-wide)" }
+      ],
+      "default": "64/9"
+    },
+    {
+      "type": "header",
+      "content": "Medium Screen Image (490-989px)"
+    },
+    {
+      "type": "image_picker",
+      "id": "medium_image",
+      "label": "Medium Screen Image"
+    },
+    {
+      "type": "select",
+      "id": "medium_aspect_ratio",
+      "label": "Medium Screen Aspect Ratio",
+      "options": [
+        { "value": "auto", "label": "Auto (Original)" },
+        { "value": "1/1", "label": "1:1 (Square)" },
+        { "value": "3/4", "label": "3:4 (Portrait)" },
+        { "value": "9/16", "label": "9:16 (Portrait)" },
+        { "value": "4/3", "label": "4:3 (Landscape)" },
+        { "value": "16/9", "label": "16:9 (Landscape)" },
+        { "value": "32/9", "label": "32:9 (Wide)" },
+        { "value": "64/9", "label": "64:9 (Ultra-wide)" }
+      ],
+      "default": "64/9"
+    },
+    {
+      "type": "header",
+      "content": "Large Screen Image (990px+)"
+    },
+    {
+      "type": "image_picker",
+      "id": "large_image",
+      "label": "Large Screen Image"
+    },
+    {
+      "type": "select",
+      "id": "large_aspect_ratio",
+      "label": "Large Screen Aspect Ratio",
+      "options": [
+        { "value": "auto", "label": "Auto (Original)" },
+        { "value": "1/1", "label": "1:1 (Square)" },
+        { "value": "3/4", "label": "3:4 (Portrait)" },
+        { "value": "9/16", "label": "9:16 (Portrait)" },
+        { "value": "4/3", "label": "4:3 (Landscape)" },
+        { "value": "16/9", "label": "16:9 (Landscape)" },
+        { "value": "32/9", "label": "32:9 (Wide)" },
+        { "value": "64/9", "label": "64:9 (Ultra-wide)" }
+      ],
+      "default": "64/9"
+    },
+    {
+      "type": "header",
+      "content": "Content Container"
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Content Padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "content_margin",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Content Margin",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "select",
+      "id": "content_position_small",
+      "label": "Content Position Small (0-489px)",
+      "options": [
+        { "value": "top-left", "label": "Top Left" },
+        { "value": "top-center", "label": "Top Center" },
+        { "value": "top-right", "label": "Top Right" },
+        { "value": "middle-left", "label": "Middle Left" },
+        { "value": "middle-center", "label": "Middle Center" },
+        { "value": "middle-right", "label": "Middle Right" },
+        { "value": "bottom-left", "label": "Bottom Left" },
+        { "value": "bottom-center", "label": "Bottom Center" },
+        { "value": "bottom-right", "label": "Bottom Right" }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "select",
+      "id": "content_position_medium",
+      "label": "Content Position Medium (490-989px)",
+      "options": [
+        { "value": "top-left", "label": "Top Left" },
+        { "value": "top-center", "label": "Top Center" },
+        { "value": "top-right", "label": "Top Right" },
+        { "value": "middle-left", "label": "Middle Left" },
+        { "value": "middle-center", "label": "Middle Center" },
+        { "value": "middle-right", "label": "Middle Right" },
+        { "value": "bottom-left", "label": "Bottom Left" },
+        { "value": "bottom-center", "label": "Bottom Center" },
+        { "value": "bottom-right", "label": "Bottom Right" }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "select",
+      "id": "content_position_large",
+      "label": "Content Position Large (990px+)",
+      "options": [
+        { "value": "top-left", "label": "Top Left" },
+        { "value": "top-center", "label": "Top Center" },
+        { "value": "top-right", "label": "Top Right" },
+        { "value": "middle-left", "label": "Middle Left" },
+        { "value": "middle-center", "label": "Middle Center" },
+        { "value": "middle-right", "label": "Middle Right" },
+        { "value": "bottom-left", "label": "Bottom Left" },
+        { "value": "bottom-center", "label": "Bottom Center" },
+        { "value": "bottom-right", "label": "Bottom Right" }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment_small",
+      "label": "Text Alignment Small (0-489px)",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment_medium",
+      "label": "Text Alignment Medium (490-989px)",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment_large",
+      "label": "Text Alignment Large (990px+)",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Backdrop Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_backdrop",
+      "label": "Show Backdrop",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "backdrop_intensity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Backdrop Intensity",
+      "default": 50
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image for Hero",
+      "settings": {
+        "content_position_small": "middle-center",
+        "text_alignment_small": "center",
+        "text_alignment_medium": "center",
+        "text_alignment_large": "center",
+        "show_backdrop": true,
+        "backdrop_intensity": 50
+      }
+    }
+  ]
+}
+{% endschema %} 

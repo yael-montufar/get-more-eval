@@ -1,0 +1,258 @@
+{%- style -%}
+  .mobile-drawer-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
+    z-index: 999;
+  }
+
+  .mobile-drawer-backdrop.is-active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease-in-out, visibility 0s linear;
+  }
+
+  .mobile-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-width: 256px;
+    height: 100vh;
+    background: #FFFFFF;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    font-family: var(--main-font-family), var(--fallback-font-family);
+  }
+
+  .mobile-drawer.is-active {
+    transform: translateX(0);
+  }
+
+  .mobile-drawer__header {
+    padding: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .mobile-drawer__close {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+  }
+
+  .mobile-drawer__content {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .mobile-drawer__nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobile-drawer__item {
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: -1px;
+  }
+
+  .mobile-drawer__item + .mobile-drawer__item {
+    border-top: none;
+  }
+
+  .mobile-drawer__link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    text-decoration: none;
+    color: var(--color-text);
+    font-size: 1.125rem;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .mobile-drawer__submenu {
+    display: none;
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  .mobile-drawer__submenu.is-active {
+    display: block;
+  }
+
+  /* Level 2 */
+  .mobile-drawer__submenu .mobile-drawer__item {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .mobile-drawer__submenu .mobile-drawer__item + .mobile-drawer__item {
+    border-top: none;
+  }
+
+  .mobile-drawer__submenu .mobile-drawer__link {
+    font-size: 1rem;
+    padding: 0.875rem 1rem 0.875rem 2rem;
+  }
+
+  /* Level 3 */
+  .mobile-drawer__submenu .mobile-drawer__submenu {
+    background: rgba(0, 0, 0, 0.01);
+  }
+
+  .mobile-drawer__submenu .mobile-drawer__submenu .mobile-drawer__link {
+    font-size: 0.9375rem;
+    padding: 0.75rem 1rem 0.75rem 3rem;
+  }
+
+  .mobile-drawer__chevron {
+    transition: transform 0.3s ease;
+    opacity: 0.5;
+    margin-left: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .mobile-drawer__chevron.is-active {
+    transform: rotate(180deg);
+  }
+{%- endstyle -%}
+
+<div class="mobile-drawer-backdrop" data-mobile-drawer-backdrop></div>
+<div class="mobile-drawer" data-mobile-drawer>
+  <header class="mobile-drawer__header">
+    <button type="button" class="mobile-drawer__close" aria-label="Close menu" data-mobile-drawer-close>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </header>
+
+  <div class="mobile-drawer__content">
+    <nav class="mobile-drawer__nav">
+      {%- for link in linklists['main-menu'].links -%}
+        <div class="mobile-drawer__item">
+          {%- if link.links != blank -%}
+            <button class="mobile-drawer__link" data-submenu-trigger>
+              {{ link.title }}
+              <svg class="mobile-drawer__chevron" width="12" height="12" viewBox="0 0 12 12">
+                <path d="M2 4L6 8L10 4" fill="none" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+            <div class="mobile-drawer__submenu">
+              {%- for child_link in link.links -%}
+                <div class="mobile-drawer__item">
+                  {%- if child_link.links != blank -%}
+                    <button class="mobile-drawer__link" data-submenu-trigger>
+                      {{ child_link.title }}
+                      <svg class="mobile-drawer__chevron" width="12" height="12" viewBox="0 0 12 12">
+                        <path d="M2 4L6 8L10 4" fill="none" stroke="currentColor" stroke-width="2"/>
+                      </svg>
+                    </button>
+                    <div class="mobile-drawer__submenu">
+                      {%- for grandchild_link in child_link.links -%}
+                        <div class="mobile-drawer__item">
+                          <a href="{{ grandchild_link.url }}" class="mobile-drawer__link">{{ grandchild_link.title }}</a>
+                        </div>
+                      {%- endfor -%}
+                    </div>
+                  {%- else -%}
+                    <a href="{{ child_link.url }}" class="mobile-drawer__link">{{ child_link.title }}</a>
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- else -%}
+            <a href="{{ link.url }}" class="mobile-drawer__link">{{ link.title }}</a>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </nav>
+  </div>
+</div>
+
+<script>
+  class MobileDrawer {
+    constructor() {
+      this.drawer = document.querySelector('[data-mobile-drawer]');
+      this.backdrop = document.querySelector('[data-mobile-drawer-backdrop]');
+      this.closeButton = document.querySelector('[data-mobile-drawer-close]');
+      this.submenuTriggers = document.querySelectorAll('[data-submenu-trigger]');
+      
+      this.init();
+    }
+
+    init() {
+      if (this.closeButton) {
+        this.closeButton.addEventListener('click', () => this.close());
+      }
+
+      if (this.backdrop) {
+        this.backdrop.addEventListener('click', () => this.close());
+      }
+
+      this.submenuTriggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+          const submenu = trigger.nextElementSibling;
+          const chevron = trigger.querySelector('.mobile-drawer__chevron');
+          
+          // Close sibling submenus
+          const siblings = trigger.parentElement.parentElement.children;
+          Array.from(siblings).forEach(sibling => {
+            if (sibling !== trigger.parentElement) {
+              const siblingSubmenu = sibling.querySelector('.mobile-drawer__submenu');
+              const siblingChevron = sibling.querySelector('.mobile-drawer__chevron');
+              if (siblingSubmenu) {
+                siblingSubmenu.classList.remove('is-active');
+                siblingChevron?.classList.remove('is-active');
+              }
+            }
+          });
+          
+          submenu.classList.toggle('is-active');
+          chevron.classList.toggle('is-active');
+        });
+      });
+    }
+
+    open() {
+      this.drawer.classList.add('is-active');
+      this.backdrop.classList.add('is-active');
+    }
+
+    close() {
+      this.drawer.classList.remove('is-active');
+      this.backdrop.classList.remove('is-active');
+      
+      // Close all open submenus when drawer closes
+      const openSubmenus = this.drawer.querySelectorAll('.mobile-drawer__submenu.is-active');
+      const activeChevrons = this.drawer.querySelectorAll('.mobile-drawer__chevron.is-active');
+      
+      openSubmenus.forEach(submenu => submenu.classList.remove('is-active'));
+      activeChevrons.forEach(chevron => chevron.classList.remove('is-active'));
+    }
+  }
+
+  // Initialize the mobile drawer
+  window.addEventListener('DOMContentLoaded', () => {
+    window.mobileDrawer = new MobileDrawer();
+  });
+</script> 

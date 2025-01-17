@@ -1,0 +1,72 @@
+<div class="splide"
+  data-splide-type="{{ block.settings.type }}"
+  data-splide-autoplay="{{ block.settings.autoplay }}"
+  data-splide-interval="{{ block.settings.interval | times: 1000 }}"
+  aria-label="Image Slider"
+>
+  <div class="splide__track">
+    <ul class="splide__list">
+      {%- for i in (1..4) -%}
+        <li class="splide__slide" data-slide-number="{{ forloop.index }}">
+          {{ block.settings.image | image_url: width: 2000 | image_tag:
+            loading: 'lazy',
+            sizes: '100vw'
+          }}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+  <ul class="splide__pagination"></ul>
+</div>
+
+{% schema %}
+{
+  "name": "Splide Slider",
+  "class": "splide-slider",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "This image will be repeated in the slider"
+    },
+    {
+      "type": "select",
+      "id": "type",
+      "label": "Slider Type",
+      "options": [
+        { "value": "loop", "label": "Loop" },
+        { "value": "slide", "label": "Slide" },
+        { "value": "fade", "label": "Fade" }
+      ],
+      "default": "loop"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "interval",
+      "min": 3,
+      "max": 10,
+      "step": 0.5,
+      "unit": "s",
+      "label": "Autoplay Interval",
+      "default": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "Splide Slider",
+      "settings": {
+        "type": "loop",
+        "autoplay": true,
+        "interval": 5
+      }
+    }
+  ]
+}
+{% endschema %}

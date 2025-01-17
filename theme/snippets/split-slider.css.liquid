@@ -1,0 +1,160 @@
+#shopify-section-{{ section.id }} {
+  /* Section base styles */
+  .slider {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    overflow: hidden;
+  }
+
+  .slider__content {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  /* Splide slider styles */
+  .splide-slider {
+    position: relative;
+  }
+
+  .splide__slide::after {
+    content: attr(data-slide-number);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 39px;
+    height: 39px;
+    background-color: var(--sickly-yellow);
+    margin-top: 11px;
+    margin-left: 17px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--main-font-family), var(--fallback-font-family);
+    color: var(--white);
+  }
+
+  /* Mobile styles (0-719px) */
+  @media screen and (max-width: 719px) {
+    .splide-slider {
+      padding: 24px 24px;
+    }
+  }
+
+  /* Tablet styles (720px-989px) */
+  @media screen and (min-width: 720px) and (max-width: 989px) {
+    .splide-slider {
+      padding: 32px 32px;
+    }
+  }
+
+  /* Desktop styles (990px+) */
+  @media screen and (min-width: 990px) {
+
+    .slider__controls {
+      margin-top: 8px;
+      margin-left: -14px;
+    }
+
+    .slider {
+      flex-direction: row;
+      gap: 0;
+    }
+
+    .slider > .banner-stack {
+      flex: 1;
+      min-width: 530px;
+    }
+
+    .slider > .splide-slider {
+      flex: 1;
+    }
+
+    .slider-content-container.slider-content-container {
+      margin: unset;
+      max-width: 276px;
+      margin-right: 50px;
+      margin-top: 54px;
+    }
+
+
+
+    .splide-slider {
+      --gutter-x: 52px;
+      padding-left: var(--gutter-x);
+      padding-right: var(--gutter-x);
+    }
+
+    .splide {
+      margin: 0;
+      width: 100vw;
+      margin-left: var(--gutter-x-n);
+      position: unset;
+      margin-top: 51px;
+      margin-bottom: 73px;
+    }
+  }
+
+  
+
+  /* Visually hide controls slider while keeping it functional */
+  [data-splide-controller] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Style the pagination dots */
+  .splide__pagination {
+    bottom: -2rem;
+  }
+
+  .splide__pagination__page {
+    background: var(--white);
+    border: 1px solid var(--black);
+    transition: background-color 0.3s ease;
+  }
+
+  .splide__pagination__page.is-active {
+    background: var(--sickly-yellow);
+    border-color: var(--sickly-yellow);
+    transform: none;
+  }
+
+  /* Hide default Splide arrow SVGs */
+  .splide__arrow svg {
+    display: none;
+  }
+
+  /* Arrow button styles */
+  .splide__arrow {
+    /* width: 54px;
+    height: 54px;
+    background: transparent;
+    border: 1px solid var(--white);
+    opacity: 1;
+    transition: background-color 0.3s ease; */
+  }
+
+  /* Active state for arrows based on direction */
+  .splide__arrow--prev[data-active="true"],
+  .splide__arrow--next[data-active="true"] {
+    background: var(--sickly-yellow);
+    border-color: var(--sickly-yellow);
+  }
+} 

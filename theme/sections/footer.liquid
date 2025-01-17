@@ -1,0 +1,246 @@
+{% style %}
+.footer {
+  height: 203px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 78px 64px 72px 78px;
+  background-color: {{ section.settings.background_color }};
+}
+
+.footer__content-group {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-self: center;
+}
+
+.footer__menu {
+  display: flex;
+  gap: 50px;
+}
+
+.footer__menu a {
+  font-family: 'HelveticaNeue', sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.15;
+  letter-spacing: 1.5px;
+  color: var(--dark-two);
+  text-decoration: none;
+}
+
+.footer__menu a.is-active {
+  font-weight: bold;
+}
+
+.footer__social {
+  display: flex;
+  gap: 11px;
+}
+
+.footer__social-icon {
+  width: 33px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: transparent;
+}
+
+.footer__social-icon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.footer__logo {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+}
+
+@media screen and (max-width: 989px) {
+  .footer {
+    height: auto;
+    padding: 32px 24px;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .footer__content-group {
+    width: 100%;
+    align-items: center;
+  }
+
+  .footer__menu {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .footer__social {
+    justify-content: center;
+  }
+}
+{% endstyle %}
+
+<footer class="footer">
+  <div class="footer__content-group">
+    <nav class="footer__menu">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'menu' -%}
+            {%- if block.settings.menu != blank -%}
+              {%- for link in linklists[block.settings.menu].links -%}
+                <a href="{{ link.url }}" {% if link.active %}class="is-active"{% endif %}>{{ link.title }}</a>
+              {%- endfor -%}
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    </nav>
+
+    <div class="footer__social">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'social' -%}
+            {% if block.settings.linkedin_url != blank %}
+              <a href="{{ block.settings.linkedin_url }}" class="footer__social-icon" aria-label="LinkedIn" {{ block.shopify_attributes }}>
+                {% render 'social-icons-png', icon: 'linkedin' %}
+              </a>
+            {% endif %}
+            {% if block.settings.vimeo_url != blank %}
+              <a href="{{ block.settings.vimeo_url }}" class="footer__social-icon" aria-label="Vimeo" {{ block.shopify_attributes }}>
+                {% render 'social-icons-png', icon: 'vimeo' %}
+              </a>
+            {% endif %}
+            {% if block.settings.instagram_url != blank %}
+              <a href="{{ block.settings.instagram_url }}" class="footer__social-icon" aria-label="Instagram" {{ block.shopify_attributes }}>
+                {% render 'social-icons-png', icon: 'instagram' %}
+              </a>
+            {% endif %}
+            {% if block.settings.twitter_url != blank %}
+              <a href="{{ block.settings.twitter_url }}" class="footer__social-icon" aria-label="Twitter" {{ block.shopify_attributes }}>
+                {% render 'social-icons-png', icon: 'twitter' %}
+              </a>
+            {% endif %}
+            {% if block.settings.facebook_url != blank %}
+              <a href="{{ block.settings.facebook_url }}" class="footer__social-icon" aria-label="Facebook" {{ block.shopify_attributes }}>
+                {% render 'social-icons-png', icon: 'facebook' %}
+              </a>
+            {% endif %}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'logo' -%}
+        {% if settings.logo != blank %}
+          <img 
+            src="{{ settings.logo | image_url: width: settings.logo_size }}"
+            alt="{{ settings.logo_text | escape }}"
+            class="footer__logo"
+            width="{{ settings.logo_size }}"
+            height="{{ settings.logo_size }}"
+            loading="lazy"
+          >
+        {% else %}
+          <span class="footer__logo-text">{{ settings.logo_text | escape }}</span>
+        {% endif %}
+    {%- endcase -%}
+  {%- endfor -%}
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "div",
+  "class": "section",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "default": "footer"
+        }
+      ]
+    },
+    {
+      "type": "social",
+      "name": "Social Media",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "url",
+          "id": "linkedin_url",
+          "label": "LinkedIn URL"
+        },
+        {
+          "type": "url",
+          "id": "vimeo_url",
+          "label": "Vimeo URL"
+        },
+        {
+          "type": "url",
+          "id": "instagram_url",
+          "label": "Instagram URL"
+        },
+        {
+          "type": "url",
+          "id": "twitter_url",
+          "label": "Twitter URL"
+        },
+        {
+          "type": "url",
+          "id": "facebook_url",
+          "label": "Facebook URL"
+        }
+      ]
+    },
+    {
+      "type": "logo",
+      "name": "Logo",
+      "limit": 1,
+      "settings": []
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "blocks": [
+        {
+          "type": "menu"
+        },
+        {
+          "type": "social"
+        },
+        {
+          "type": "logo"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} 

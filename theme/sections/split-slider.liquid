@@ -1,0 +1,172 @@
+{% assign vertical_margin = section.settings.vertical_margin | default: 0 %}
+{% assign color_scheme = section.settings.color_scheme | default: 'dark' %}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ vertical_margin }}px;
+    margin-bottom: {{ vertical_margin }}px;
+    isolation: isolate;
+  }
+
+  #shopify-section-{{ section.id }} .slider {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: white; /* Default background */
+    overflow: hidden;
+  }
+
+  @media screen and (min-width: 990px) {
+    #shopify-section-{{ section.id }} .slider {
+      flex-direction: row;
+      gap: 0;
+      /* height: 468px; */
+    }
+
+    #shopify-section-{{ section.id }} .slider > .banner-stack {
+      flex: 1;
+      min-width: 530px;
+    }
+
+    #shopify-section-{{ section.id }} .slider > .splide-slider {
+      flex: 1;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .slider__content {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  /* Position variants */
+  #shopify-section-{{ section.id }} .slider__content--top-left {
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content--top-center {
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content--top-right {
+    align-items: flex-end;
+    justify-content: flex-start;
+    text-align: right;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content--middle-left {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content--middle-center {
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content--middle-right {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content--bottom-left {
+    align-items: flex-start;
+    justify-content: flex-end;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content--bottom-center {
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content--bottom-right {
+    align-items: flex-end;
+    justify-content: flex-end;
+    text-align: right;
+  }
+  {% if section.settings.custom_liquid_css != blank %}
+    {{ section.settings.custom_liquid_css }}
+  {% endif %}
+{% endstyle %}
+
+<div class="slider" data-color-scheme="{{ color_scheme }}">
+  {% content_for "blocks" %}
+</div>
+
+{% schema %}
+{
+  "name": "Split Slider",
+  "tag": "section",
+  "blocks": [
+    { "type": "_title-for-slider" },
+    { "type": "_tagline-for-slider" },
+    { "type": "_description-for-slider" },
+    { "type": "_image-for-slider" },
+    { "type": "_button-for-slider" },
+    { "type": "_splide-for-slider" }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Color Scheme"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "options": [
+        { "value": "light", "label": "Light" },
+        { "value": "dark", "label": "Dark" }
+      ],
+      "default": "dark",
+      "info": "Affects text and background colors throughout the section"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "vertical_margin",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "unit": "px",
+      "label": "Vertical Margin",
+      "info": "Space above and below this section",
+      "default": 0
+    },
+    {
+      "type": "liquid",
+      "id": "custom_liquid_css",
+      "label": "Custom Liquid CSS"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Split Slider",
+      "blocks": [
+        {
+          "type": "_image-for-slider"
+        },
+        {
+          "type": "_image-for-slider"
+        }
+      ],
+      "settings": {
+        "vertical_margin": 0,
+        "color_scheme": "dark"
+      }
+    }
+  ]
+}
+{% endschema %} 

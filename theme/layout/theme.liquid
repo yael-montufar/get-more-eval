@@ -1,0 +1,155 @@
+<!doctype html>
+<html class="js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    
+    <style>
+      :root {
+        --logo-size: {{ settings.logo_size }}px;
+      }
+    </style>
+    
+    {%- comment -%}SVG favicon for modern browsers{%- endcomment -%}
+    {%- if settings.favicon != blank -%}
+      {%- assign favicon_url = settings.favicon | file_url -%}
+      {%- assign file_extension = favicon_url | split: '.' | last | downcase -%}
+      
+      {%- if file_extension == 'svg' -%}
+        <link rel="icon" type="image/svg+xml" href="{{ settings.favicon | file_url }}">
+      {%- else -%}
+        <link rel="icon" href="{{ settings.favicon | image_url: width: 32, height: 32 }}" sizes="32x32">
+        <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
+      {%- endif -%}
+    {%- else -%}
+      <link rel="icon" type="image/svg+xml" href="{{ 'icon.svg' | asset_url }}">
+      <link rel="icon" href="{{ 'favicon.ico' | asset_url }}" sizes="32x32">
+      <link rel="apple-touch-icon" href="{{ 'apple-touch-icon.png' | asset_url }}">
+    {%- endif -%}
+
+    <title>{{ page_title }}</title>
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'header.css' | asset_url | stylesheet_tag }}
+    {{ 'hero.css' | asset_url | stylesheet_tag }}
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {{ content_for_header }}
+
+    {{ 'splide.min.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'splide.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'split-slider.js' | asset_url }}" defer></script>
+  </head>
+
+  <body>
+    {%- assign bg_alpha = settings.sidebar_background | color_extract: 'alpha' -%}
+    {%- assign fg_alpha = settings.sidebar_foreground | color_extract: 'alpha' -%}
+
+    <div class="header-group">
+      {% sections 'header-group' %}
+    </div>
+    
+    <div class="sidebar"
+      {% if bg_alpha != 0 and fg_alpha != 0 %}
+        style="
+          background-color: {{ settings.sidebar_background }};
+          color: {{ settings.sidebar_foreground }};
+          mix-blend-mode: normal;
+        "
+      {% endif %}
+    >
+      <button type="button" class="sidebar-icon" aria-label="Menu" data-mobile-drawer-trigger>
+        <svg aria-hidden="true" width="38" height="38" viewBox="0 0 38 38">
+          <rect x="7" y="12" width="24" height="2" fill="currentColor"/>
+          <rect x="7" y="18" width="24" height="2" fill="currentColor"/>
+          <rect x="7" y="24" width="24" height="2" fill="currentColor"/>
+        </svg>
+      </button>
+      
+      <a href="/" class="sidebar__logo">
+        <span class="visually-hidden">{{ settings.logo_text | escape }}</span>
+        {% if settings.logo != blank %}
+          {{ settings.logo | image_url: width: settings.logo_size | image_tag: 
+            class: 'header-logo',
+            widths: '50, 100, 150',
+            width: settings.logo_size,
+            height: settings.logo_size,
+            loading: 'eager'
+          }}
+        {% else %}
+          <span class="sidebar__logo-text">{{ settings.logo_text | escape }}</span>
+        {% endif %}
+      </a>
+      
+      <div class="sidebar-lang">
+        {%- form 'localization', id: 'sidebar-language-form', class: 'localization-form' -%}
+          <input type="hidden" name="language_code" value="{{ request.locale.iso_code }}">
+          <div class="button-group">
+            {%- assign sorted_languages = localization.available_languages | sort: 'iso_code' | reverse -%}
+            {%- for language in sorted_languages -%}
+              <button 
+                type="button" 
+                class="button{% if language.iso_code == request.locale.iso_code %} is-active{% endif %}" 
+                lang="{{ language.iso_code }}"
+                data-value="{{ language.iso_code }}"
+              >
+                {{ language.iso_code | upcase }}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+
+    <div class="topbar">
+      <section class="topbar__nav-space">
+        <nav class="topbar__nav">
+          {%- for link in linklists['main-menu'].links -%}
+            <a href="{{ link.url }}" {% if link.active %}class="is-active"{% endif %}>{{ link.title }}</a>
+          {%- endfor -%}
+        </nav>
+        
+        <div class="topbar__lang">
+          {%- form 'localization', id: 'topbar-language-form', class: 'localization-form' -%}
+            <input type="hidden" name="language_code" value="{{ request.locale.iso_code }}">
+            <div class="button-group">
+              {%- assign sorted_languages = localization.available_languages | sort: 'iso_code' | reverse -%}
+              {%- for language in sorted_languages -%}
+                <button 
+                  type="button" 
+                  class="button{% if language.iso_code == request.locale.iso_code %} is-active{% endif %}" 
+                  lang="{{ language.iso_code }}"
+                  data-value="{{ language.iso_code }}"
+                >
+                  {{ language.iso_code | upcase }}
+                </button>
+              {%- endfor -%}
+            </div>
+          {%- endform -%}
+        </div>
+      </section>
+    </div>
+
+    <main role="main" id="MainContent">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+    <script src="{{ 'style-hooks.js' | asset_url }}" defer></script>
+    <script src="{{ 'language-selector.js' | asset_url }}" defer></script>
+    <script src="{{ 'header.js' | asset_url }}" defer></script>
+
+    {% render 'mobile-drawer' %}
+
+    <script>
+      document.querySelector('[data-mobile-drawer-trigger]').addEventListener('click', () => {
+        window.mobileDrawer.open();
+      });
+    </script>
+  </body>
+</html>

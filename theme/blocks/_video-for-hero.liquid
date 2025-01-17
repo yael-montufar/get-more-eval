@@ -1,0 +1,407 @@
+{% comment %}
+  Breakpoints for different screen sizes (in pixels)
+{% endcomment %}
+{% assign medium_breakpoint = 490 %}
+{% assign large_breakpoint = 990 %}
+
+{% comment %}
+  Content container spacing and settings
+{% endcomment %}
+{% assign content_padding = block.settings.content_padding | default: 32 %}
+{% assign content_margin = block.settings.content_margin | default: 16 %}
+{% assign content_gap = block.settings.content_gap | default: 24 %}
+{% assign show_backdrop = block.settings.show_backdrop %}
+{% assign backdrop_intensity = block.settings.backdrop_intensity | default: 50 | divided_by: 100.0 %}
+{% assign blur_amount = backdrop_intensity | times: 12 | round %}
+{% assign opacity_light = backdrop_intensity | times: 0.95 %}
+{% assign opacity_dark = backdrop_intensity | times: 0.75 %}
+
+{% comment %}
+  Debug video source
+{% endcomment %}
+{% assign video_sources = block.settings.video.sources %}
+{% assign video_source = '' %}
+{% for source in video_sources %}
+  {% if source.format == 'mp4' and source.height == 720 %}
+    {% assign video_source = source.url %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% comment %}
+  Video settings with proper defaults
+{% endcomment %}
+{% assign autoplay = block.settings.autoplay | default: false %}
+{% assign muted = block.settings.muted | default: true %}
+{% assign loop = block.settings.loop | default: false %}
+{% assign show_controls = block.settings.show_controls | default: false %}
+{% assign playsinline = block.settings.playsinline | default: true %}
+
+{% comment %}
+  Get poster image (cover image or video preview)
+{% endcomment %}
+{% assign poster_image = block.settings.video_cover_image %}
+{% if poster_image == blank and block.settings.video != blank %}
+  {% assign poster_image = block.settings.video.preview_image %}
+{% endif %}
+
+{% style %}
+:root {
+  --hero-content-padding: {{ content_padding }}px;
+  --hero-content-margin: {{ content_margin }}px;
+  --hero-content-gap: {{ content_gap }}px;
+  --hero-backdrop-blur: {{ blur_amount }}px;
+  
+  {% if section.settings.color_scheme == 'light' %}
+    {% if show_backdrop %}
+      --hero-backdrop-color: rgba(255, 255, 255, {{ opacity_light }});
+      --hero-text-color: rgba(0, 0, 0, 0.9);
+    {% else %}
+      --hero-backdrop-color: transparent;
+      --hero-text-color: rgba(255, 255, 255, 0.9);
+    {% endif %}
+  {% else %}
+    {% if show_backdrop %}
+      --hero-backdrop-color: rgba(0, 0, 0, {{ opacity_dark }});
+      --hero-text-color: rgba(255, 255, 255, 0.9);
+    {% else %}
+      --hero-backdrop-color: transparent;
+      --hero-text-color: rgba(0, 0, 0, 0.9);
+    {% endif %}
+  {% endif %}
+}
+
+.banner-stack {
+  display: grid;
+  grid-template-areas: "stack";
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  position: relative;
+}
+
+/* Make all children span the same grid area */
+.banner-stack > * {
+  grid-area: stack;
+}
+
+/* Video wrapper with padding trick for aspect ratio */
+.banner-video-wrapper {
+  grid-area: stack;
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  {% assign ratio = block.settings.small_aspect_ratio | split: '/' %}
+  {% if ratio.size == 2 %}
+    padding-bottom: calc({{ ratio[1] | times: 100.0 | divided_by: ratio[0] }}%);
+  {% endif %}
+  background: #000;
+}
+
+@media screen and (min-width: {{ medium_breakpoint }}px) {
+  .banner-video-wrapper {
+    {% assign ratio = block.settings.medium_aspect_ratio | split: '/' %}
+    {% if ratio.size == 2 %}
+      padding-bottom: calc({{ ratio[1] | times: 100.0 | divided_by: ratio[0] }}%);
+    {% endif %}
+  }
+}
+
+@media screen and (min-width: {{ large_breakpoint }}px) {
+  .banner-video-wrapper {
+    {% assign ratio = block.settings.large_aspect_ratio | split: '/' %}
+    {% if ratio.size == 2 %}
+      padding-bottom: calc({{ ratio[1] | times: 100.0 | divided_by: ratio[0] }}%);
+    {% endif %}
+  }
+}
+
+/* Video styles */
+.banner-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Content container with optional glass morphism effect */
+.hero-content-container {
+  grid-area: stack;
+  z-index: 1;
+  color: var(--hero-text-color);
+  padding: var(--hero-content-padding);
+  margin: var(--hero-content-margin);
+  {% if show_backdrop %}
+    background: var(--hero-backdrop-color);
+    backdrop-filter: blur(var(--hero-backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--hero-backdrop-blur));
+    border-radius: 16px;
+  {% endif %}
+  max-width: 800px;
+  text-align: {{ block.settings.text_alignment }};
+  display: flex;
+  flex-direction: column;
+  gap: var(--hero-content-gap);
+}
+
+.hero-content-container:empty {
+  display: none;
+}
+
+/* Content positioning classes */
+.position-top-left { align-self: start; justify-self: start; }
+.position-top-center { align-self: start; justify-self: center; }
+.position-top-right { align-self: start; justify-self: end; }
+.position-middle-left { align-self: center; justify-self: start; }
+.position-middle-center { align-self: center; justify-self: center; }
+.position-middle-right { align-self: center; justify-self: end; }
+.position-bottom-left { align-self: end; justify-self: start; }
+.position-bottom-center { align-self: end; justify-self: center; }
+.position-bottom-right { align-self: end; justify-self: end; }
+{% endstyle %}
+
+<div class="banner-video-wrapper">
+  {% if block.settings.video != blank %}
+    <video
+      class="banner-video"
+      {% if autoplay %}autoplay{% endif %}
+      {% if loop %}loop{% endif %}
+      {% if muted %}muted{% endif %}
+      {% if playsinline %}playsinline{% endif %}
+      {% if show_controls %}controls{% endif %}
+      {% if poster_image != blank %}
+        poster="{{ poster_image | image_url }}"
+      {% endif %}>
+      <source src="{{ video_source }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  {% elsif block.settings.video_url != blank %}
+    {% if block.settings.video_url.type == 'youtube' %}
+      <iframe
+        class="banner-video"
+        src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?playsinline={{ playsinline | default: 1 }}&autoplay={{ autoplay | default: 0 }}&controls={{ show_controls | default: 0 }}&mute={{ muted | default: 1 }}&loop={{ loop | default: 0 }}&playlist={{ block.settings.video_url.id }}&rel=0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+      </iframe>
+    {% elsif block.settings.video_url.type == 'vimeo' %}
+      <iframe
+        class="banner-video"
+        src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?background={{ show_controls | default: 1 }}&autoplay={{ autoplay | default: 0 }}&loop={{ loop | default: 0 }}&byline=0&title=0&muted={{ muted | default: 1 }}"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+      </iframe>
+    {% endif %}
+  {% else %}
+    {% if poster_image != blank %}
+      <img
+        class="banner-video"
+        src="{{ poster_image | image_url }}"
+        alt="{{ poster_image.alt | default: 'Video cover image' }}"
+        width="auto"
+        height="auto"
+        loading="lazy">
+    {% else %}
+      {{ 'video' | placeholder_svg_tag: 'banner-video' }}
+    {% endif %}
+  {% endif %}
+</div>
+
+<div class="hero-content-container {% if block.settings.content_position %}position-{{ block.settings.content_position }}{% else %}position-middle-center{% endif %}">
+  {%- content_for "blocks" -%}
+</div>
+
+{% schema %}
+{
+  "name": "Video for Hero",
+  "class": "shopify-block banner-stack",
+  "blocks": [
+    { "type": "_title-for-hero" },
+    { "type": "_description-for-hero" }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video Settings"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video File",
+      "info": "Upload an MP4 video file"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "Video URL",
+      "accept": ["youtube", "vimeo"],
+      "info": "Or use a YouTube or Vimeo URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_cover_image",
+      "label": "Cover Image",
+      "info": "Shown while video loads or if video can't play"
+    },
+    {
+      "type": "header",
+      "content": "Video Behavior"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": false,
+      "info": "Video will be muted when autoplaying"
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "muted",
+      "label": "Muted",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_controls",
+      "label": "Show Controls",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "playsinline",
+      "label": "Play Inline",
+      "default": true,
+      "info": "Play video inline on mobile devices"
+    },
+    {
+      "type": "header",
+      "content": "Aspect Ratio Settings"
+    },
+    {
+      "type": "select",
+      "id": "small_aspect_ratio",
+      "label": "Small Screen Aspect Ratio",
+      "options": [
+        { "value": "auto", "label": "Auto (Original)" },
+        { "value": "1/1", "label": "1:1 (Square)" },
+        { "value": "3/4", "label": "3:4 (Portrait)" },
+        { "value": "9/16", "label": "9:16 (Portrait)" },
+        { "value": "4/3", "label": "4:3 (Landscape)" },
+        { "value": "16/9", "label": "16:9 (Landscape)" }
+      ],
+      "default": "16/9"
+    },
+    {
+      "type": "select",
+      "id": "medium_aspect_ratio",
+      "label": "Medium Screen Aspect Ratio",
+      "options": [
+        { "value": "auto", "label": "Auto (Original)" },
+        { "value": "1/1", "label": "1:1 (Square)" },
+        { "value": "3/4", "label": "3:4 (Portrait)" },
+        { "value": "9/16", "label": "9:16 (Portrait)" },
+        { "value": "4/3", "label": "4:3 (Landscape)" },
+        { "value": "16/9", "label": "16:9 (Landscape)" }
+      ],
+      "default": "16/9"
+    },
+    {
+      "type": "select",
+      "id": "large_aspect_ratio",
+      "label": "Large Screen Aspect Ratio",
+      "options": [
+        { "value": "auto", "label": "Auto (Original)" },
+        { "value": "1/1", "label": "1:1 (Square)" },
+        { "value": "3/4", "label": "3:4 (Portrait)" },
+        { "value": "9/16", "label": "9:16 (Portrait)" },
+        { "value": "4/3", "label": "4:3 (Landscape)" },
+        { "value": "16/9", "label": "16:9 (Landscape)" }
+      ],
+      "default": "16/9"
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position",
+      "options": [
+        { "value": "top-left", "label": "Top Left" },
+        { "value": "top-center", "label": "Top Center" },
+        { "value": "top-right", "label": "Top Right" },
+        { "value": "middle-left", "label": "Middle Left" },
+        { "value": "middle-center", "label": "Middle Center" },
+        { "value": "middle-right", "label": "Middle Right" },
+        { "value": "bottom-left", "label": "Bottom Left" },
+        { "value": "bottom-center", "label": "Bottom Center" },
+        { "value": "bottom-right", "label": "Bottom Right" }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Backdrop Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_backdrop",
+      "label": "Show Backdrop",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "backdrop_intensity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Backdrop Intensity",
+      "default": 50
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video for Hero",
+      "settings": {
+        "autoplay": false,
+        "loop": false,
+        "muted": true,
+        "show_controls": false,
+        "playsinline": true,
+        "content_position": "middle-center",
+        "text_alignment": "center",
+        "show_backdrop": true,
+        "backdrop_intensity": 50
+      }
+    }
+  ]
+}
+{% endschema %} 

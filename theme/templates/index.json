@@ -1,0 +1,265 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_xtJ7hJ": {
+      "type": "hero",
+      "blocks": {
+        "image_for_hero_DerUkn": {
+          "type": "_image-for-hero",
+          "settings": {
+            "background_color": "#000000",
+            "small_image": "shopify://shop_images/group_2x_b7ddc941-4d45-4752-8ba9-07f78e005b6c.jpg",
+            "image_alt": "Hero image",
+            "small_aspect_ratio": "9/16",
+            "medium_aspect_ratio": "4/3",
+            "large_aspect_ratio": "16/9",
+            "content_padding": 0,
+            "content_margin": 24,
+            "content_position_small": "middle-center",
+            "content_position_medium": "middle-center",
+            "content_position_large": "middle-left",
+            "text_alignment_small": "center",
+            "text_alignment_medium": "center",
+            "text_alignment_large": "left",
+            "show_backdrop": false,
+            "backdrop_intensity": 50
+          },
+          "blocks": {
+            "title_for_hero_jj7MjA": {
+              "type": "_title-for-hero",
+              "settings": {
+                "custom_title": "<p><a href=\"#_\" title=\"#_\">Las mejores raquetas para</a> <a href=\"#_break\" title=\"#_break\">jugar</a> <a href=\"#_text-style-1\" title=\"#_text-style-1\">Tennis</a></p>",
+                "text_size": 52,
+                "title_color": "#ffffff"
+              }
+            },
+            "button_for_hero_hWF6dz": {
+              "type": "_button-for-hero",
+              "settings": {
+                "custom_button_text": "Acerca De Nosotros",
+                "button_text_size": 12,
+                "button_link": "shopify://collections",
+                "button_color": "#ffffff"
+              }
+            }
+          },
+          "block_order": [
+            "title_for_hero_jj7MjA",
+            "button_for_hero_hWF6dz"
+          ]
+        }
+      },
+      "block_order": [
+        "image_for_hero_DerUkn"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 990px) {.hero-content-container.position-large-middle-left {margin-left: calc(var(--sidebar-width) + 64px + 4px); } /* Make the first part take full width to force next content below */ a[href=\"#_\"]:first-of-type {display: block; } /* Keep \"jugar\" and \"Tennis\" on same line */ a[href=\"#_break\"], a[href=\"#_text-style-1\"] {display: inline-block; }}",
+        " /* Keep yellow color for Tennis */a[href=\"#_text-style-1\"] {color: var(--sickly-yellow); font-weight: bold;}"
+      ],
+      "settings": {
+        "color_scheme": "dark",
+        "vertical_margin": 0,
+        "custom_liquid_css": ""
+      }
+    },
+    "hero_Uz4h7W": {
+      "type": "hero",
+      "blocks": {
+        "image_for_hero_JfEq4h": {
+          "type": "_image-for-hero",
+          "settings": {
+            "background_color": "#f3f4f8",
+            "image_alt": "Hero image",
+            "small_aspect_ratio": "64/9",
+            "medium_aspect_ratio": "64/9",
+            "large_aspect_ratio": "64/9",
+            "content_padding": 0,
+            "content_margin": 24,
+            "content_position_small": "middle-center",
+            "content_position_medium": "middle-center",
+            "content_position_large": "middle-center",
+            "text_alignment_small": "center",
+            "text_alignment_medium": "center",
+            "text_alignment_large": "left",
+            "show_backdrop": false,
+            "backdrop_intensity": 100
+          },
+          "blocks": {
+            "tagline_for_hero_E7dMTb": {
+              "type": "_tagline-for-hero",
+              "settings": {
+                "custom_tagline": "<p>TENNIS</p>",
+                "text_size": 16,
+                "tagline_color": "#cbe346"
+              }
+            },
+            "title_for_hero_zf6bU6": {
+              "type": "_title-for-hero",
+              "settings": {
+                "custom_title": "<p><a href=\"#_break-1\" title=\"#_break-1\">Raquetas.</a><a href=\"#_break-2\" title=\"#_break-2\">Accesorios.</a><a href=\"#_break-3\" title=\"#_break-3\">Pelotas.</a></p>",
+                "text_size": 50,
+                "title_color": "#273048"
+              }
+            },
+            "description_for_hero_wThXKQ": {
+              "type": "_description-for-hero",
+              "settings": {
+                "custom_description": "<p><a href=\"#_break\" title=\"#_break\">Conoce nuestras raquetas y aprende a jugar</a> Tennis cómo un profesional.</p>",
+                "text_size": 18,
+                "description_color": "#787878"
+              }
+            },
+            "button_for_hero_FiUbXT": {
+              "type": "_button-for-hero",
+              "settings": {
+                "custom_button_text": "Historia",
+                "button_text_size": 12,
+                "button_link": "shopify://collections",
+                "button_color": "#273048"
+              }
+            }
+          },
+          "block_order": [
+            "tagline_for_hero_E7dMTb",
+            "title_for_hero_zf6bU6",
+            "description_for_hero_wThXKQ",
+            "button_for_hero_FiUbXT"
+          ]
+        }
+      },
+      "block_order": [
+        "image_for_hero_JfEq4h"
+      ],
+      "custom_css": [],
+      "settings": {
+        "color_scheme": "light",
+        "vertical_margin": 0,
+        "custom_liquid_css": "{% render 'hero-no-image.css', section_id: section.id %}"
+      }
+    },
+    "split_slider_yTktwb": {
+      "type": "split-slider",
+      "blocks": {
+        "image_for_slider_mEdRqT": {
+          "type": "_image-for-slider",
+          "settings": {
+            "background_color": "#000000",
+            "small_image": "shopify://shop_images/ball-color-court-1405355_3x_cc92c1cb-b50c-45a7-a239-3ea5ca124d3c.jpg",
+            "image_alt": "Slider image",
+            "small_aspect_ratio": "64/9",
+            "medium_aspect_ratio": "64/9",
+            "large_aspect_ratio": "auto",
+            "content_gap": 0,
+            "content_padding": 0,
+            "content_margin": 64,
+            "content_position_small": "middle-center",
+            "content_position_medium": "middle-center",
+            "content_position_large": "top-right",
+            "text_alignment_small": "center",
+            "text_alignment_medium": "center",
+            "text_alignment_large": "left",
+            "show_backdrop": false,
+            "backdrop_intensity": 50
+          },
+          "blocks": {
+            "title_for_slider_36DRXe": {
+              "type": "_title-for-slider",
+              "settings": {
+                "custom_title": "<p><a href=\"#_break-1\" title=\"#_break-1\">Nuestras</a> <a href=\"#_break-2\" title=\"#_break-2\">Raquetas</a></p>",
+                "text_size": 50,
+                "title_color": "#ffffff"
+              }
+            },
+            "description_for_slider_gdicxp": {
+              "type": "_description-for-slider",
+              "settings": {
+                "custom_description": "<p>Conoce nuestras raquetas y aprende a jugar Tennis cómo un profesional</p>",
+                "text_size": 18,
+                "description_color": "#ffffff"
+              }
+            },
+            "controls_for_slider_CkxUbd": {
+              "type": "_controls-for-slider",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "title_for_slider_36DRXe",
+            "description_for_slider_gdicxp",
+            "controls_for_slider_CkxUbd"
+          ]
+        },
+        "splide_for_slider_GBTGkJ": {
+          "type": "_splide-for-slider",
+          "settings": {
+            "image": "shopify://shop_images/group-10_3x_340ec9dc-a935-4be3-aa61-e5f93cee4992.jpg",
+            "type": "loop",
+            "autoplay": true,
+            "interval": 5
+          }
+        }
+      },
+      "block_order": [
+        "image_for_slider_mEdRqT",
+        "splide_for_slider_GBTGkJ"
+      ],
+      "custom_css": [],
+      "settings": {
+        "color_scheme": "dark",
+        "vertical_margin": 0,
+        "custom_liquid_css": "{% render 'split-slider.css', section_id: section.id %}"
+      }
+    },
+    "hero_89WTFa": {
+      "type": "hero",
+      "blocks": {
+        "image_for_hero_GPLhJE": {
+          "type": "_image-for-hero",
+          "settings": {
+            "background_color": "#000000",
+            "small_image": "shopify://shop_images/action-athlete-ball-342361_3x_dc764534-997b-49bc-8538-1224f995ce3a.jpg",
+            "image_alt": "Hero image",
+            "small_aspect_ratio": "64/9",
+            "medium_aspect_ratio": "64/9",
+            "large_aspect_ratio": "32/9",
+            "content_padding": 32,
+            "content_margin": 16,
+            "content_position_small": "middle-center",
+            "content_position_medium": "middle-center",
+            "content_position_large": "middle-center",
+            "text_alignment_small": "center",
+            "text_alignment_medium": "center",
+            "text_alignment_large": "center",
+            "show_backdrop": true,
+            "backdrop_intensity": 50
+          }
+        }
+      },
+      "block_order": [
+        "image_for_hero_GPLhJE"
+      ],
+      "custom_css": [
+        ".banner-image-wrapper {padding-bottom: 41% !important;}"
+      ],
+      "settings": {
+        "color_scheme": "dark",
+        "vertical_margin": 0,
+        "custom_liquid_css": ""
+      }
+    }
+  },
+  "order": [
+    "hero_xtJ7hJ",
+    "hero_Uz4h7W",
+    "split_slider_yTktwb",
+    "hero_89WTFa"
+  ]
+}

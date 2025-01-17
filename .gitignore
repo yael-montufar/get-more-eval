@@ -3,3 +3,12 @@
 
 # VSCode
 .vscode
+
+# Build
+*.zip
+
+# Shopify
+.shopify
+
+# Misc
+misc

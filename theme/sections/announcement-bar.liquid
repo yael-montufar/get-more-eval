@@ -1,0 +1,87 @@
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "tag": "div",
+  "class": "header-group__announcement",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement text",
+      "default": "Welcome to our store"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement link",
+      "info": "Optional"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size",
+      "min": 8,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    width: 100%;
+    padding: 0.5rem;
+    text-align: center;
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.text_size }}px;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} a {
+    color: {{ section.settings.text_color }};
+    text-decoration: none;
+    display: block;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} p {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+</style>
+
+{% if section.settings.announcement_link != blank %}
+  <a href="{{ section.settings.announcement_link }}">
+    {{ section.settings.announcement_text | escape }}
+  </a>
+{% else %}
+  <p>{{ section.settings.announcement_text | escape }}</p>
+{% endif %} 

@@ -1,0 +1,97 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Tienda Tennis",
+    "theme_version": "1.0.0",
+    "theme_author": "Yael Montufar",
+    "theme_support_email": "yael.montufar@gmail.com",
+    "theme_documentation_url": "https://github.com/yael-montufar/get-more-eval"
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Add a favicon to display your store's logo across browsers and devices."
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Upload a square image. SVG is best for modern browsers. PNG is best for broader browser compatibility and iOS home screen (min 180x180px)"
+      }
+    ]
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Logo settings"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "text",
+        "id": "logo_text",
+        "label": "Logo text",
+        "default": "Store name",
+        "info": "Displayed when logo image is not set"
+      },
+      {
+        "type": "range",
+        "id": "logo_size",
+        "min": 16,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Logo size",
+        "default": 36
+      }
+    ]
+  },
+  {
+    "name": "Header Navigation",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Top bar navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "top_bar_menu",
+        "label": "Menu",
+        "default": "main-menu",
+        "info": "Select the menu to display in the top bar navigation"
+      }
+    ]
+  },
+  {
+    "name": "Sidebar",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Sidebar colors"
+      },
+      {
+        "type": "paragraph",
+        "content": "By default, the sidebar automatically adapts its colors to ensure visibility against any background. If you prefer specific colors, set both options below."
+      },
+      {
+        "type": "color",
+        "id": "sidebar_background",
+        "label": "Background color",
+        "info": "Leave empty for automatic color adaptation"
+      },
+      {
+        "type": "color",
+        "id": "sidebar_foreground",
+        "label": "Text and icon color",
+        "info": "Leave empty for automatic color adaptation"
+      }
+    ]
+  }
+]

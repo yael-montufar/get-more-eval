@@ -1,0 +1,64 @@
+#shopify-section-{{section_id}} {
+  .hero-title a[href^="#_break"] {
+    display: inline-block;
+    width: fit-content;
+    white-space: normal;
+  }
+
+  .hero-content-container {
+    margin: 6rem 24px 4rem 24px !important;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .hero-content-container {
+      margin: 6rem 24px 4rem 24px !important;
+    }
+    /* Keep break-1 and break-2 on same line */
+    .hero-title a[href="#_break-1"],
+    .hero-title a[href="#_break-2"] {
+      display: inline;
+    }
+
+    /* Force break-3 onto new line */
+    .hero-title a[href="#_break-3"] {
+      display: block;
+    }
+
+    .hero-description a[href="#_break"] {
+      display: block;
+    }
+
+    .hero-content-container {
+      margin-left: 14px !important;
+    }
+    .hero-tagline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translate(-116px, 10px);
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    button.hero-button {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      transform: translate(
+        calc(100% + min(67px, max(20px, calc((100vw - 320px) * 0.059)))),
+        -9px
+      );
+    }
+  }
+
+  button.hero-button {
+    padding-left: 35px;
+    padding-right: 37px;
+    border: 1px solid var(--dark-three);
+    font-weight: 600;
+  }
+
+  .hero-button::after {
+    margin-left: 54px !important;
+  }
+}

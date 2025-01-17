@@ -1,0 +1,89 @@
+{% liquid
+  # Initialize default description
+  assign description = ''
+
+  # Check for custom description override first
+  if block.settings.custom_description != blank
+    assign description = block.settings.custom_description
+
+  # If no custom description, get dynamic description based on template
+  else
+    case template
+      when 'product'
+        assign description = product.description | escape
+      when 'collection'
+        assign description = collection.description | escape
+      when 'page'
+        assign description = page.content | escape
+      when 'blog'
+        assign description = blog.description | escape
+      when 'article'
+        assign description = article.excerpt | escape
+      else
+        assign description = 'Welcome to our store' | escape
+    endcase
+  endif
+%}
+
+{% style %}
+  #shopify-block-{{ block.id }}.hero-description {
+    margin: 0 0 1rem; /* Match the margin from hero.liquid */
+    line-height: 1.75;
+    font-weight: 400;
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.description_color | default: 'var(--white)' }};
+    letter-spacing: 0.5px;
+    
+    font-family: var(--main-font-family), var(--fallback-font-family);
+  }
+
+  /* Style all elements inside description to inherit styles */
+  #shopify-block-{{ block.id }}.hero-description * {
+    font-size: inherit;
+    margin: 0;
+    line-height: inherit;
+    font-weight: inherit;
+    color: inherit;
+  }
+{% endstyle %}
+
+{{ description }}
+
+{% schema %}
+{
+  "name": "Hero Description",
+  "class": "hero-description",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "custom_description",
+      "label": "Custom Description",
+      "info": "Leave blank to use dynamic description based on current page"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Text Size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Description",
+      "settings": {
+        "text_size": 18
+      }
+    }
+  ]
+}
+{% endschema %} 
