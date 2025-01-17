@@ -15,20 +15,37 @@
       "type": "footer",
       "blocks": {
         "menu": {
-          "type": "menu"
+          "type": "menu",
+          "settings": {
+            "menu": "main-menu"
+          }
         },
         "social": {
-          "type": "social"
+          "type": "social",
+          "settings": {
+            "linkedin_url": "https://mx.linkedin.com/company/getmoremx",
+            "instagram_url": "https://www.instagram.com/getmore.mx/",
+            "twitter_url": "https://getmore.mx/blogs/ecommerce-con-shopify",
+            "facebook_url": "https://www.facebook.com/getmoremx/?locale=es_LA",
+            "vimeo_url": "https://getmore.mx/"
+          }
         },
         "logo": {
-          "type": "logo"
+          "type": "logo",
+          "settings": {}
         }
       },
-      "block_order": ["menu", "social", "logo"],
+      "block_order": [
+        "menu",
+        "social",
+        "logo"
+      ],
       "settings": {
-        "background_color": "#000000"
+        "background_color": "#cbe346"
       }
     }
   },
-  "order": ["footer"]
+  "order": [
+    "footer"
+  ]
 }
