@@ -5,12 +5,24 @@
     white-space: normal;
   }
 
-  @media screen and (min-width: 1100px) {
-    a[href^="#_break"]:first-of-type {
+  @media screen and (min-width: 1200px) {
+    /* Keep break-1 and break-2 on same line */
+    .hero-title a[href="#_break-1"],
+    .hero-title a[href="#_break-2"] {
+      display: inline;
+    }
+
+    /* Force break-3 onto new line */
+    .hero-title a[href="#_break-3"] {
       display: block;
     }
+
+    .hero-description a[href="#_break"] {
+      display: block;
+    }
+
     .hero-content-container {
-      margin-left: 14px;
+      margin-left: 14px !important;
     }
     .hero-tagline {
       position: absolute;
@@ -18,7 +30,7 @@
       left: 0;
       transform: translate(-116px, 10px);
       font-weight: 600;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
 
     button.hero-button {
@@ -36,6 +48,7 @@
     padding-left: 35px;
     padding-right: 37px;
     border: 1px solid var(--dark-three);
+    font-weight: 600;
   }
 
   .hero-button::after {

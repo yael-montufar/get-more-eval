@@ -80,7 +80,7 @@
             "image_alt": "Hero image",
             "small_aspect_ratio": "9/16",
             "medium_aspect_ratio": "4/3",
-            "large_aspect_ratio": "64/9",
+            "large_aspect_ratio": "32/9",
             "content_padding": 0,
             "content_margin": 0,
             "content_position_small": "middle-center",
@@ -104,7 +104,7 @@
             "title_for_hero_zf6bU6": {
               "type": "_title-for-hero",
               "settings": {
-                "custom_title": "<p><a href=\"#_break-1\" title=\"#_break-1\">Raquetas.</a><a href=\"#_break-2\" title=\"#_break-2\">Accesorios.</a><a href=\"#_break-1\" title=\"#_break-3\">Pelotas.</a></p>",
+                "custom_title": "<p><a href=\"#_break-1\" title=\"#_break-1\">Raquetas.</a><a href=\"#_break-2\" title=\"#_break-2\">Accesorios.</a><a href=\"#_break-3\" title=\"#_break-3\">Pelotas.</a></p>",
                 "text_size": 50,
                 "title_color": "#273048"
               }

@@ -49,6 +49,7 @@
   max-width: 100%;
   margin: 0;
   position: relative;
+  min-height: 0;
 }
 
 /* Make all children span the same grid area */
@@ -61,6 +62,7 @@
   grid-area: stack;
   position: relative;
   width: 100%;
+  height: auto;
   min-height: 100%;
   background-color: {{ block.settings.background_color | default: 'transparent' }};
   {% assign ratio = block.settings.small_aspect_ratio | split: '/' %}
@@ -116,77 +118,77 @@
   gap: var(--hero-content-gap);
   justify-content: {% if block.settings.text_alignment_small == 'left' %}flex-start{% elsif block.settings.text_alignment_small == 'right' %}flex-end{% else %}center{% endif %};
 }
-.hero-title *, .hero-tagline * {
+#shopify-block-{{ block.id }} .hero-title *, .hero-tagline * {
   text-align: {{ block.settings.text_alignment_small | default: 'center' }};
 }
-.hero-button {
+#shopify-block-{{ block.id }} .hero-button {
   align-self: {% if block.settings.text_alignment_small == 'left' %}flex-start{% elsif block.settings.text_alignment_small == 'right' %}flex-end{% else %}center{% endif %};
 }
 
 @media screen and (min-width: {{ medium_breakpoint }}px) {
-  .hero-content-container {
+  #shopify-block-{{ block.id }} .hero-content-container {
     justify-content: {% if block.settings.text_alignment_medium == 'left' %}flex-start{% elsif block.settings.text_alignment_medium == 'right' %}flex-end{% else %}center{% endif %};
   }
-  .hero-title *, .hero-tagline * {
+  #shopify-block-{{ block.id }} .hero-title *, .hero-tagline * {
     text-align: {{ block.settings.text_alignment_medium | default: 'center' }};
   }
-  .hero-button {
+  #shopify-block-{{ block.id }} .hero-button {
     align-self: {% if block.settings.text_alignment_medium == 'left' %}flex-start{% elsif block.settings.text_alignment_medium == 'right' %}flex-end{% else %}center{% endif %};
   }
 }
 
 @media screen and (min-width: {{ large_breakpoint }}px) {
-  .hero-content-container {
+  #shopify-block-{{ block.id }} .hero-content-container {
     justify-content: {% if block.settings.text_alignment_large == 'left' %}flex-start{% elsif block.settings.text_alignment_large == 'right' %}flex-end{% else %}center{% endif %};
   }
-  .hero-title *, .hero-tagline * {
+  #shopify-block-{{ block.id }} .hero-title *, .hero-tagline * {
     text-align: {{ block.settings.text_alignment_large | default: 'center' }};
   }
-  .hero-button {
+  #shopify-block-{{ block.id }} .hero-button {
     align-self: {% if block.settings.text_alignment_large == 'left' %}flex-start{% elsif block.settings.text_alignment_large == 'right' %}flex-end{% else %}center{% endif %};
   }
 }
 
-.hero-content-container:empty {
+#shopify-block-{{ block.id }} .hero-content-container:empty {
   display: none;
 }
 
 /* Content positioning classes */
 /* Small screen positions (default) */
-.position-top-left { align-self: start; justify-self: start; }
-.position-top-center { align-self: start; justify-self: center; }
-.position-top-right { align-self: start; justify-self: end; }
-.position-middle-left { align-self: center; justify-self: start; }
-.position-middle-center { align-self: center; justify-self: center; }
-.position-middle-right { align-self: center; justify-self: end; }
-.position-bottom-left { align-self: end; justify-self: start; }
-.position-bottom-center { align-self: end; justify-self: center; }
-.position-bottom-right { align-self: end; justify-self: end; }
+#shopify-block-{{ block.id }} .position-top-left { align-self: start; justify-self: start; }
+#shopify-block-{{ block.id }} .position-top-center { align-self: start; justify-self: center; }
+#shopify-block-{{ block.id }} .position-top-right { align-self: start; justify-self: end; }
+#shopify-block-{{ block.id }} .position-middle-left { align-self: center; justify-self: start; }
+#shopify-block-{{ block.id }} .position-middle-center { align-self: center; justify-self: center; }
+#shopify-block-{{ block.id }} .position-middle-right { align-self: center; justify-self: end; }
+#shopify-block-{{ block.id }} .position-bottom-left { align-self: end; justify-self: start; }
+#shopify-block-{{ block.id }} .position-bottom-center { align-self: end; justify-self: center; }
+#shopify-block-{{ block.id }} .position-bottom-right { align-self: end; justify-self: end; }
 
 /* Medium screen positions */
 @media screen and (min-width: {{ medium_breakpoint }}px) {
-  .position-medium-top-left { align-self: start; justify-self: start; }
-  .position-medium-top-center { align-self: start; justify-self: center; }
-  .position-medium-top-right { align-self: start; justify-self: end; }
-  .position-medium-middle-left { align-self: center; justify-self: start; }
-  .position-medium-middle-center { align-self: center; justify-self: center; }
-  .position-medium-middle-right { align-self: center; justify-self: end; }
-  .position-medium-bottom-left { align-self: end; justify-self: start; }
-  .position-medium-bottom-center { align-self: end; justify-self: center; }
-  .position-medium-bottom-right { align-self: end; justify-self: end; }
+  #shopify-block-{{ block.id }} .position-medium-top-left { align-self: start; justify-self: start; }
+  #shopify-block-{{ block.id }} .position-medium-top-center { align-self: start; justify-self: center; }
+  #shopify-block-{{ block.id }} .position-medium-top-right { align-self: start; justify-self: end; }
+  #shopify-block-{{ block.id }} .position-medium-middle-left { align-self: center; justify-self: start; }
+  #shopify-block-{{ block.id }} .position-medium-middle-center { align-self: center; justify-self: center; }
+  #shopify-block-{{ block.id }} .position-medium-middle-right { align-self: center; justify-self: end; }
+  #shopify-block-{{ block.id }} .position-medium-bottom-left { align-self: end; justify-self: start; }
+  #shopify-block-{{ block.id }} .position-medium-bottom-center { align-self: end; justify-self: center; }
+  #shopify-block-{{ block.id }} .position-medium-bottom-right { align-self: end; justify-self: end; }
 }
 
 /* Large screen positions */
 @media screen and (min-width: {{ large_breakpoint }}px) {
-  .position-large-top-left { align-self: start; justify-self: start; }
-  .position-large-top-center { align-self: start; justify-self: center; }
-  .position-large-top-right { align-self: start; justify-self: end; }
-  .position-large-middle-left { align-self: center; justify-self: start; }
-  .position-large-middle-center { align-self: center; justify-self: center; }
-  .position-large-middle-right { align-self: center; justify-self: end; }
-  .position-large-bottom-left { align-self: end; justify-self: start; }
-  .position-large-bottom-center { align-self: end; justify-self: center; }
-  .position-large-bottom-right { align-self: end; justify-self: end; }
+  #shopify-block-{{ block.id }} .position-large-top-left { align-self: start; justify-self: start; }
+  #shopify-block-{{ block.id }} .position-large-top-center { align-self: start; justify-self: center; }
+  #shopify-block-{{ block.id }} .position-large-top-right { align-self: start; justify-self: end; }
+  #shopify-block-{{ block.id }} .position-large-middle-left { align-self: center; justify-self: start; }
+  #shopify-block-{{ block.id }} .position-large-middle-center { align-self: center; justify-self: center; }
+  #shopify-block-{{ block.id }} .position-large-middle-right { align-self: center; justify-self: end; }
+  #shopify-block-{{ block.id }} .position-large-bottom-left { align-self: end; justify-self: start; }
+  #shopify-block-{{ block.id }} .position-large-bottom-center { align-self: end; justify-self: center; }
+  #shopify-block-{{ block.id }} .position-large-bottom-right { align-self: end; justify-self: end; }
 }
 {% endstyle %}
 
