@@ -63,7 +63,7 @@
         "
       {% endif %}
     >
-      <button type="button" class="sidebar-icon" aria-label="Menu">
+      <button type="button" class="sidebar-icon" aria-label="Menu" data-mobile-drawer-trigger>
         <svg aria-hidden="true" width="38" height="38" viewBox="0 0 38 38">
           <rect x="7" y="12" width="24" height="2" fill="currentColor"/>
           <rect x="7" y="18" width="24" height="2" fill="currentColor"/>
@@ -143,5 +143,13 @@
     <script src="{{ 'style-hooks.js' | asset_url }}" defer></script>
     <script src="{{ 'language-selector.js' | asset_url }}" defer></script>
     <script src="{{ 'header.js' | asset_url }}" defer></script>
+
+    {% render 'mobile-drawer' %}
+
+    <script>
+      document.querySelector('[data-mobile-drawer-trigger]').addEventListener('click', () => {
+        window.mobileDrawer.open();
+      });
+    </script>
   </body>
 </html>
