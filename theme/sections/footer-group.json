@@ -10,6 +10,25 @@
 {
   "type": "footer",
   "name": "Footer",
-  "sections": {},
-  "order": []
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "menu": {
+          "type": "menu"
+        },
+        "social": {
+          "type": "social"
+        },
+        "logo": {
+          "type": "logo"
+        }
+      },
+      "block_order": ["menu", "social", "logo"],
+      "settings": {
+        "background_color": "#000000"
+      }
+    }
+  },
+  "order": ["footer"]
 }
