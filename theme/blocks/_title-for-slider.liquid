@@ -1,0 +1,94 @@
+{% liquid
+  # Initialize default title
+  assign title = ''
+
+  # Check for custom title override first
+  if block.settings.custom_title != blank
+    assign title = block.settings.custom_title
+
+  # If no custom title, get dynamic title based on template
+  else
+    case template
+      when 'product'
+        assign title = product.title | escape
+      when 'collection'
+        assign title = collection.title | escape
+      when 'page'
+        assign title = page.title | escape
+      when 'blog'
+        assign title = blog.title | escape
+      when 'article'
+        assign title = article.title | escape
+      else
+        assign title = 'Welcome' | escape
+    endcase
+  endif
+%}
+
+{% style %}
+  /* Base title styles */
+  #shopify-block-{{ block.id }}.slider-title {
+    margin: 0 0 1rem;
+    line-height: 1.2;
+    font-weight: 400;
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.title_color | default: 'var(--white)' }};
+
+    font-family: var(--main-font-family), var(--fallback-font-family);
+  }
+
+  /* Style all elements inside slider-title to inherit the font size */
+  #shopify-block-{{ block.id }}.slider-title * {
+    font-size: inherit;
+    margin: 0;
+    line-height: inherit;
+    font-weight: inherit;
+    color: inherit;
+  }
+{% endstyle %}
+
+{% if block.settings.custom_title != blank %}
+  {{ block.settings.custom_title }}
+{% else %}
+  <span>{{ title }}</span>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Title for Slider",
+  "class": "slider-title",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "custom_title",
+      "label": "Custom Title",
+      "info": "Leave blank to use dynamic title based on current page"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 16,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Text Size",
+      "default": 72
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Title for Slider",
+      "settings": {
+        "text_size": 72,
+        "title_color": "#ffffff"
+      }
+    }
+  ]
+}
+{% endschema %} 
