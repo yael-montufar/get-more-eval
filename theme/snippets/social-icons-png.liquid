@@ -1,0 +1,18 @@
+{% comment %}
+  Social media PNG icons library
+  Usage: render 'social-icons-png' with icon: 'name'
+  Available icons: linkedin, instagram, twitter, facebook, vimeo
+{% endcomment %}
+
+{%- case icon -%}
+  {%- when 'linkedin' -%}
+    <img src="https://cdn.shopify.com/s/files/1/0919/6014/8270/files/linkedin.png?v=1737136530" alt="LinkedIn" width="12" height="12" loading="lazy">
+  {%- when 'instagram' -%}
+    <img src="https://cdn.shopify.com/s/files/1/0919/6014/8270/files/instagram.png?v=1737136531" alt="Instagram" width="12" height="12" loading="lazy">
+  {%- when 'twitter' -%}
+    <img src="https://cdn.shopify.com/s/files/1/0919/6014/8270/files/twitter.png?v=1737136531" alt="Twitter" width="12" height="12" loading="lazy">
+  {%- when 'facebook' -%}
+    <img src="https://cdn.shopify.com/s/files/1/0919/6014/8270/files/facebook.png?v=1737136531" alt="Facebook" width="12" height="12" loading="lazy">
+  {%- when 'vimeo' -%}
+    <img src="https://cdn.shopify.com/s/files/1/0919/6014/8270/files/vimeo.png?v=1737136530" alt="Vimeo" width="12" height="12" loading="lazy">
+{%- endcase -%} 
