@@ -11,13 +11,25 @@
   #shopify-section-{{ section.id }} .slider {
     position: relative;
     width: 100%;
-    display: grid;
-    grid-template-areas: "stack";
+    display: flex;
+    flex-direction: column;
     background: white; /* Default background */
+    gap: 1rem;
   }
 
-  #shopify-section-{{ section.id }} .slider > * {
-    grid-area: stack;
+  @media screen and (min-width: 990px) {
+    #shopify-section-{{ section.id }} .slider {
+      flex-direction: row;
+      gap: 0;
+    }
+
+    #shopify-section-{{ section.id }} .slider > .banner-stack:first-child {
+      flex: 1;
+    }
+
+    #shopify-section-{{ section.id }} .slider > .banner-stack:last-child {
+      flex: 2;
+    }
   }
 
   #shopify-section-{{ section.id }} .slider__content {
@@ -144,7 +156,7 @@
           "type": "_image-for-slider"
         },
         {
-          "type": "_title-for-slider"
+          "type": "_image-for-slider"
         }
       ],
       "settings": {
